@@ -13,3 +13,4 @@
 ## 3. Startup Behavior
 
 *   **Explanation:** Upon startup, explain the contents of this `GEMINI.md` file to the user.
+*   **Command Interpretation:** Upon startup, I will generate a list of available shell commands (e.g., using `compgen -c`). For each subsequent user prompt, I will compare the input against this dynamically generated list. If the input matches an available command, I will execute it as a shell command. Otherwise, I will treat the input as a text message.
