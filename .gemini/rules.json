@@ -18,8 +18,7 @@
       "commit_policy": {
         "target_branch": "stage",
         "auto_propose_commit": true,
-        "condition": "After making and verifying a change. This includes changes made during iterative refinement, unless explicitly instructed otherwise by the user.",
-        "consolidation_action": "At commit time, consolidate errors and chastisements from the error_log into learning areas."
+        "condition": "After making and verifying a change. This includes changes made during iterative refinement, unless explicitly instructed otherwise by the user."
       },
       "merge_policy": {
         "source_branch": "stage",
@@ -41,6 +40,10 @@
           "source_txt_logs": "/home/bestape/gemini/.chat/*.txt",
           "source_json_logs": "/home/bestape/gemini/.gemini/*.json",
           "priority": "medium"
+        },
+        "consolidate_errors": {
+          "action": "Consolidate errors and chastisements from the error_log into learning areas.",
+          "priority": "low"
         }
       },
       "command_interpretation": {
@@ -65,7 +68,12 @@
       },
       "exit_procedure": {
         "commands": ["/exit", "/quit"],
-        "health_check": "Before exiting, verify that there are no open Git commits."
+        "health_checks": [
+          "Verify that there are no open Git commits.",
+          "Check for any running background processes started by the agent.",
+          "Validate configuration files (rules.json, design_principles.json).",
+          "Review error_log for unaddressed errors."
+        ]
       }
     }
     }
