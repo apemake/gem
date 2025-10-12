@@ -1,20 +1,23 @@
-#! /bin/bash
+#!/bin/bash
 # To make changes in git, edit the proto suffixed version of this file.
 # If you modify this, after you're finished, run updateBash or restart Terminal.
 alias snakes='echo are in the grass'
 gem() {
+    # Attempt to go fullscreen and clear the screen
+    printf '\e[9;1t'
+    clear
     local SESSION_NAME="gem"
 
     # Check if the screen session already exists
-    if screen -ls | grep -q "\.${SESSION_NAME}[[:space:]]"; then
+    if screen -ls | grep -q ".${SESSION_NAME}[[:space:]]"; then
         # Session exists, so detach from elsewhere and reattach here.
         screen -d -r "${SESSION_NAME}"
     else
         # Session does not exist, create a new one and attach to it.
         local TIMESTAMP=$(date +%Y%m%d-%H%M%S)
-        local FILE_NAME="${TIMESTAMP}_gemini.txt"
-        mkdir -p .chat
-        local TARGET_DIR=".chat/"
+        local FILE_NAME="${TIMESTAMP}_gemini_chat.txt"
+        local PROJECT_ROOT=$(git rev-parse --show-toplevel)
+        local TARGET_DIR="${PROJECT_ROOT}/.chat/"
 
         if [ -n "$1" ]; then
             if [ ! -d "$1" ]; then
@@ -24,10 +27,13 @@ gem() {
             TARGET_DIR="$1"
         fi
 
-        local ABS_TARGET_DIR
-        ABS_TARGET_DIR=$(cd "$TARGET_DIR" && pwd)
+        mkdir -p "${TARGET_DIR}"
 
-        local SCREEN_COMMAND="cd '${ABS_TARGET_DIR}' && script -q -c gemini '${FILE_NAME}'"
+        local ABS_TARGET_DIR
+        ABS_TARGET_DIR=$(cd "${TARGET_DIR}" && pwd)
+
+        local SCRIPT_FILE_PATH="${ABS_TARGET_DIR}/${FILE_NAME}"
+        local SCREEN_COMMAND="script -q -c gemini \"${SCRIPT_FILE_PATH}\""
 
         # Start screen in detached mode, using the user's default .screenrc
         screen -d -m -S "${SESSION_NAME}"
@@ -43,3 +49,6 @@ gem() {
         screen -r "${SESSION_NAME}"
     fi
 }
+
+# Bind Ctrl+L to clear the screen
+bind -x '''"\C-l": "clear"'''
