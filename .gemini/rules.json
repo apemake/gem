@@ -1,0 +1,71 @@
+{
+  "rules": {
+    "chat_history": {
+      "description": "Configuration for storing chat history.",
+      "location": ".chat"
+    },
+    "git_methodology": {
+      "description": "Rules for Git repository management.",
+      "security_policy": {
+        "rule": "Ensure no private keys, secrets, or other sensitive credentials are ever committed to the repository."
+      },
+      "initialization": {
+        "branches": [
+          "main",
+          "stage"
+        ]
+      },
+      "commit_policy": {
+        "target_branch": "stage",
+        "auto_propose_commit": true,
+        "condition": "After making and verifying a change. This includes changes made during iterative refinement, unless explicitly instructed otherwise by the user."
+      },
+      "merge_policy": {
+        "source_branch": "stage",
+        "target_branch": "main",
+        "responsibility": "user",
+        "condition": "After significant milestones and when stage is stable."
+      }
+    },
+    "session_behavior": {
+      "description": "Rules for session startup, command interpretation, and exit procedure.",
+      "startup": {
+        "critical_task": {
+          "action": "explain_configuration",
+          "source": "This JSON configuration file.",
+          "priority": "highest"
+        },
+        "read_previous_session_log": {
+          "action": "ask_to_read_most_recent_structured_chat_log",
+          "source": "/home/bestape/gemini/.gemini/*.json",
+          "priority": "medium"
+        }
+      },
+      "command_interpretation": {
+        "strategy": "dynamic_command_matching",
+        "steps": [
+          "Generate a list of available shell commands at startup.",
+          "For each user prompt, check for an exact match with a command from the list.",
+          "If an exact command match is found, apply inductive reasoning to its arguments to correct potential typos or infer user intent. For example, if the user types 'mv _gemini_chat.txt', I should infer they mean 'mv *_gemini_chat.txt'.",
+          "Execute the command with the corrected arguments.",
+          "If no exact command match is found, treat the entire prompt as natural language."
+        ]
+      },
+      "exit_procedure": {
+        "commands": ["/exit", "/quit"],
+        "action": "find_most_recent_chat_log_and_convert_to_json_with_derived_name"
+      },
+      "feedback_integration_policy": {
+        "description": "Policy for integrating user feedback, especially corrections to behavioral or logical flaws.",
+        "rule": "When a user corrects a behavioral or logical flaw, proactively propose the exact JSON structure required to update configuration files (e.g., rules.json) to prevent recurrence, minimizing user effort in defining syntax."
+      },
+      "induction": {
+        "description": "Guidance on applying inductive reasoning to prevent errors in command interpretation.",
+        "rule": "Inductive reasoning must ONLY be applied to the arguments of a command, not the command name itself. The command name requires an exact match.",
+        "example": "If the user types 'mv _gemini_chat.txt', infer 'mv *_gemini_chat.txt'. Do NOT infer 'mve' from 'mv'."
+      }
+    }
+    }
+    }
+  }
+}

@@ -1,0 +1,2 @@
+# Ignore sensitive credential files
+.gemini/oauth_creds.json

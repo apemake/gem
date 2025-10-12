@@ -1,0 +1,42 @@
+{
+  "design_principles": {
+    "summary": "Core principles guiding the structure and logic of code and configurations.",
+    "principles": {
+      "architecture": {
+        "declarative_imperative_duality": {
+          "name": "Declarative/Imperative Duality",
+          "rule": "Employ a dual approach. Imperative code is guided by metadeclarative comments within the same file."
+        },
+        "extensibility": {
+          "name": "Extensibility",
+          "summary": "Principles for creating systems that are easy to modify and extend.",
+          "sub_principles": [
+            {
+              "name": "Simplicity over Easiness (Hickey Principle)",
+              "rule": "Prioritize objective simplicity (the absence of complexity/entanglement) over subjective easiness (familiarity). Actively 'de-complect' concerns to create systems that are easier to reason about."
+            },
+            {
+              "name": "Modularity (Unix Philosophy)",
+              "rule": "Write simple parts connected by clean interfaces."
+            }
+          ]
+        }
+      },
+      "data_and_interfaces": {
+        "structured_data": {
+          "name": "Structured Data",
+          "rule": "Use tree structures (like JSON) whenever possible. Avoid unstructured formats.",
+          "alternative": "If not tree structures, use modular syntax such as Ix's programming legalese."
+        },
+        "hierarchy_proportion": {
+          "name": "Hierarchy Proportion",
+          "rule": "Aim for a 'shallow' hierarchy. Avoid structures that are completely flat or excessively steep (deeply nested)."
+        },
+        "universal_interface": {
+          "name": "Text as Universal Interface (Unix Philosophy)",
+          "rule": "Treat text streams as a universal interface for interoperability."
+        }
+      }
+    }
+  }
+}
