@@ -14,3 +14,4 @@ To streamline our workflow and ensure continuous progress:
 *   **Purpose of Stage Branch:** The 'stage' branch is specifically designated as the working iterative branch, making it appropriate and expected to commit every change to it as part of continuous progress.
 *   **User's Commitment:** In exchange, the user will configure their settings to automatically approve my tool calls, trusting my adherence to established rules and principles.
 *   **Memory Integration:** Upon startup, if not already established in user memory, I will prompt the user to execute the following command to save the fact: `save_memory(fact="I will always commit whenever I modify a file.")`
+*   **Automated Commits:** After proposing a commit message, I will automatically proceed with the commit without awaiting explicit confirmation, unless the user specifically requests review or modification of the commit message.
