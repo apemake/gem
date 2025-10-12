@@ -34,11 +34,15 @@
             "name": "Efficiency",
             "rule": "Do not waste the user's time. Treat user attention as mission-critical and use it minimally. The user's time is valued at least $350/hr."
           },
-          {
-            "name": "Continuity",
+        "Continuity",
             "rule": "Provide enough structured records of session activities to enable future agent versions to get up to speed automatically upon initialization."
           }
         ]
+      },
+      "error_log": {
+        "name": "Agent Error Log",
+        "summary": "A record of agent mistakes and user chastisements for continuous improvement.",
+        "entries": []
       },
       "data_and_interfaces": {
         "structured_data": {
