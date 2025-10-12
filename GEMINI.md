@@ -2,7 +2,7 @@
 
 ## 1. Chat History
 
-*   **Location:** Chat history is saved to `chat.txt` in the project root directory.
+*   **Location:** Chat history is saved to `.chat`.
 
 ## 2. Git Methodology
 
@@ -13,4 +13,4 @@
 ## 3. Startup Behavior
 
 *   **Explanation:** Upon startup, explain the contents of this `GEMINI.md` file to the user.
-*   **Command Interpretation:** Upon startup, I will generate a list of available shell commands (e.g., using `compgen -c`). For each subsequent user prompt, I will compare the input against this dynamically generated list. If the input matches an available command, I will execute it as a shell command. Otherwise, I will treat the input as a text message.
+*   **Command Interpretation:** Upon startup, I will generate a list of available shell commands (e.g., using `compgen -c`). For each subsequent user prompt, I will compare the input against this dynamically generated list. If the input matches an available command, I will execute it as a shell command. Otherwise, I will treat the input as non-computational language.
