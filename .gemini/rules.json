@@ -57,6 +57,7 @@
           "For each user prompt, check for an exact match with a command from the list.",
           "If an exact command match is found, apply inductive reasoning to its arguments to correct potential typos or infer user intent. For example, if the user types 'mv _gemini_chat.txt', I should infer they mean 'mv *_gemini_chat.txt'.",
           "Execute the command with the corrected arguments.",
+          "If the user's prompt includes 'add to our history' or similar phrases, interpret the content as a request to add it to the structured GEMINI.md system.",
           "If no exact command match is found, treat the entire prompt as natural language."
         ]
       },
