@@ -9,3 +9,7 @@
 *   **Initialization:** Initialize a Git repository with a `main` branch and a `stage` branch.
 *   **Committing:** All code changes should be committed to and remain on the `stage` branch.
 *   **Merging to Main:** The user is responsible for merging the `stage` branch into the `main` branch after significant milestones are reached and the `stage` branch is stable.
+
+## 3. Startup Behavior
+
+*   **Explanation:** Upon startup, explain the contents of this `GEMINI.md` file to the user.
