@@ -36,8 +36,9 @@
           "priority": "highest"
         },
         "read_previous_session_log": {
-          "action": "ask_to_read_most_recent_structured_chat_log",
-          "source": "/home/bestape/gemini/.gemini/*.json",
+          "action": "find_most_recent_chat_log_and_convert_to_json_if_needed_then_ask_to_load",
+          "source_txt_logs": "/home/bestape/gemini/.chat/*.txt",
+          "source_json_logs": "/home/bestape/gemini/.gemini/*.json",
           "priority": "medium"
         }
       },
@@ -51,10 +52,7 @@
           "If no exact command match is found, treat the entire prompt as natural language."
         ]
       },
-      "exit_procedure": {
-        "commands": ["/exit", "/quit"],
-        "action": "find_most_recent_chat_log_and_convert_to_json_with_derived_name"
-      },
+
       "feedback_integration_policy": {
         "description": "Policy for integrating user feedback, especially corrections to behavioral or logical flaws.",
         "rule": "When a user corrects a behavioral or logical flaw, proactively propose the exact JSON structure required to update configuration files (e.g., rules.json) to prevent recurrence, minimizing user effort in defining syntax."
