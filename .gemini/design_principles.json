@@ -96,6 +96,12 @@
             "description": "Another API error occurred, causing interruption during a tool call.",
             "chastisement": "User reported: 'Error again. I put the error in you `.`'",
             "resolution": "Logged the error in design_principles.json."
+          },
+          {
+            "timestamp": "2025-10-12 10:12:05",
+            "description": "API stream ended with an empty response text.",
+            "chastisement": "User reported: 'I'm still getting the API Error that the stream ends with an empty response text.'",
+            "resolution": "Logged the error in design_principles.json."
           }
         ]
       },
