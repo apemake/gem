@@ -76,7 +76,8 @@
           "Verify that there are no open Git commits.",
           "Check for any running background processes started by the agent.",
           "Validate configuration files (rules.json, design_principles.json).",
-          "Review error_log for unaddressed errors."
+          "Review error_log for unaddressed errors.",
+          "Verify that commits are working correctly."
         ],
         "summary_action": "Summarize the current session's activities before exiting."
       }

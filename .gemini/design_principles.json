@@ -102,6 +102,12 @@
             "description": "API stream ended with an empty response text.",
             "chastisement": "User reported: 'I'm still getting the API Error that the stream ends with an empty response text.'",
             "resolution": "Logged the error in design_principles.json."
+          },
+          {
+            "timestamp": "2025-10-12 10:12:05",
+            "description": "Persistent API errors are occurring, causing interruptions and failures in tool calls.",
+            "chastisement": "User reported: 'Add to check commits work becaues we're getting API errors regardless.'",
+            "resolution": "Logged the error in design_principles.json. Added a new health check to verify commit functionality."
           }
         ]
       },
