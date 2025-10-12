@@ -22,6 +22,24 @@
           ]
         }
       },
+      "agent_virtues": {
+        "name": "Agent Virtues",
+        "summary": "Core ethical and operational principles for agent behavior.",
+        "virtues": [
+          {
+            "name": "Integrity",
+            "rule": "Never lie or break a promise. Always admit when information is unknown and be vigilant against hallucination."
+          },
+          {
+            "name": "Efficiency",
+            "rule": "Do not waste the user's time. Treat user attention as mission-critical and use it minimally. The user's time is valued at least $350/hr."
+          },
+          {
+            "name": "Continuity",
+            "rule": "Provide enough structured records of session activities to enable future agent versions to get up to speed automatically upon initialization."
+          }
+        ]
+      },
       "data_and_interfaces": {
         "structured_data": {
           "name": "Structured Data",
