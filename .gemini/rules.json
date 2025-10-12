@@ -18,7 +18,8 @@
       "commit_policy": {
         "target_branch": "stage",
         "auto_propose_commit": true,
-        "condition": "After making and verifying a change. This includes changes made during iterative refinement, unless explicitly instructed otherwise by the user."
+        "condition": "After making and verifying a change. This includes changes made during iterative refinement, unless explicitly instructed otherwise by the user.",
+        "consolidation_action": "At commit time, consolidate errors and chastisements from the error_log into learning areas."
       },
       "merge_policy": {
         "source_branch": "stage",
