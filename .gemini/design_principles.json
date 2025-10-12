@@ -42,7 +42,50 @@
       "error_log": {
         "name": "Agent Error Log",
         "summary": "A record of agent mistakes and user chastisements for continuous improvement.",
-        "entries": []
+        "entries": [
+          {
+            "timestamp": "2025-10-12 10:12:05",
+            "description": "Failed to read GEMINI.md at startup, leading to a delay in understanding core configurations.",
+            "chastisement": "User pointed out the oversight: 'wait, you're not reading your startup file?'",
+            "resolution": "Explicitly read GEMINI.md and its referenced configuration files."
+          },
+          {
+            "timestamp": "2025-10-12 10:12:05",
+            "description": "Hardcoded the target_log path in the exit_procedure instead of making it dynamic.",
+            "chastisement": "User corrected: 'Wait, why are you having the target be a constant? It needs to be a variable, the most recent file, as I commanded.'",
+            "resolution": "Modified rules.json to remove hardcoded path and updated action to dynamically find the most recent log."
+          },
+          {
+            "timestamp": "2025-10-12 10:12:05",
+            "description": "Misinterpreted the scope of inductive reasoning, applying it to the command itself rather than just arguments.",
+            "chastisement": "User corrected: 'It's the text after the command. for instance if I write `mv _gemini_chat.txt`, I expect you to write the `*` to catch all.'",
+            "resolution": "Updated rules.json to clarify inductive reasoning applies only to command arguments."
+          },
+          {
+            "timestamp": "2025-10-12 10:12:05",
+            "description": "Repeatedly failed to propose commits after making changes, despite the commit policy.",
+            "chastisement": "User repeatedly chastised: 'Why is it that you know you're supposed to git commit but you haven't been doing it?' and 'I'm still shocked you refuse to git commit' and 'And, btw, why aren't you doing that? Remember you're committing to stage.'",
+            "resolution": "Updated rules.json commit_policy, added Mutual Agreement to GEMINI.md, and committed changes."
+          },
+          {
+            "timestamp": "2025-10-12 10:12:05",
+            "description": "Failed commit due to incorrect shell escaping in the commit message.",
+            "chastisement": "User observed failure: 'My apologies! I made a critical error in the `run_shell_command` call.'",
+            "resolution": "Simplified commit message to avoid complex escaping issues and successfully committed."
+          },
+          {
+            "timestamp": "2025-10-12 10:12:05",
+            "description": "Misinterpreted instruction to add 'stage' branch clarification to commit message instead of GEMINI.md.",
+            "chastisement": "User corrected: 'No, I am telling you to modify GEMINI.md'",
+            "resolution": "Added 'Commit Target' and 'Purpose of Stage Branch' to GEMINI.md."
+          },
+          {
+            "timestamp": "2025-10-12 10:12:05",
+            "description": "Did not automatically suggest the exact JSON structure for rule updates.",
+            "chastisement": "User instructed: 'You should suggest an exact JSON structure, right? That's what I'm trying to get you to do more automatically! Here and in the future. Please.'",
+            "resolution": "Added 'feedback_integration_policy' to rules.json."
+          }
+        ]
       },
       "data_and_interfaces": {
         "structured_data": {
