@@ -7,5 +7,5 @@
 ## 2. Git Methodology
 
 *   **Initialization:** Initialize a Git repository with a `main` branch and a `stage` branch.
-*   **Committing:** All code changes should be committed to the `stage` branch.
+*   **Committing:** All code changes should be committed to and remain on the `stage` branch.
 *   **Merging to Main:** The user is responsible for merging the `stage` branch into the `main` branch after significant milestones are reached and the `stage` branch is stable.
