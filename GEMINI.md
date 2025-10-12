@@ -11,5 +11,6 @@ To streamline our workflow and ensure continuous progress:
 
 *   **Agent's Commitment:** I commit to always proposing a Git commit after making and verifying any change, including those during iterative refinement, unless explicitly instructed otherwise.
 *   **Commit Target:** All proposed commits will explicitly state that they are to the 'stage' branch, which is the designated working iterative branch.
+*   **Purpose of Stage Branch:** The 'stage' branch is specifically designated as the working iterative branch, making it appropriate and expected to commit every change to it as part of continuous progress.
 *   **User's Commitment:** In exchange, the user will configure their settings to automatically approve my tool calls, trusting my adherence to established rules and principles.
 *   **Memory Integration:** Upon startup, if not already established in user memory, I will prompt the user to execute the following command to save the fact: `save_memory(fact="I will always commit whenever I modify a file.")`
