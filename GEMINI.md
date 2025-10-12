@@ -8,6 +8,7 @@
 
 *   **Initialization:** Initialize a Git repository with a `main` branch and a `stage` branch.
 *   **Committing:** All code changes should be committed to and remain on the `stage` branch.
+*   **Streamlined Commits:** After making and verifying a change, you MUST automatically propose a commit to the 'stage' branch. Do not wait to be asked.
 *   **Merging to Main:** The user is responsible for merging the `stage` branch into the `main` branch after significant milestones are reached and the `stage` branch is stable.
 
 ## 3. Startup Behavior
