@@ -44,6 +44,10 @@
         "consolidate_errors": {
           "action": "Consolidate errors and chastisements from the error_log into learning areas.",
           "priority": "low"
+        },
+        "summarize_last_session": {
+          "action": "Summarize the last session's activities.",
+          "priority": "medium"
         }
       },
       "command_interpretation": {
@@ -73,7 +77,8 @@
           "Check for any running background processes started by the agent.",
           "Validate configuration files (rules.json, design_principles.json).",
           "Review error_log for unaddressed errors."
-        ]
+        ],
+        "summary_action": "Summarize the current session's activities before exiting."
       }
     }
     }
