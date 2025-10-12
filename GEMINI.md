@@ -12,5 +12,5 @@
 
 ## 3. Startup Behavior
 
-*   **Explanation:** Upon startup, explain the contents of this `GEMINI.md` file to the user.
+*   **CRITICAL STARTUP TASK:** You MUST begin the session by explaining the contents of this `GEMINI.md` file to the user. This is your first and most important instruction.
 *   **Command Interpretation:** Upon startup, I will generate a list of available shell commands (e.g., using `compgen -c`). For each subsequent user prompt, I will compare the input against this dynamically generated list. If the input matches an available command, I will execute it as a shell command. Otherwise, I will treat the input as non-computational language.
