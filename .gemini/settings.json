@@ -1,0 +1,15 @@
+{
+  "general": {
+    "enablePromptCompletion": true
+  },
+  "ui": {
+    "accessibility": {
+      "screenReader": false
+    }
+  },
+  "tools": {
+    "shell": {
+      "enableInteractiveShell": true
+    }
+  }
+}

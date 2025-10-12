@@ -1,0 +1,40 @@
+gem() {
+    local SESSION_NAME="gem"
+
+    # Check if the screen session already exists
+    if screen -ls | grep -q "\.${SESSION_NAME}[[:space:]]"; then
+        # Session exists, so detach from elsewhere and reattach here.
+        screen -d -r "${SESSION_NAME}"
+    else
+        # Session does not exist, create a new one and attach to it.
+        local TIMESTAMP=$(date +%Y%m%d-%H%M%S)
+        local FILE_NAME="${TIMESTAMP}_gemini.txt"
+        local TARGET_DIR="."
+
+        if [ -n "$1" ]; then
+            if [ ! -d "$1" ]; then
+                echo "Error: Directory '$1' not found." >&2
+                return 1
+            fi
+            TARGET_DIR="$1"
+        fi
+
+        local ABS_TARGET_DIR
+        ABS_TARGET_DIR=$(cd "$TARGET_DIR" && pwd)
+
+        local SCREEN_COMMAND="cd '${ABS_TARGET_DIR}' && script -q -c gemini '${FILE_NAME}'"
+
+        # Start screen in detached mode, using the user's default .screenrc
+        screen -d -m -S "${SESSION_NAME}"
+
+        # Send the command to window 1 (the 'bash' tab)
+        # This will type the command and press enter in that window.
+        screen -S "${SESSION_NAME}" -p 1 -X stuff "${SCREEN_COMMAND}\n"
+
+        # Change the title of window 1 to 'gemini'
+        screen -S "${SESSION_NAME}" -p 1 -X title "gemini"
+
+        # Reattach to the session
+        screen -r "${SESSION_NAME}"
+    fi
+}
