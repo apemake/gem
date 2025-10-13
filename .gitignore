@@ -1,2 +1,8 @@
 # Ignore sensitive credential files
 .gemini/oauth_creds.json
+
+# Ignore emacs temporary files
+.#*
+
+# Ignore chat logs
+.chat/
