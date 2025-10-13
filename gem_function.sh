@@ -128,6 +128,12 @@ gem() {
         # Ref: behavior.step[2].details[1].task
         screen -S "${SESSION_NAME}" -p 0 -X title "gemini"
 
+        # Create a new window with bash at index 1 and name it bash.
+        screen -S "${SESSION_NAME}" -X screen -t bash 1
+
+        # Select window 1 to be the active window.
+        screen -S "${SESSION_NAME}" -X select 1
+
         # Reattach to the newly created session.
         screen -r "${SESSION_NAME}"
     fi
