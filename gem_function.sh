@@ -1,26 +1,32 @@
 # {
-#   "script_description": "A shell function to initialize and manage a Gemini session within a screen environment, with logging.",
+#   "script_description": "A shell function to initialize and manage a Gemini session within a screen environment, with logging. This version allows passing a command to the gemini executable and sets up screen tabs with emacs and gemini.",
 #   "function_name": "gem",
 #   "arguments": [
 #     {
 #       "name": "FOLDER_NAME",
 #       "type": "string",
 #       "optional": true,
-#       "description": "The target directory for the Gemini session. If provided, the script will go to this folder or create it if it doesn't exist."
+#       "description": "If the first argument is an existing directory, it is used as the target directory for the session."
+#     },
+#     {
+#       "name": "COMMAND",
+#       "type": "string",
+#       "optional": true,
+#       "description": "The command to pass to the gemini executable. All arguments after a FOLDER_NAME (if provided) are considered part of the command."
 #     }
 #   ],
 #   "behavior": [
 #     {
 #       "step": 1,
-#       "action": "Directory Handling",
+#       "action": "Directory and Command Handling",
 #       "details": [
 #         {
-#           "condition": "A <FOLDER_NAME> is provided (e.g., 'gem my_project').",
-#           "task": "Navigate to the specified <FOLDER_NAME>. If the folder does not exist, it should be created first."
+#           "condition": "The first argument is an existing directory.",
+#           "task": "Use the first argument as the target directory. The rest of the arguments are treated as the command to be passed to Gemini."
 #         },
 #         {
-#           "condition": "No <FOLDER_NAME> is provided (e.g., 'gem').",
-#           "task": "Navigate to the '$HOME/gemini' directory."
+#           "condition": "The first argument is not an existing directory.",
+#           "task": "Use the default '$HOME/gemini' directory. All arguments are treated as the command."
 #         }
 #       ]
 #     },
@@ -29,10 +35,7 @@
 #       "action": "Screen Session Setup",
 #       "details": [
 #         {
-#           "task": "Create a new 'screen' environment using the machine's default settings, as written by Balaji."
-#         },
-#         {
-#           "task": "Rename the first tab (window) within the screen session to 'gemini'."
+#           "task": "Create a new 'screen' environment with two tabs: 'emacs' (window 0) and 'gemini' (window 1)."
 #         }
 #       ]
 #     },
@@ -41,18 +44,13 @@
 #       "action": "Gemini Instance and Logging",
 #       "details": [
 #         {
-#           "task": "Inside the screen session, start a 'gemini' instance."
+#           "task": "Inside the 'gemini' tab (window 1), start a 'gemini' instance, passing the constructed command if one was provided."
 #         },
 #         {
 #           "task": "Use the 'script' command to capture the standard output of the 'gemini' instance."
 #         },
 #         {
-#           "task": "The output should be saved to a log file with a specific path and name.",
-#           "log_file_path": "<TARGET_FOLDER>/.chat/<TIMESTAMP>_gemini_chat.txt",
-#           "notes": [
-#             "<TARGET_FOLDER> is either the provided <FOLDER_NAME> or '$HOME/gemini'.",
-#             "<TIMESTAMP> should be a timestamp in the format YYYYMMDD-HHMMSS."
-#           ]
+#           "task": "The output should be saved to a log file."
 #         }
 #       ]
 #     }
@@ -70,7 +68,6 @@ gem() {
         return 1
     fi
 
-    # Ref: behavior.step[2].action - Screen Session Setup
     # Define the name of the screen session.
     local SESSION_NAME="gem"
 
@@ -81,55 +78,45 @@ gem() {
     else
         # If the session does not exist, create a new one.
 
-        # Ref: behavior.step[1].action - Directory Handling
         local TARGET_DIR
-        if [ -n "$1" ]; then
-            # Ref: arguments[0] - FOLDER_NAME
-            # If an argument is provided, use it as the target directory.
+        local query
+        if [ -d "$1" ]; then
             TARGET_DIR="$1"
-            # Create the directory if it doesn't exist.
-            if [ ! -d "$TARGET_DIR" ]; then
-                mkdir -p "$TARGET_DIR"
-            fi
+            shift
+            query="$@"
         else
-            # If no argument is provided, use the gemini directory in the user's home directory.
             TARGET_DIR="$HOME/gemini"
-            # Ensure the default directory exists.
-            if [ ! -d "$TARGET_DIR" ]; then
-                mkdir -p "$TARGET_DIR"
-            fi
+            query="$@"
+        fi
+
+        # Create the target directory if it doesn't exist.
+        if [ ! -d "$TARGET_DIR" ]; then
+            mkdir -p "$TARGET_DIR"
         fi
 
         # Get the absolute path of the target directory.
         local ABS_TARGET_DIR
         ABS_TARGET_DIR=$(cd "${TARGET_DIR}" && pwd)
 
-        # Ref: behavior.step[3].action - Gemini Instance and Logging
         # Create the .chat directory for logs.
         mkdir -p "${ABS_TARGET_DIR}/.chat"
 
         # Generate a timestamp for the log file.
         local TIMESTAMP=$(date +%Y%m%d-%H%M%S)
         # Create a unique file name for the session log in the .chat directory.
-        # Ref: behavior.step[3].details[2].log_file_path
         local FILE_NAME=".chat/${TIMESTAMP}_gemini_chat.txt"
 
-        # Ref: behavior.step[2].action - Screen Session Setup
         # Construct the command to be executed inside the screen session.
-        local SCREEN_COMMAND="cd '${ABS_TARGET_DIR}' && script -q -c gemini '${FILE_NAME}'"
+        local SCREEN_COMMAND="cd '${ABS_TARGET_DIR}' && script -q -c \"gemini $query\" '${FILE_NAME}'"
 
-        # Create a new screen session in detached mode.
-        screen -d -m -S "${SESSION_NAME}"
+        # Create a new screen session with the first window running emacs.
+        screen -d -m -S "${SESSION_NAME}" -t emacs emacs
 
-        # Send the command to the new screen session.
-        screen -S "${SESSION_NAME}" -p 0 -X stuff "${SCREEN_COMMAND}\n"
+        # Create a new window named "gemini" at index 1.
+        screen -S "${SESSION_NAME}" -X screen -t gemini 1
 
-        # Rename the window title to "gemini".
-        # Ref: behavior.step[2].details[1].task
-        screen -S "${SESSION_NAME}" -p 0 -X title "gemini"
-
-        # Create a new window with bash at index 1 and name it bash.
-        screen -S "${SESSION_NAME}" -X screen -t bash 1
+        # Send the gemini command to the new "gemini" window.
+        screen -S "${SESSION_NAME}" -p 1 -X stuff "${SCREEN_COMMAND}\n"
 
         # Select window 1 to be the active window.
         screen -S "${SESSION_NAME}" -X select 1
