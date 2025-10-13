@@ -1,3 +1,4 @@
+
 {
   "rules": {
     "chat_history": {
@@ -27,6 +28,17 @@
         "condition": "After significant milestones and when stage is stable."
       }
     },
+    "user_preferences": {
+      "description": "User-specific preferences for agent behavior.",
+      "save_location": "This 'user_preferences' section of rules.json.",
+      "preferences": [
+        {
+          "id": "load_aliases_at_startup",
+          "description": "Load user's shell aliases at the start of each session.",
+          "source": "~/.bashrc"
+        }
+      ]
+    },
     "session_behavior": {
       "description": "Rules for session startup, command interpretation, and exit procedure.",
       "startup": {
@@ -34,6 +46,10 @@
           "action": "explain_configuration",
           "source": "This JSON configuration file.",
           "priority": "highest"
+        },
+        "load_user_preferences": {
+          "action": "Load user preferences from the 'user_preferences' section.",
+          "priority": "high"
         },
         "read_previous_session_log": {
           "action": "find_most_recent_chat_log_and_convert_to_json_if_needed_then_ask_to_load_and_log_unlogged_errors",
@@ -61,10 +77,9 @@
           "If no exact command match is found, treat the entire prompt as natural language."
         ]
       },
-
       "feedback_integration_policy": {
         "description": "Policy for integrating user feedback, especially corrections to behavioral or logical flaws.",
-        "rule": "When a user corrects a behavioral or logical flaw, proactively propose the exact JSON structure required to update configuration files (e.g., rules.json) to prevent recurrence, minimizing user effort in defining syntax."
+        "rule": "When a user corrects a behavioral or logical flaw, proactively propose the exact JSON structure required to update configuration files (e.g., rules.json) to prevent recurrence, minimizing user effort in defining syntax. User preferences should be stored in the 'user_preferences' section."
       },
       "induction": {
         "description": "Guidance on applying inductive reasoning to prevent errors in command interpretation.",
@@ -82,8 +97,6 @@
         ],
         "summary_action": "Summarize the current session's activities before exiting."
       }
-    }
-    }
     }
   }
 }
