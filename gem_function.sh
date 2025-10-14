@@ -109,13 +109,17 @@ gem() {
         # Construct the command to be executed inside the screen session.
         local SCREEN_COMMAND="cd '${ABS_TARGET_DIR}' && script -q -c \"gemini $query\" '${FILE_NAME}'"
 
-    screen -S gemini -X screen -t "emacs" # tab 0
-    screen -S gemini -X screen -t "gemini" # tab 1
-    screen -S gemini -X screen -t "shell" # tab 2
-    screen -S gemini -X screen -t "shell" # tab 3
+        # Create a new detached screen session with the specified name, using the .screenrc file.
+        screen -c .screenrc -dmS "${SESSION_NAME}"
 
-    # Select window 1 (gemini)
-    screen -S gemini -X select 1
+        # Rename window 1 to "Gemini"
+        screen -S "${SESSION_NAME}" -p 1 -X title "Gemini"
+
+        # Send the command to the 'Gemini' window (window 1).
+        screen -S "${SESSION_NAME}" -p 1 -X stuff "${SCREEN_COMMAND}\n"
+
+        # Select window 1 (Gemini)
+        screen -S "${SESSION_NAME}" -X select 1
 
         # Reattach to the newly created session.
         screen -r "${SESSION_NAME}"
