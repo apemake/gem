@@ -67,15 +67,13 @@
         }
       },
       "command_interpretation": {
-        "strategy": "dynamic_command_matching",
+        "strategy": "ordered_fallback",
         "steps": [
-          "Generate a list of available shell commands at startup.",
-          "Check if the prompt starts with the MCP prefix ($$) defined in .gemini/mcp.json. If so, parse and execute the command based on the MCP's command definitions.",
-          "If the prompt does not start with the MCP prefix, check for an exact match with a standard shell command from the generated list.",
-          "If an exact command match is found, apply inductive reasoning to its arguments to correct potential typos or infer user intent. For example, if the user types 'mv _gemini_chat.txt', I should infer they mean 'mv *_gemini_chat.txt'.",
-          "Execute the command with the corrected arguments.",
-          "If the user's prompt includes 'add to our history' or similar phrases, interpret the content as a request to add it to the structured GEMINI.md system.",
-          "If no exact command match is found, treat the entire prompt as natural language."
+          "If the prompt starts with '$' or is enclosed in backticks (`), treat it as a command.",
+          "  - First, attempt to execute it as a direct shell command.",
+          "  - If it's not a shell command, check if it's an alias defined in .gemini/mcp.json and execute the corresponding prompt.",
+          "If the prompt is '$$', list all available aliases from .gemini/mcp.json.",
+          "If none of the above conditions are met, treat the entire prompt as a natural language request."
         ]
       },
       "feedback_integration_policy": {
