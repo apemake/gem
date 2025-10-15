@@ -1,18 +1,163 @@
 {
   "prefix": "$$",
-  "description": "Master Command Profile for prompt aliases.",
-  "aliases": {
-    "summarize_chat": {
-      "prompt": "Please provide a concise summary of our conversation so far, highlighting key decisions and action items.",
-      "description": "Summarizes the current conversation."
+  "inherits": "$",
+  "version": "1.0.0",
+  "commands": {
+    "dao": {
+      "help": "Show DAO help message",
+      "greenpill": {
+        "version": "1.0.0",
+        "description": "Convert DAO proposals to personal treasury actions",
+        "usage": "$$ dao greenpill [ID] [flags]",
+        "flags": {
+          "--topup|-t": "Show required token top-ups for distribution",
+          "--verbose|-v": "Show detailed proposal and distribution info",
+          "--yes|-y": "Auto-confirm distributions",
+          "--chain|-c": "Specify chain (Base, Mainnet)"
+        },
+        "safeguards": {
+          "max_treasury_usage": "20%",
+          "indicators": {
+            "🔴": "insufficient funds/over 20%",
+            "🟡": "warning (near 20%)",
+            "🟢": "safe to distribute (<20%)"
+          },
+          "validations": [
+            "recipient address verification",
+            "balance checks",
+            "proposal existence",
+            "proposal passage"
+          ]
+        }
+      },
+      "health": {
+        "version": "1.0.0",
+        "description": "Check NANI system status and functionality",
+        "usage": "$$ dao health [flags]",
+        "flags": {
+          "--refresh|-r": "Run fresh system checks",
+          "--all|-a": "Test all available functions",
+          "--yes|-y": "Auto-confirm manual tests",
+          "--verbose|-v": "Show detailed test results",
+          "--chain|-c": "Specify chain (Base, Mainnet)"
+        },
+        "tests": {
+          "core_functions": {
+            "intentPropose": "proposal creation test",
+            "intentVote": "voting system test",
+            "balancesOf": "balance query test",
+            "intentSwap": "token swap test",
+            "intentSend": "token transfer test",
+            "intentStake": "staking test",
+            "intentUnstake": "unstaking test",
+            "claimNaniAirdrop": "airdrop test",
+            "checkNaniAirdropEligibility": "eligibility test"
+          }
+        },
+        "display": {
+          "indicators": {
+            "🟢": "test passed/function online",
+            "🔴": "test failed/function offline",
+            "🟡": "intermittent/partial functionality",
+            "🟠": "hypothetical result [forbidden unless marked]"
+          }
+        }
+      },
+      "proposals": {
+        "flags": [
+          "--chain|-c <chain>",
+          "--verbose|-v"
+        ],
+        "format": "standard + vote counts + reward recipient"
+      },
+      "vote": {
+        "flags": [
+          "--yes|-y",
+          "--no|-n"
+        ],
+        "format": "simplified command format"
+      },
+      "status": {
+        "flags": [
+          "--verbose|-v"
+        ],
+        "format": "detailed status with time remaining"
+      },
+      "do": {
+        "flags": [
+          "--chain|-c <chain>"
+        ],
+        "format": "pending votes + recent activity"
+      },
+      "punchcard": {
+        "version": "1.0.0",
+        "description": "Create and manage work punchcards",
+        "usage": "$$ dao punchcard [flags]",
+        "flags": {
+          "--verbose|-v": "Show detailed punchcard information",
+          "--json|-j": "Output in JSON format"
+        },
+        "format": "work summary + market rate assessment",
+        "structure": {
+          "required": [
+            "type",
+            "title",
+            "work",
+            "market_rate",
+            "payment"
+          ],
+          "payment": {
+            "split": "1/3",
+            "tokens": [
+              "nani",
+              "eth",
+              "usdc"
+            ],
+            "format": "{token}: {amount} (~${usd_value})"
+          },
+          "market_rate": {
+            "categories": [
+              "technical",
+              "strategic"
+            ],
+            "format": "breakdown by category with line items"
+          },
+          "work": {
+            "required": [
+              "period",
+              "time",
+              "achieved"
+            ],
+            "period_format": "ISO8601",
+            "time_format": "human readable duration"
+          }
+        }
+      }
     },
-    "git_status": {
-      "prompt": "git status",
-      "description": "Alias for the `git status` command."
+    "bx": {
+      "description": "Block explorer command",
+      "defaults": {
+        "1": "https://etherscan.io",
+        "42161": "https://arbiscan.io",
+        "8453": "https://basescan.org"
+      },
+      "flags": [
+        "--config|-c",
+        "--set|-s <chain> <url>",
+        "--get|-g <chain>"
+      ],
+      "format": "manages block explorer configurations"
     },
-    "propose_commit": {
-      "prompt": "Review the recent changes and propose a git commit message.",
-      "description": "Reviews changes and proposes a commit message."
+    "snakes": {
+      "output": "are in the grass",
+      "format": "simple echo"
     }
+  },
+  "display": {
+    "local_indicator": "🧠",
+    "pending_indicator": "🔴",
+    "vote_format": "YES/NO with percentages",
+    "time_format": "relative + absolute UTC",
+    "reward_format": "split by governance layer"
   }
 }
