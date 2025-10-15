@@ -95,11 +95,12 @@ gem() {
         fi
 
         # Get the absolute path of the target directory.
+        cd "${TARGET_DIR}"
         local ABS_TARGET_DIR
-        ABS_TARGET_DIR=$(cd "${TARGET_DIR}" && pwd)
+        ABS_TARGET_DIR=$(pwd)
 
         # Create the .chat directory for logs.
-        mkdir -p "${ABS_TARGET_DIR}/.chat"
+        mkdir -p ".chat"
 
         # Generate a timestamp for the log file.
         local TIMESTAMP=$(date +%Y%m%d-%H%M%S)
@@ -107,7 +108,7 @@ gem() {
         local FILE_NAME=".chat/${TIMESTAMP}_gemini_chat.txt"
 
         # Construct the command to be executed inside the screen session.
-        local SCREEN_COMMAND="cd '${ABS_TARGET_DIR}' && script -q -c \"gemini $query\" '${FILE_NAME}'"
+        local SCREEN_COMMAND="script -q -c \"gemini $query\" '${FILE_NAME}'"
 
         # Create a new detached screen session with the specified name, using the .screenrc file.
         screen -c .screenrc -dmS "${SESSION_NAME}"
