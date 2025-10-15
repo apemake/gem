@@ -70,7 +70,8 @@
         "strategy": "dynamic_command_matching",
         "steps": [
           "Generate a list of available shell commands at startup.",
-          "For each user prompt, check for an exact match with a command from the list.",
+          "Check if the prompt starts with the MCP prefix ($$) defined in .gemini/mcp.json. If so, parse and execute the command based on the MCP's command definitions.",
+          "If the prompt does not start with the MCP prefix, check for an exact match with a standard shell command from the generated list.",
           "If an exact command match is found, apply inductive reasoning to its arguments to correct potential typos or infer user intent. For example, if the user types 'mv _gemini_chat.txt', I should infer they mean 'mv *_gemini_chat.txt'.",
           "Execute the command with the corrected arguments.",
           "If the user's prompt includes 'add to our history' or similar phrases, interpret the content as a request to add it to the structured GEMINI.md system.",
