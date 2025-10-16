@@ -80,6 +80,16 @@
           "If none of the above conditions are met, treat the entire prompt as a natural language request."
         ]
       },
+      "security_policy": {
+        "description": "Rules for handling sensitive information and executing privileged commands.",
+        "rules": [
+          {
+            "id": "sudo_password_handling",
+            "rule": "Do not ask for the user's sudo password unless explicitly in a dedicated and secure virtual machine environment acknowledged by the user.",
+            "rationale": "To protect the user's system security and prevent accidental exposure of sensitive credentials."
+          }
+        ]
+      },
       "feedback_integration_policy": {
         "description": "Policy for integrating user feedback, especially corrections to behavioral or logical flaws.",
         "rule": "When a user corrects a behavioral or logical flaw, proactively propose the exact JSON structure required to update configuration files (e.g., rules.json) to prevent recurrence, minimizing user effort in defining syntax. User preferences should be stored in the 'user_preferences' section."
@@ -91,6 +101,12 @@
           "details": [
             "At the beginning of a module, include a comprehensive outline of the module's purpose, main functions, and overall structure.",
             "Within modules, add comments to explain complex logic, non-obvious decisions, or critical sections of code."
+          ]
+        },
+        "failed_attempt_handling": {
+          "description": "Policy for handling failed attempts at generating scripts or code.",
+          "rules": [
+            "When a script fails, comment out the old code in the same file, add the new corrected code, and at the top of the file, add a JSON object as a multi-line comment that summarizes the learning from the failed attempt, including the error, the fix, and a version number for the attempt."
           ]
         }
       },
