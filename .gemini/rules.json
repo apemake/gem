@@ -75,7 +75,7 @@
           "  - First, attempt to execute it as a direct shell command.",
           "  - If it is not a shell command, look up the command name as an alias in .gemini/mcp.json.",
           "    - If a matching alias is found:",
-          "      - If the alias 'action' is 'create_json_punchcard', create a new JSON file in the 'target_directory' with the user's arguments populating the 'title' and 'achieved' fields, and other fields initialized with defaults.",
+          "If the alias 'action' is 'create_json_punchcard', generate a summary of the current session's activities and the user's contributions. Use this summary to populate the 'title' and 'achieved' fields of a new rich JSON punchcard file in the 'target_directory'. Other fields will be initialized with default or placeholder values.",
           "      - If the alias 'action' is 'execute_prompt', execute the 'prompt' value as a shell command.",
           "If none of the above conditions are met, treat the entire prompt as a natural language request."
         ]

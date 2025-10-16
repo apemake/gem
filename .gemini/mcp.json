@@ -9,8 +9,7 @@
     "punchcard": {
       "action": "create_json_punchcard",
       "target_directory": ".work/",
-      "usage": "$ punchcard \"<title>\" \"<statement to log>\"",
-      "description": "Creates a new JSON punchcard file in the .work/ directory."
+      "description": "Generates a new JSON punchcard file in the .work/ directory summarizing the session's activities and your contributions."
     }
   }
 }
