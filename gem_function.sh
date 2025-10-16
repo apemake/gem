@@ -27,8 +27,6 @@
 #     }
 #   ]
 # }
-#!/bin/bash
-
 gem() {
     if ! command -v gemini &> /dev/null; then
         echo "Error: 'gemini' command not found. Please ensure it is installed and in your PATH." >&2
@@ -45,6 +43,11 @@ gem() {
     # Create a unique file name for the session log in the .chat directory.
     local FILE_NAME=".chat/${TIMESTAMP}_gemini_chat.txt"
 
-    # Execute the command and log it with script.
-    script -q -c "gemini $query" "${FILE_NAME}"
+    if [ -n "$STY" ]; then
+        # We are inside a screen session. Create a new window.
+        screen -X screen -t "Gemini" bash -c "script -q -c \"gemini $query\" \"${FILE_NAME}\"; exec bash"
+    else
+        # We are not in a screen session. Run in the current shell.
+        script -q -c "gemini $query" "${FILE_NAME}"
+    fi
 }
