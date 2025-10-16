@@ -1,33 +1,4 @@
 # {
-#   "script_description": "A shell function to start a Gemini instance and log its output using the 'script' command.",
-#   "function_name": "gem",
-#   "arguments": [
-#     {
-#       "name": "COMMAND",
-#       "type": "string",
-#       "optional": true,
-#       "description": "The command to pass to the gemini executable. All arguments are treated as the command."
-#     }
-#   ],
-#   "behavior": [
-#     {
-#       "step": 1,
-#       "action": "Gemini Instance and Logging",
-#       "details": [
-#         {
-#           "task": "Start a 'gemini' instance, passing the constructed command if one was provided."
-#         },
-#         {
-#           "task": "Use the 'script' command to capture the standard output of the 'gemini' instance."
-#         },
-#         {
-#           "task": "The output should be saved to a log file in the .chat directory." 
-#         }
-#       ]
-#     }
-#   ]
-# }
-# {
 #   "script_description": "A shell function that intelligently handles Gemini sessions. It can start a new Gemini instance in a new screen window if run from within a screen session, or it can create or reattach to a screen session if run from a normal shell.",
 #   "function_name": "gem",
 #   "arguments": [

@@ -96,6 +96,10 @@
       },
       "code_generation_policy": {
         "description": "Rules for generating code, including commenting conventions.",
+        "code_reduction_explanation": {
+          "rule": "If a code modification results in a reduction of logic or lines of code by more than 20%, provide a brief explanation for the reduction.",
+          "threshold": 0.2
+        },
         "metadata_preservation": {
           "rule": "Descriptive comment blocks (like MCP models) at the beginning of files must be preserved during modifications."
         },
