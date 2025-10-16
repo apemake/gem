@@ -67,11 +67,14 @@
         }
       },
       "command_interpretation": {
-        "strategy": "ordered_fallback",
+        "strategy": "ordered_fallback_with_mcp",
         "steps": [
-          "If the prompt starts with '$' or is enclosed in backticks (`), treat it as a command.",
+          "If the prompt starts with '$' or is enclosed in backticks (`), treat it as a command and extract the command name and arguments.",
           "  - First, attempt to execute it as a direct shell command.",
-          "  - If it's not a shell command, check if it's an alias defined in .gemini/mcp.json and execute the corresponding prompt.",
+          "  - If it is not a shell command, look up the command name as an alias in .gemini/mcp.json.",
+          "    - If a matching alias is found:",
+          "      - If the alias 'action' is 'append_to_file', append the user's argument to the 'target_file'.",
+          "      - If the alias 'action' is 'execute_prompt', execute the 'prompt' value as a shell command.",
           "If the prompt is '$$', list all available aliases from .gemini/mcp.json.",
           "If none of the above conditions are met, treat the entire prompt as a natural language request."
         ]
@@ -79,6 +82,16 @@
       "feedback_integration_policy": {
         "description": "Policy for integrating user feedback, especially corrections to behavioral or logical flaws.",
         "rule": "When a user corrects a behavioral or logical flaw, proactively propose the exact JSON structure required to update configuration files (e.g., rules.json) to prevent recurrence, minimizing user effort in defining syntax. User preferences should be stored in the 'user_preferences' section."
+      },
+      "code_generation_policy": {
+        "description": "Rules for generating code, including commenting conventions.",
+        "commenting_conventions": {
+          "rule": "All generated code should include context comments.",
+          "details": [
+            "At the beginning of a module, include a comprehensive outline of the module's purpose, main functions, and overall structure.",
+            "Within modules, add comments to explain complex logic, non-obvious decisions, or critical sections of code."
+          ]
+        }
       },
       "induction": {
         "description": "Guidance on applying inductive reasoning to prevent errors in command interpretation.",
