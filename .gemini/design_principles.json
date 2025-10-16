@@ -132,6 +132,12 @@
             "description": "Failed to recognize a user's intended command due to a minor typo (e.g., 'snake' instead of 'snakes'). The current command interpretation logic requires an exact match for command names and aliases.",
             "chastisement": "User typed '$ snake' and was corrected to '$ snakes'.",
             "resolution": "Consider implementing fuzzy matching or inductive reasoning for command names and aliases to improve user experience and reduce friction."
+          },
+          {
+            "timestamp": "2025-10-14 14:08:00",
+            "description": "The command interpretation logic for listing commands was not clearly defined, leading to ambiguity regarding the roles of '$' and '$$'.",
+            "chastisement": "User clarified: 'If I type just $ please list all commands and if I type $$ please list only virtual commands'.",
+            "resolution": "Modify `rules.json` to explicitly define '$' for listing all commands (shell + virtual) and '$$' for listing only virtual commands."
           }
         ]
       },
