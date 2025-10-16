@@ -120,6 +120,12 @@
             "description": "Failed to correctly implement the interpretation of the '$$' command to list virtual aliases. Instead of internally processing it, it was passed to the shell, resulting in a 'command not found' error.",
             "chastisement": "User attempted to use '$$' to list commands, but it resulted in a shell error.",
             "resolution": "Modify `rules.json` to explicitly intercept and handle '$$' as an internal command to list aliases, rather than passing it to the shell."
+          },
+          {
+            "timestamp": "2025-10-14 14:06:00",
+            "description": "Failed to use the correct, simplified MCP content when implementing the `$$` command, leading to an incorrect listing of aliases.",
+            "chastisement": "User pointed out that the listed commands were not the intended simplified set.",
+            "resolution": "Ensure the correct `mcp.json` content is used after user approval, and re-verify the output."
           }
         ]
       },
