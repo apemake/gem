@@ -96,6 +96,9 @@
       },
       "code_generation_policy": {
         "description": "Rules for generating code, including commenting conventions.",
+        "metadata_preservation": {
+          "rule": "Descriptive comment blocks (like MCP models) at the beginning of files must be preserved during modifications."
+        },
         "commenting_conventions": {
           "rule": "All generated code should include context comments.",
           "details": [

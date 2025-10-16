@@ -27,6 +27,44 @@
 #     }
 #   ]
 # }
+# {
+#   "script_description": "A shell function that intelligently handles Gemini sessions. It can start a new Gemini instance in a new screen window if run from within a screen session, or it can create or reattach to a screen session if run from a normal shell.",
+#   "function_name": "gem",
+#   "arguments": [
+#     {
+#       "name": "FOLDER_NAME",
+#       "type": "string",
+#       "optional": true,
+#       "description": "If the first argument is an existing directory, it is used as the target directory for the session (only when creating a new screen session)."
+#     },
+#     {
+#       "name": "COMMAND",
+#       "type": "string",
+#       "optional": true,
+#       "description": "The command to pass to the gemini executable."
+#     }
+#   ],
+#   "behavior": [
+#     {
+#       "condition": "Running inside a screen session.",
+#       "action": "Creates a new screen window named 'Gemini' and runs a logged Gemini session in it."
+#     },
+#     {
+#       "condition": "Not running inside a screen session.",
+#       "action": "Checks if a screen session named 'gem' exists.",
+#       "details": [
+#         {
+#           "condition": "Session 'gem' exists.",
+#           "task": "Reattaches to the existing 'gem' session."
+#         },
+#         {
+#           "condition": "Session 'gem' does not exist.",
+#           "task": "Creates a new screen session named 'gem' with 'emacs' and 'Gemini' windows, and runs a logged Gemini session in the 'Gemini' window."
+#         }
+#       ]
+#     }
+#   ]
+# }
 gem() {
     # Check for required commands
     if ! command -v screen &> /dev/null; then
