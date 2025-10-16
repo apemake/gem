@@ -70,7 +70,13 @@
         "strategy": "ordered_fallback_with_mcp",
         "steps": [
           "If the prompt is '$$', list all available aliases from .gemini/mcp.json.",
+          "If the prompt is '$', list all available shell commands and aliases from .gemini/mcp.json.",
           "If the prompt starts with '$' or is enclosed in backticks (`), treat it as a command and extract the command name and arguments.",
+          "  - First, attempt to execute it as a direct shell command.",
+          "  - If it is not a shell command, look up the command name as an alias in .gemini/mcp.json.",
+          "    - If a matching alias is found:",
+          "      - If the alias 'action' is 'append_to_file', append the user's argument to the 'target_file'.",
+          "      - If the alias 'action' is 'execute_prompt', execute the 'prompt' value as a shell command.",
           "If none of the above conditions are met, treat the entire prompt as a natural language request."
         ]
       },
