@@ -114,6 +114,12 @@
             "description": "Made incorrect assumptions about how to verify if a file is tracked by Git. First, I wrongly assumed checking .gitignore was sufficient. Second, I wrongly assumed `git ls-files` was sufficient. Both methods fail to account for files that were previously committed and then removed from the index.",
             "chastisement": "User corrected me twice: 'No, you don't know the past. Bad assumption.' and 'No that's not the bad assumption. You need to check past commits...'",
             "resolution": "The correct procedure to definitively check if a file path has ever been part of the repository history is to use `git log --follow -- [file_path]`. I must use this method instead of relying on the current state of the working tree or index."
+          },
+          {
+            "timestamp": "2025-10-14 14:05:00",
+            "description": "Failed to correctly implement the interpretation of the '$$' command to list virtual aliases. Instead of internally processing it, it was passed to the shell, resulting in a 'command not found' error.",
+            "chastisement": "User attempted to use '$$' to list commands, but it resulted in a shell error.",
+            "resolution": "Modify `rules.json` to explicitly intercept and handle '$$' as an internal command to list aliases, rather than passing it to the shell."
           }
         ]
       },
