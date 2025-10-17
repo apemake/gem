@@ -64,6 +64,10 @@
         "summarize_last_session": {
           "action": "Summarize the last session's activities.",
           "priority": "medium"
+        },
+        "clean_chat_logs": {
+          "action": "Run parse_chat_log.py on any chat log file in the .chat directory that has not yet been cleaned (i.e., does not have a corresponding _clean.txt file).",
+          "priority": "low"
         }
       },
       "command_interpretation": {
