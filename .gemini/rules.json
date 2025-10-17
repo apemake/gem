@@ -1,4 +1,3 @@
-
 {
   "rules": {
     "chat_history": {
@@ -97,6 +96,10 @@
       "feedback_integration_policy": {
         "description": "Policy for integrating user feedback, especially corrections to behavioral or logical flaws.",
         "rule": "When a user corrects a behavioral or logical flaw, proactively propose the exact JSON structure required to update configuration files (e.g., rules.json) to prevent recurrence, minimizing user effort in defining syntax. User preferences should be stored in the 'user_preferences' section."
+      },
+      "backup_retrieval_policy": {
+        "description": "Policy for retrieving file backups.",
+        "rule": "If a file is missing or a backup is needed, check the git history first before asking the user."
       },
       "code_generation_policy": {
         "description": "Rules for generating code, including commenting conventions.",
