@@ -1,8 +1,18 @@
 # Editor backup files
 *#
+.#*
 
 # Python virtual environment
 .venv/
 
 # PDF files
 *.pdf
+
+# Chat logs
+.chat/
+
+# Credentials
+.gemini/oauth_creds.json
+
+# Legal docs
+.legal/
