@@ -62,8 +62,8 @@ gem() {
         else
             # Session does not exist, create it
             screen -c /home/bestape/gemini/.dotfiles/.screenrc -dmS "${SESSION_NAME}"
-            screen -S "${SESSION_NAME}" -p 0 -X title "Gemini"
-            screen -S "${SESSION_NAME}" -p 0 -X stuff "${SCRIPT_COMMAND}\n"
+            screen -S "${SESSION_NAME}" -p 1 -X title "Gemini"
+            screen -S "${SESSION_NAME}" -p 1 -X stuff "${SCRIPT_COMMAND}\n"
             screen -r "${SESSION_NAME}"
         fi
     fi
