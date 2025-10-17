@@ -1,10 +1,8 @@
-# Ignore sensitive credential files
-.gemini/oauth_creds.json
+# Editor backup files
+*#
 
-# Ignore emacs temporary files
-.#*
+# Python virtual environment
+.venv/
 
-# Ignore chat logs
-.chat/
-.legal/
-#*
+# PDF files
+*.pdf
