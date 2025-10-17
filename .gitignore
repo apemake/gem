@@ -13,6 +13,3 @@
 
 # Credentials
 .gemini/oauth_creds.json
-
-# Legal docs
-.legal/
