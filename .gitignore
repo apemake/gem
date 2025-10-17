@@ -5,8 +5,6 @@
 # Python virtual environment
 .venv/
 
-# PDF files
-*.pdf
 
 # Chat logs
 .chat/
