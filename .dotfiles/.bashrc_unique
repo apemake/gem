@@ -1,9 +1,16 @@
+# {
+#   "script_description": "A shell script to be sourced in the user's .bashrc file. It sets up aliases and sources the gem_function.sh script.",
+#   "file_name": ".bashrc_unique",
+#   "author": "bestape",
+#   "context": "This file is intended to be located in the user's $HOME directory and sourced from their main .bashrc file. It assumes the gemini project is located at $HOME/gemini.",
+#   "dependencies": ["$HOME/gemini/.dotfiles/gem_function.sh"]
+# }
 #!/bin/bash
 # To make changes in git, edit the proto suffixed version of this file.
 # If you modify this, after you're finished, run updateBash or restart Terminal.
 alias snakes='echo are in the grass'
 
-source /home/bestape/gemini/gem_function.sh
+source $HOME/gemini/.dotfiles/gem_function.sh
 
 # Bind Ctrl+L to clear the screen
 bind -x '"\C-l": "clear"'
