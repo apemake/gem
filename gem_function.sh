@@ -55,7 +55,8 @@ gem() {
         mkdir -p ".chat"
         local TIMESTAMP=$(date +%Y%m%d-%H%M%S)
         local FILE_NAME=".chat/${TIMESTAMP}_gemini_chat.txt"
-        screen -X screen -t "Gemini" bash -c "script -q -c \"gemini $query\" \"${FILE_NAME}\"; exec bash"
+        screen -X title "Gemini"
+        gemini $query > "${FILE_NAME}" 2>&1
     else
         # We are not in a screen session.
         local SESSION_NAME="gem"
@@ -87,7 +88,7 @@ gem() {
             local TIMESTAMP=$(date +%Y%m%d-%H%M%S)
             local FILE_NAME=".chat/${TIMESTAMP}_gemini_chat.txt"
 
-            local SCREEN_COMMAND="script -q -c \"gemini $query\" '${FILE_NAME}'"
+            local SCREEN_COMMAND="gemini $query > '${FILE_NAME}' 2>&1"
 
             screen -c .screenrc -dmS "${SESSION_NAME}"
             screen -S "${SESSION_NAME}" -p 1 -X title "Gemini"
