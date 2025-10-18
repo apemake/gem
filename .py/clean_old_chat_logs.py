@@ -1,3 +1,6 @@
+# Learning Summary:
+# v1: SyntaxError: unterminated f-string literal. Fix: Separated stderr print statement.
+
 import os
 import glob
 import datetime
