@@ -147,6 +147,11 @@
       "note_taking_policy": {
         "rule": "Important notes, summaries, or plans should be saved to a text file (e.g., session_notes.txt) for future reference and to ensure continuity.",
         "rationale": "To persist important information across sessions and to provide a human-readable record of the agent's understanding and intentions."
+      },
+      "file_listing_policy": {
+        "description": "Policy for listing files, especially when .gitignore might be obscuring relevant files.",
+        "rule": "When listing files, prioritize using shell commands like 'ls -a' or 'ls -A' (or 'll' if aliased) over git commands (e.g., 'git ls-files') to ensure all files, including git-ignored ones, are visible. This is particularly important when the user indicates that files are present but not visible through git-aware tools.",
+        "rationale": "To prevent misinterpretations due to .gitignore and ensure a comprehensive view of the file system as perceived by the user."
       }
     }
   }
