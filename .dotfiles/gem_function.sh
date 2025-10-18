@@ -53,7 +53,6 @@ gem() {
         fi
     
         cd "$target_directory" || { echo "Error: Could not change to $target_directory" >&2; return 1; }
-    cat GEMINI.md
 
     # Create the .chat directory for logs if it doesn't exist.
     mkdir -p ".chat"
