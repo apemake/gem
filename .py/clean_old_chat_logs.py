@@ -5,6 +5,7 @@ import os
 import glob
 import datetime
 import subprocess
+import shutil
 
 CHAT_DIR = "/home/bestape/gemini/.chat/"
 PARSE_SCRIPT = "/home/bestape/gemini/.py/parse_chat_log.py"
