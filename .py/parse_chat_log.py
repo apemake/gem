@@ -14,6 +14,7 @@ import re
 import json
 import sys
 import os
+import shutil
 
 def strip_ansi_codes(line):
     """Removes ANSI escape codes from a string."""
@@ -136,3 +137,9 @@ if __name__ == "__main__":
             f.write(f"Gemini: {turn['gemini']}\n\n")
 
     print(f"Cleaned chat log saved to: {new_file_path}")
+    # Move the original file to the cleaned_logs directory
+    try:
+        shutil.move(file_path, cleaned_dir)
+        print(f"Original log file moved to: {os.path.join(cleaned_dir, os.path.basename(file_path))}")
+    except Exception as e:
+        print(f"Error moving original file {file_path}: {e}")
