@@ -43,11 +43,17 @@ gem() {
 
         local query="$@"
         local SESSION_NAME="gem"
-    
-        # If no arguments are provided, default to the gemini project directory
-        if [ -z "$query" ]; then
-            cd /home/bestape/gemini || { echo "Error: Could not change to /home/bestape/gemini" >&2; return 1; }
+        local target_directory="/home/bestape/gemini" # Default directory
+
+        # Check if the first argument is a valid directory
+        if [ -n "$1" ] && [ -d "$1" ]; then
+            target_directory="$1"
+            shift # Remove the directory argument from the query
+            query="$@" # Update query with remaining arguments
         fi
+    
+        cd "$target_directory" || { echo "Error: Could not change to $target_directory" >&2; return 1; }
+
     # Create the .chat directory for logs if it doesn't exist.
     mkdir -p ".chat"
     local TIMESTAMP=$(date +%Y%m%d-%H%M%S)
