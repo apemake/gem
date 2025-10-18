@@ -13,6 +13,7 @@
 import re
 import json
 import sys
+import os
 
 def strip_ansi_codes(line):
     """Removes ANSI escape codes from a string."""
@@ -120,8 +121,14 @@ if __name__ == "__main__":
     file_path = sys.argv[1]
     parsed_data = parse_chat_log(file_path)
 
-    # Create the new filename
-    new_file_path = file_path.replace('.txt', '_clean.txt')
+    # Create the cleaned_logs directory if it doesn't exist
+    cleaned_dir = os.path.join(os.path.dirname(file_path), "cleaned_logs")
+    os.makedirs(cleaned_dir, exist_ok=True)
+
+    # Create the new filename in the cleaned_logs directory
+    base_name = os.path.basename(file_path)
+    new_file_name = base_name.replace('.txt', '_clean.txt')
+    new_file_path = os.path.join(cleaned_dir, new_file_name)
 
     with open(new_file_path, 'w') as f:
         for turn in parsed_data:
