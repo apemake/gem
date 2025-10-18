@@ -13,8 +13,6 @@
 import re
 import json
 import sys
-import os
-import shutil
 
 def strip_ansi_codes(line):
     """Removes ANSI escape codes from a string."""
@@ -114,6 +112,9 @@ def parse_chat_log(file_path):
 
     return chat_turns
 
+import os
+import shutil
+
 if __name__ == "__main__":
     if len(sys.argv) != 2:
         print("Usage: python parse_chat_log.py <path_to_chat_file>")
@@ -122,11 +123,11 @@ if __name__ == "__main__":
     file_path = sys.argv[1]
     parsed_data = parse_chat_log(file_path)
 
-    # Create the cleaned_logs directory if it doesn't exist
-    cleaned_dir = os.path.join(os.path.dirname(file_path), "cleaned_logs")
+    # Create the .cleaned_up directory if it doesn't exist
+    cleaned_dir = os.path.join(os.path.dirname(file_path), ".cleaned_up")
     os.makedirs(cleaned_dir, exist_ok=True)
 
-    # Create the new filename in the cleaned_logs directory
+    # Create the new filename in the .cleaned_up directory
     base_name = os.path.basename(file_path)
     new_file_name = base_name.replace('.txt', '_clean.txt')
     new_file_path = os.path.join(cleaned_dir, new_file_name)
@@ -137,7 +138,7 @@ if __name__ == "__main__":
             f.write(f"Gemini: {turn['gemini']}\n\n")
 
     print(f"Cleaned chat log saved to: {new_file_path}")
-    # Move the original file to the cleaned_logs directory
+    # Move the original file to the .cleaned_up directory
     try:
         shutil.move(file_path, cleaned_dir)
         print(f"Original log file moved to: {os.path.join(cleaned_dir, os.path.basename(file_path))}")

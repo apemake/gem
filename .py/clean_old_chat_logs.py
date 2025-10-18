@@ -22,12 +22,12 @@ def clean_old_chat_logs():
         # Check if a cleaned version already exists in cleaned_logs
         base_name = os.path.basename(file_path)
         cleaned_file_name = base_name.replace('.txt', '_clean.txt')
-        cleaned_file_path_in_cleaned_dir = os.path.join(CHAT_DIR, "cleaned_logs", cleaned_file_name)
+        cleaned_file_path_in_cleaned_dir = os.path.join(CHAT_DIR, ".cleaned_up", cleaned_file_name)
         
         if os.path.exists(cleaned_file_path_in_cleaned_dir):
             # If cleaned version exists, move the original to cleaned_logs
             try:
-                cleaned_dir = os.path.join(CHAT_DIR, "cleaned_logs")
+                cleaned_dir = os.path.join(CHAT_DIR, ".cleaned_up")
                 os.makedirs(cleaned_dir, exist_ok=True)
                 shutil.move(file_path, cleaned_dir)
                 print(f"Original log file moved to: {os.path.join(cleaned_dir, os.path.basename(file_path))}")
@@ -35,20 +35,9 @@ def clean_old_chat_logs():
                 print(f"Error moving original file {file_path}: {e}")
             continue
 
-        # Extract timestamp from filename (e.g., 20251017-170612_gemini_chat.txt)
-        try:
-            timestamp_str = base_name.split('_')[0]
-            log_date = datetime.datetime.strptime(timestamp_str, "%Y%m%d-%H%M%S")
-        except ValueError:
-            # Handle files with different naming conventions or no timestamp
-            # For now, we'll treat them as old enough to be cleaned
-            log_date = datetime.datetime.min # Effectively always old enough
+        uncleaned_logs.append(file_path)
 
-        # Only clean logs older than one day
-        if (datetime.datetime.now() - log_date).days >= 1:
-            uncleaned_logs.append(file_path)
-
-    print(f"Found {len(uncleaned_logs)} uncleaned logs older than one day.")
+    print(f"Found {len(uncleaned_logs)} uncleaned logs.")
 
     for file_path in uncleaned_logs:
         if os.path.exists(file_path):
