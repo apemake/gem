@@ -126,6 +126,13 @@
           "rules": [
             "When a script fails, comment out the old code in the same file, add the new corrected code, and at the top of the file, add a JSON object as a multi-line comment that summarizes the learning from the failed attempt, including the error, the fix, and a version number for the attempt."
           ]
+        },
+        "mcp_header_policy": {
+          "rule": "All configuration and script files must have an MCP header. Documentation and other files are excluded.",
+          "categories": {
+            "include": ["Configuration", "Scripts"],
+            "exclude": ["Documentation", "Other"]
+          }
         }
       },
       "induction": {

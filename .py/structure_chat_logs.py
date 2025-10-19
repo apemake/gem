@@ -1,3 +1,6 @@
+# Learning Summary:
+# v1: Initial creation.
+
 
 import os
 import re
