@@ -25,6 +25,14 @@
         "target_branch": "main",
         "responsibility": "user",
         "condition": "After significant milestones and when stage is stable."
+      },
+      "pre_publish_security_check": {
+        "rule": "Always perform a security check for sensitive information before publishing externally.",
+        "procedure": [
+          "Scan all tracked files for keywords such as 'key', 'secret', 'password', 'token', 'private'.",
+          "Manually review files that are likely to contain sensitive information, such as configuration files.",
+          "Ensure that no private keys or credentials are present in the repository."
+        ]
       }
     },
     "user_preferences": {
