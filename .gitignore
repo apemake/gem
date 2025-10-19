@@ -13,4 +13,4 @@
 .chat/
 
 # Credentials
-.gemini/oauth_creds.json
+.gemini/
