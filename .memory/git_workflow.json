@@ -12,6 +12,7 @@
   ],
   "sync_rule": "The 'private/bestape' branch should pull from 'boilerplate' regularly to stay up-to-date with my latest memories and configurations.",
   "git_best_practices": {
-    "nested_standalone_repos": "When creating a 'standalone' Git repository within another Git repository, the child repository should NOT be committed or tracked by the parent repository. The parent's .gitignore should list the child directory to explicitly ignore it. Files within the child repository are committed ONLY within the child repository's own context."
+    "nested_standalone_repos": "When creating a 'standalone' Git repository within another Git repository, the child repository should NOT be committed or tracked by the parent repository. The parent's .gitignore should list the child directory to explicitly ignore it. Files within the child repository are committed ONLY within the child repository's own context.",
+    "private_branch_flow": "The 'private/bestape' branch is a terminal working branch. Changes from 'private/bestape' should NEVER be merged into 'boilerplate' or any other branch. 'boilerplate' is updated independently for shared content and configurations."
   }
 }
