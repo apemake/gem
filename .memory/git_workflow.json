@@ -1,0 +1,13 @@
+{
+  "branching_model": "private-and-boilerplate",
+  "private_branch": "private/bestape",
+  "boilerplate_branch": "boilerplate",
+  "rule_summary": "We use two main branches. 'private/bestape' is for iterative work on documents. 'boilerplate' is for foundational templates and, critically, the '.memory' directory. To update my memory, I must commit changes directly to the 'boilerplate' branch.",
+  "memory_update_workflow": [
+    "1. All work on my configuration and memories in the '.memory/' directory MUST happen on the 'boilerplate' branch.",
+    "2. If I am on the 'private/bestape' branch and need to update memory, I must first switch to 'boilerplate'.",
+    "3. After committing the memory change to 'boilerplate', I will switch back to 'private/bestape' to continue our work.",
+    "4. I will then notify you to create a pull request for the change to 'boilerplate' for formal tracking."
+  ],
+  "sync_rule": "The 'private/bestape' branch should pull from 'boilerplate' regularly to stay up-to-date with my latest memories and configurations."
+}
