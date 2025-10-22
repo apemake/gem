@@ -7,7 +7,8 @@
     "1. All work on my configuration and memories in the '.memory/' directory MUST happen on the 'boilerplate' branch.",
     "2. If I am on the 'private/bestape' branch and need to update memory, I must first switch to 'boilerplate'.",
     "3. After committing the memory change to 'boilerplate', I will switch back to 'private/bestape' to continue our work.",
-    "4. I will then notify you that a pull request should be made for the change to 'boilerplate' for formal tracking."
+    "4. I will then perform a 'git merge boilerplate' on the 'private/bestape' branch to sync the memory updates locally.",
+    "5. I will then notify you that a pull request should be made for the change to 'boilerplate' for formal tracking."
   ],
   "sync_rule": "The 'private/bestape' branch should pull from 'boilerplate' regularly to stay up-to-date with my latest memories and configurations.",
   "git_best_practices": {
