@@ -1,15 +1,3 @@
-# Learning Summary:
-# v1: re.error: incomplete escape. Fix: Escaped backslashes in regex for unicode.
-# v2: re.error: unbalanced parenthesis. Fix: Corrected regex for strip_ansi_codes.
-# v3: re.error: unbalanced parenthesis. Fix: Corrected regex for is_noise.
-# v4: SyntaxError: unterminated string literal. Fix: Escaped special characters in is_noise.
-# v5: SyntaxError: (unicode error). Fix: Properly escaped backslashes in JSON summary.
-# v6: SyntaxError: unterminated triple-quoted string literal. Fix: Simplified learning summary to single-line comments.
-# v7: re.error: unbalanced parenthesis. Fix: Correctly escaped parentheses in is_noise.
-# v8: re.error: unterminated character set. Fix: Simplified strip_ansi_codes regex.
-# v9: re.error: unterminated character set. Fix: Removed regex for braille characters and will check for them directly.
-# v10: re.error: unbalanced parenthesis. Fix: Simplified is_noise and strip_ansi_codes.
-
 import re
 import json
 import sys
@@ -38,7 +26,7 @@ def is_noise(line):
         r"Dissecting the Copyright Details",
         r"Deconstructing the Contract",
         r"╭", r"─", r"╮", r"│", r"╰", # Box drawing characters
-        r"\[NORMAL\]", r"\[INSERT\]", # Terminal prompts
+        r"\\[NORMAL\\]", r"\\[INSERT\\]", # Terminal prompts
         r"Error: \(none\)", # Corrected
         r"███", r"░░░", # ASCII art
         r"\(stage\*\)", # Corrected
@@ -112,35 +100,14 @@ def parse_chat_log(file_path):
 
     return chat_turns
 
-import os
-import shutil
-
 if __name__ == "__main__":
     if len(sys.argv) != 2:
-        print("Usage: python parse_chat_log.py <path_to_chat_file>")
+        print("Usage: python parse_chat_log.py <path_to_chat_file>", file=sys.stderr)
         sys.exit(1)
 
     file_path = sys.argv[1]
     parsed_data = parse_chat_log(file_path)
 
-    # Create the .cleaned_up directory if it doesn't exist
-    cleaned_dir = os.path.join(os.path.dirname(file_path), ".cleaned_up")
-    os.makedirs(cleaned_dir, exist_ok=True)
-
-    # Create the new filename in the .cleaned_up directory
-    base_name = os.path.basename(file_path)
-    new_file_name = base_name.replace('.txt', '_clean.txt')
-    new_file_path = os.path.join(cleaned_dir, new_file_name)
-
-    with open(new_file_path, 'w') as f:
-        for turn in parsed_data:
-            f.write(f"User: {turn['user']}\n\n")
-            f.write(f"Gemini: {turn['gemini']}\n\n")
-
-    print(f"Cleaned chat log saved to: {new_file_path}")
-    # Move the original file to the .cleaned_up directory
-    try:
-        shutil.move(file_path, cleaned_dir)
-        print(f"Original log file moved to: {os.path.join(cleaned_dir, os.path.basename(file_path))}")
-    except Exception as e:
-        print(f"Error moving original file {file_path}: {e}")
+    for turn in parsed_data:
+        print(f"User: {turn['user']}\n")
+        print(f"Gemini: {turn['gemini']}\n")

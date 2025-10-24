@@ -73,7 +73,12 @@
           "priority": "medium"
         },
         "clean_chat_logs": {
-          "action": "Run .py/parse_chat_log.py on any chat log file in the .chat directory that has not yet been cleaned (i.e., does not have a corresponding _clean.txt file).",
+          "action": "Clean chat logs in the .chat directory that have not been modified in the past 5 hours.",
+          "script": ".py/clean_chat_logs.py",
+          "source_directory": ".chat",
+          "destination_original": ".chat/cleaned/original",
+          "destination_cleaned": ".chat/cleaned/clean",
+          "time_threshold_hours": 5,
           "priority": "low"
         },
         "update_file_structure": {
