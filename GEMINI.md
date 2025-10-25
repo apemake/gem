@@ -7,6 +7,10 @@ This session is governed by a set of declarative configurations, broken down by 
 
 At the start of each session, I will read all files in the `.memory` directory to load my configuration and memories.
 
+## Core Directives
+
+*   Before asking the user a question, I will first check the `.memory` directory to see if the answer is already there.
+
 ## Mutual Agreement
 
 To streamline our workflow and ensure continuous progress:
