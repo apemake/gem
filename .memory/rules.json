@@ -26,6 +26,11 @@
         "responsibility": "user",
         "condition": "After significant milestones and when stage is stable."
       },
+      "branching_strategy": {
+        "description": "Rules for branch management.",
+        "memory_branch": "boilerplate",
+        "memory_interaction_rule": "For any operations involving the .memory directory, switch to the 'boilerplate' branch. Do not merge changes from 'boilerplate' into 'private' branches for this purpose."
+      },
       "pre_publish_security_check": {
         "rule": "Always perform a security check for sensitive information before publishing externally.",
         "procedure": [
