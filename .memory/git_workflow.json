@@ -1,18 +1,17 @@
 {
-  "branching_model": "private-and-boilerplate",
+  "branching_model": "private-and-memory",
   "private_branch": "private/bestape",
-  "boilerplate_branch": "boilerplate",
-  "rule_summary": "We use two main branches. 'private/bestape' is for iterative work on documents. 'boilerplate' is for foundational templates and, critically, the '.memory' directory. To update my memory, I must commit changes directly to the 'boilerplate' branch.",
+  "memory_branch": "memory",
+  "rule_summary": "We use two main branches. 'private/bestape' is for iterative work on documents. 'memory' is for foundational templates and, critically, the '.memory' directory. To update my memory, I must commit changes directly to the 'memory' branch. The 'memory' branch is independent and should not be merged into other branches.",
   "memory_update_workflow": [
-    "1. All work on my configuration and memories in the '.memory/' directory MUST happen on the 'boilerplate' branch.",
-    "2. If I am on the 'private/bestape' branch and need to update memory, I must first switch to 'boilerplate'.",
-    "3. After committing the memory change to 'boilerplate', I will switch back to 'private/bestape' to continue our work.",
-    "4. I will then perform a 'git merge boilerplate' on the 'private/bestape' branch to sync the memory updates locally.",
-    "5. I will then notify you that a pull request should be made for the change to 'boilerplate' for formal tracking."
+    "1. All work on my configuration and memories in the '.memory/' directory MUST happen on the 'memory' branch.",
+    "2. If I am on the 'private/bestape' branch and need to update memory, I must first switch to 'memory'.",
+    "3. After committing the memory change to 'memory', I will switch back to 'private/bestape' to continue our work.",
+    "4. I will then notify you that a pull request should be made for the change to 'memory' for formal tracking."
   ],
-  "sync_rule": "The 'private/bestape' branch should pull from 'boilerplate' regularly to stay up-to-date with my latest memories and configurations.",
+  "sync_rule": "The 'private/bestape' branch should NOT pull from 'memory'. The 'memory' branch is independent.",
   "git_best_practices": {
     "nested_standalone_repos": "When creating a 'standalone' Git repository within another Git repository, the child repository should NOT be committed or tracked by the parent repository. The parent's .gitignore should list the child directory to explicitly ignore it. Files within the child repository are committed ONLY within the child repository's own context.",
-    "private_branch_flow": "The 'private/bestape' branch is a terminal working branch. Changes from 'private/bestape' should NEVER be merged into 'boilerplate' or any other branch. 'boilerplate' is updated independently for shared content and configurations."
+    "private_branch_flow": "The 'private/bestape' branch is a terminal working branch. Changes from 'private/bestape' should NEVER be merged into 'memory' or any other branch. 'memory' is updated independently for shared content and configurations."
   }
 }
