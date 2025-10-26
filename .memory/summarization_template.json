@@ -1,0 +1,29 @@
+{
+  "summary_template": {
+    "name": "Hierarchical Hourly Summary",
+    "description": "A template for generating a hierarchical summary of chat logs, with an hourly breakdown of conversations.",
+    "structure": {
+      "year": {
+        "quarter": {
+          "month": {
+            "week": {
+              "day": {
+                "hourly_summary": [
+                  {
+                    "hour": "HH:00",
+                    "conversation": [
+                      {
+                        "speaker": "user/gemini",
+                        "utterance": "..."
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
