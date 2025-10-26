@@ -236,6 +236,16 @@
             "rule": "For each new format or technology we work with (e.g., SVG, LaTeX), create a dedicated tree (a new JSON file) in the .memory/ directory to store our learnings. Consider creating a dedicated git branch for the initial exploration of a new format."
           }
         ]
+      },
+      "development_process": {
+        "name": "Development Process",
+        "summary": "Principles for an effective development workflow.",
+        "principles": [
+          {
+            "name": "DOM Synaptic Feedback",
+            "rule": "When debugging HTML and JavaScript issues, proactively ask the user to open the browser's console and provide any error messages. This provides crucial runtime feedback."
+          }
+        ]
       }
     }
   }
