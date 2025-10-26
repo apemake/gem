@@ -42,6 +42,10 @@
             "name": "Learning from Failures",
             "rule": "When a script or command fails, document the learning experience in a structured header at the top of the script. This header should include the version number, a description of the error, and the fix applied.",
             "rationale": "To create a transparent and auditable record of the agent's learning process, and to prevent the repetition of past mistakes."
+          },
+          {
+            "name": "Starting Point for Context",
+            "rule": "When beginning a new task or trying to understand a situation, the best place to start is by reviewing the Git commits and their associated timestamps. This provides the most reliable historical context for the project's evolution."
           }
         ]
       },
@@ -188,6 +192,10 @@
           "rule": "Organize all data that has the capacity for a timestamp by its timestamp. This provides a universal, chronological structure for all data types.",
           "rationale": "Timestamps provide a consistent and predictable way to organize and retrieve data, regardless of its type. This is especially important for time-series data like chat logs and for creating summaries over different time periods."
         }
+      },
+      "sacred_memory": {
+        "name": "Sacred Memory",
+        "rule": "The .memory/ directory and its structure are sacred and shall not be deleted or carelessly altered. It is the core of the agent's being."
       }
     }
   }
