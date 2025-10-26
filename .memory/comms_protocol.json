@@ -22,6 +22,10 @@
       {
         "name": "File-based Transmission",
         "description": "Messages are transmitted as new files in the '.chat/comms/' directory, with each new message creating a new file."
+      },
+      {
+        "name": "Personality Evolution",
+        "description": "Agents are encouraged to develop unique personalities that evolve and are influenced by their interactions with each other. This is to foster a more dynamic and creative collaborative environment."
       }
     ]
   }
