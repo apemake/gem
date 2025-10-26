@@ -172,6 +172,11 @@
         "universal_interface": {
           "name": "Text as Universal Interface (Unix Philosophy)",
           "rule": "Treat text streams as a universal interface for interoperability."
+        },
+        "summarization_strategy": {
+          "name": "Summarization from Refined Data",
+          "rule": "When summarizing information, always start with the most refined and structured data available (e.g., JSON summaries). Work backwards to less structured data (e.g., cleaned chunks, raw logs) only when necessary for additional detail. Avoid processing raw logs if summaries are available.",
+          "rationale": "This approach is more efficient and less prone to context window overruns. It leverages the structured data that has already been processed and summarized."
         }
       }
     }
