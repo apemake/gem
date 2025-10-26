@@ -146,7 +146,7 @@
           ]
         },
         "mcp_header_policy": {
-          "rule": "All configuration and script files must have an MCP header. Documentation and other files are excluded.",
+          "rule": "All configuration and script files must have a Master Command Profile (MCP) header. This header should be a multi-line comment at the top of the file, containing a JSON object that describes the file's purpose, inputs, outputs, and any other relevant information, such that another agent could reproduce the file from the header.",
           "categories": {
             "include": ["Configuration", "Scripts"],
             "exclude": ["Documentation", "Other"]

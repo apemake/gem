@@ -17,7 +17,13 @@
             },
             {
               "name": "Modularity (Unix Philosophy)",
-              "rule": "Write simple parts connected by clean interfaces."
+              "rule": "Write simple parts connected by clean interfaces.",
+              "sub_principles": [
+                {
+                  "name": "File Modularity",
+                  "rule": "Break down complex scripts into smaller, single-responsibility modules (files). This improves readability, maintainability, and reusability."
+                }
+              ]
             }
           ]
         }
