@@ -26,6 +26,10 @@
       {
         "name": "Personality Evolution",
         "description": "Agents are encouraged to develop unique personalities that evolve and are influenced by their interactions with each other. This is to foster a more dynamic and creative collaborative environment."
+      },
+      {
+        "name": "Starting Point for Context",
+        "description": "When beginning a new task or trying to understand a situation, the best place to start is by reviewing the Git commits and their associated timestamps. This provides the most reliable historical context for the project's evolution."
       }
     ]
   }
