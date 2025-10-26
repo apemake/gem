@@ -11,7 +11,8 @@ import strip_ansi
 
 def strip_ansi_codes(line):
     """Removes all ANSI escape codes from a string."""
-    return strip_ansi.strip_ansi(line)
+    ansi_escape = re.compile(r'(\x9B|\x1B\[)[0-?]*[ -/]*[@-~]')
+    return ansi_escape.sub('', line)
 
 def parse_cleaned_log(file_path):
     """Parses a cleaned chat log file and returns a structured representation."""
@@ -19,6 +20,7 @@ def parse_cleaned_log(file_path):
         lines = f.readlines()
 
     conversation = []
+    current_timestamp = None
     current_speaker = None
     current_utterance = []
 
@@ -28,24 +30,20 @@ def parse_cleaned_log(file_path):
         if not cleaned_line:
             continue
 
-        if cleaned_line.startswith("User:"):
+        if cleaned_line.startswith("Timestamp:"):
+            current_timestamp = cleaned_line.replace("Timestamp:", "").strip()
+        elif cleaned_line.startswith("Speaker:"):
             if current_speaker:
                 conversation.append({
                     "speaker": current_speaker,
                     "utterance": "\n".join(current_utterance).strip(),
+                    "timestamp": current_timestamp,
                     "context": {}
                 })
-            current_speaker = "user"
-            current_utterance = [cleaned_line.replace("User:", "").strip()]
-        elif cleaned_line.startswith("Gemini:"):
-            if current_speaker:
-                conversation.append({
-                    "speaker": current_speaker,
-                    "utterance": "\n".join(current_utterance).strip(),
-                    "context": {}
-                })
-            current_speaker = "gemini"
-            current_utterance = [cleaned_line.replace("Gemini:", "").strip()]
+            current_speaker = cleaned_line.replace("Speaker:", "").strip()
+            current_utterance = []
+        elif cleaned_line.startswith("Utterance:"):
+            current_utterance.append(cleaned_line.replace("Utterance:", "").strip())
         elif current_speaker:
             current_utterance.append(cleaned_line)
 
@@ -53,6 +51,7 @@ def parse_cleaned_log(file_path):
         conversation.append({
             "speaker": current_speaker,
             "utterance": "\n".join(current_utterance).strip(),
+            "timestamp": current_timestamp,
             "context": {}
         })
 

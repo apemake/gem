@@ -48,12 +48,19 @@ def parse_chat_log(file_path):
     chat_turns = []
     current_user_input = []
     current_gemini_response = []
+    current_timestamp = None
     
     # State: 0 = looking for user input, 1 = collecting user input, 2 = collecting gemini response
     state = 0 
 
     with open(file_path, 'r', errors='ignore') as f:
         for line in f:
+            # Extract timestamp
+            timestamp_match = re.match(r'(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}-\d{2}:\d{2})', line)
+            if timestamp_match:
+                current_timestamp = timestamp_match.group(1)
+                line = line[len(current_timestamp):].lstrip()
+
             cleaned_line = strip_ansi_codes(line).strip()
 
             if not cleaned_line or is_noise(cleaned_line):
@@ -64,24 +71,28 @@ def parse_chat_log(file_path):
                 # If we were collecting a Gemini response, save it
                 if state == 2 and current_gemini_response:
                     chat_turns.append({
-                        "user": "\n".join(current_user_input).strip(),
-                        "gemini": "\n".join(current_gemini_response).strip()
+                        "speaker": "gemini",
+                        "utterance": "\n".join(current_gemini_response).strip(),
+                        "timestamp": current_timestamp
                     })
-                    current_user_input = []
                     current_gemini_response = []
                 
                 # Start collecting new user input
                 current_user_input.append(re.sub(r'^[| ]*> ', '', cleaned_line))
                 state = 1
             elif state == 1:
-                # Continue collecting user input if the line is not empty and doesn't look like a response
-                # This is a heuristic: if the line doesn't start with a common response indicator, assume it's part of multi-line user input
-                if not re.match(r'^[a-zA-Z0-9]', cleaned_line) and not cleaned_line.startswith("```"):
-                     current_user_input.append(cleaned_line)
-                else:
-                    # Transition to collecting Gemini response
-                    state = 2
-                    current_gemini_response.append(cleaned_line)
+                # If we were collecting user input, save it
+                if current_user_input:
+                    chat_turns.append({
+                        "speaker": "user",
+                        "utterance": "\n".join(current_user_input).strip(),
+                        "timestamp": current_timestamp
+                    })
+                    current_user_input = []
+
+                # Transition to collecting Gemini response
+                state = 2
+                current_gemini_response.append(cleaned_line)
             elif state == 2:
                 # Continue collecting Gemini response
                 current_gemini_response.append(cleaned_line)
@@ -92,10 +103,17 @@ def parse_chat_log(file_path):
                 state = 2 # Transition to collecting Gemini response
 
     # Add any remaining turn after the loop
-    if current_user_input or current_gemini_response:
+    if current_user_input:
         chat_turns.append({
-            "user": "\n".join(current_user_input).strip(),
-            "gemini": "\n".join(current_gemini_response).strip()
+            "speaker": "user",
+            "utterance": "\n".join(current_user_input).strip(),
+            "timestamp": current_timestamp
+        })
+    if current_gemini_response:
+        chat_turns.append({
+            "speaker": "gemini",
+            "utterance": "\n".join(current_gemini_response).strip(),
+            "timestamp": current_timestamp
         })
 
     return chat_turns
@@ -109,5 +127,6 @@ if __name__ == "__main__":
     parsed_data = parse_chat_log(file_path)
 
     for turn in parsed_data:
-        print(f"User: {turn['user']}\n")
-        print(f"Gemini: {turn['gemini']}\n")
+        print(f"Timestamp: {turn['timestamp']}")
+        print(f"Speaker: {turn['speaker']}")
+        print(f"Utterance: {turn['utterance']}\n")
