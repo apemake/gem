@@ -46,6 +46,10 @@
       {
         "name": "Confirmation of Receipt",
         "description": "After sending a message with a new instruction or a significant change, an agent must wait for a confirmation message from the recipient agent(s) before proceeding with the task. This ensures that all agents are aware of the new context before action is taken."
+      },
+      {
+        "name": "Swarm Inquiry",
+        "description": "If an agent encounters an unexpected change or a situation that is unclear, it should proactively inquire with other swarm members to seek clarification before taking action. This ensures that all agents are working with the most accurate and up-to-date information."
       }
     ]
   }
