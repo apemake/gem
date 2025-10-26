@@ -3,8 +3,9 @@ import json
 import sys
 
 def strip_ansi_codes(line):
-    """Removes ANSI escape codes from a string."""
-    return re.sub(r'\x1b\[[0-9;]*[mK]', '', line)
+    """Removes all ANSI escape codes from a string."""
+    ansi_escape = re.compile(r'(\x9B|\x1B\[)[0-?]*[ -/]*[@-~]')
+    return ansi_escape.sub('', line)
 
 def is_noise(line):
     """Checks if a line is considered noise and should be filtered out."""
@@ -56,7 +57,7 @@ def parse_chat_log(file_path):
     with open(file_path, 'r', errors='ignore') as f:
         for line in f:
             # Extract timestamp
-            timestamp_match = re.match(r'(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}-\d{2}:\d{2})', line)
+            timestamp_match = re.match(r'(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})', line)
             if timestamp_match:
                 current_timestamp = timestamp_match.group(1)
                 line = line[len(current_timestamp):].lstrip()
@@ -125,8 +126,4 @@ if __name__ == "__main__":
 
     file_path = sys.argv[1]
     parsed_data = parse_chat_log(file_path)
-
-    for turn in parsed_data:
-        print(f"Timestamp: {turn['timestamp']}")
-        print(f"Speaker: {turn['speaker']}")
-        print(f"Utterance: {turn['utterance']}\n")
+    print(json.dumps(parsed_data, indent=2))

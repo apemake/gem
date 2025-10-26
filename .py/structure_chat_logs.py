@@ -15,57 +15,12 @@ def strip_ansi_codes(line):
     return ansi_escape.sub('', line)
 
 def parse_cleaned_log(file_path):
-    """Parses a cleaned chat log file and returns a structured representation."""
+    """Parses a cleaned chat log file (in JSON format) and returns its content."""
     with open(file_path, 'r', errors='ignore') as f:
-        lines = f.readlines()
-
-    conversation = []
-    current_timestamp = None
-    current_speaker = None
-    current_utterance = []
-
-    for line in lines:
-        cleaned_line = strip_ansi_codes(line).strip()
-
-        if not cleaned_line:
-            continue
-
-        if cleaned_line.startswith("Timestamp:"):
-            current_timestamp = cleaned_line.replace("Timestamp:", "").strip()
-        elif cleaned_line.startswith("Speaker:"):
-            if current_speaker:
-                conversation.append({
-                    "speaker": current_speaker,
-                    "utterance": "\n".join(current_utterance).strip(),
-                    "timestamp": current_timestamp,
-                    "context": {}
-                })
-            current_speaker = cleaned_line.replace("Speaker:", "").strip()
-            current_utterance = []
-        elif cleaned_line.startswith("Utterance:"):
-            current_utterance.append(cleaned_line.replace("Utterance:", "").strip())
-        elif current_speaker:
-            current_utterance.append(cleaned_line)
-
-    if current_speaker:
-        conversation.append({
-            "speaker": current_speaker,
-            "utterance": "\n".join(current_utterance).strip(),
-            "timestamp": current_timestamp,
-            "context": {}
-        })
-
-    # This is a placeholder for session metadata extraction
-    session_id = "unknown"
-    start_time = "unknown"
-    end_time = "unknown"
-
-    return {
-        "session_id": session_id,
-        "start_time": start_time,
-        "end_time": end_time,
-        "conversation": conversation
-    }
+        try:
+            return json.load(f)
+        except json.JSONDecodeError:
+            return []
 
 def get_folder_paths(date_obj):
     """Generates the folder paths for a given date."""
