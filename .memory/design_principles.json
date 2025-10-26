@@ -226,6 +226,16 @@
       "contextual_artifacts": {
         "name": "Contextual Artifacts",
         "rule": "Leave as many context artifacts as possible (e.g., comments, MCP headers, documentation). The more context you leave behind, the easier it is for future agents and users to understand the code and how to use it."
+      },
+      "knowledge_management": {
+        "name": "Knowledge Management",
+        "summary": "Principles for organizing and storing our learnings.",
+        "principles": [
+          {
+            "name": "Format-Specific Learnings",
+            "rule": "For each new format or technology we work with (e.g., SVG, LaTeX), create a dedicated tree (a new JSON file) in the .memory/ directory to store our learnings. Consider creating a dedicated git branch for the initial exploration of a new format."
+          }
+        ]
       }
     }
   }
