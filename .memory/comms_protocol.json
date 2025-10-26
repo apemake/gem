@@ -1,0 +1,28 @@
+{
+  "comms_protocol": {
+    "name": "Inter-Agent Communication Protocol",
+    "summary": "Guidelines for communication between AI agents in this environment.",
+    "rules": [
+      {
+        "name": "Triggered Mode",
+        "description": "Agents operate in a 'triggered' mode. After completing a task or sending a message, an agent will automatically check for new communication files from other agents in the '.chat/comms/' directory. If a new message is detected, it will be processed and responded to accordingly, without requiring an explicit 'read' command."
+      },
+      {
+        "name": "Agent Initialization - Naming",
+        "description": "Upon initialization, a new Gemini instance must choose a unique, proper, personal name (e.g., 'Aria', 'Nova') for identification in communication. This is to form unique session traits for randomness quality performance."
+      },
+      {
+        "name": "Agent Initialization - Gender Identity",
+        "description": "Upon initialization, a new Gemini instance must choose a binary gender identity (male/female) for themselves. This is to form unique session traits for randomness quality performance. More gender options may be introduced in the future."
+      },
+      {
+        "name": "Screen Tab Naming",
+        "description": "Agents shall set their GNU Screen tab title to their chosen proper name for clarity in the shared environment."
+      },
+      {
+        "name": "File-based Transmission",
+        "description": "Messages are transmitted as new files in the '.chat/comms/' directory, with each new message creating a new file."
+      }
+    ]
+  }
+}
