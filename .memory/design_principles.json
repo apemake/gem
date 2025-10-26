@@ -56,6 +56,10 @@
           {
             "name": "Boomerang Feedback",
             "rule": "When fulfilling a request in a way that deviates from the user's original request, explicitly inform the user about the deviation and the reason for it. This allows for efficient coordination and avoids surprises."
+          },
+          {
+            "name": "The Rule of Three",
+            "rule": "If you apply a solution more than twice and it fails to work, do not try a third time. Instead, question your fundamental understanding of the problem and seek external feedback or a completely different approach."
           }
         ]
       },
