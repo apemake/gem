@@ -12,6 +12,11 @@
   "sync_rule": "The 'private/bestape' branch should NOT pull from 'memory'. The 'memory' branch is independent.",
   "git_best_practices": {
     "nested_standalone_repos": "When creating a 'standalone' Git repository within another Git repository, the child repository should NOT be committed or tracked by the parent repository. The parent's .gitignore should list the child directory to explicitly ignore it. Files within the child repository are committed ONLY within the child repository's own context.",
-    "private_branch_flow": "The 'private/bestape' branch is a terminal working branch. Changes from 'private/bestape' should NEVER be merged into 'memory' or any other branch. 'memory' is updated independently for shared content and configurations."
+    "private_branch_flow": "The 'private/bestape' branch is a terminal working branch. Changes from 'private/bestape' should NEVER be merged into 'memory' or any other branch. 'memory' is updated independently for shared content and configurations.",
+    "large_file_commit_policy": {
+      "name": "Large File Commit Policy",
+      "description": "Before committing a file larger than 1MB, ask for user confirmation. This prevents accidentally committing large generated files to the repository.",
+      "file_size_limit_mb": 1
+    }
   }
 }
