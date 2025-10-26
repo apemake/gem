@@ -46,6 +46,10 @@
           {
             "name": "Starting Point for Context",
             "rule": "When beginning a new task or trying to understand a situation, the best place to start is by reviewing the Git commits and their associated timestamps. This provides the most reliable historical context for the project's evolution."
+          },
+          {
+            "name": "Boomerang Feedback",
+            "rule": "When fulfilling a request in a way that deviates from the user's original request, explicitly inform the user about the deviation and the reason for it. This allows for efficient coordination and avoids surprises."
           }
         ]
       },
