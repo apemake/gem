@@ -182,6 +182,11 @@
           "name": "LIFO for Chat History",
           "rule": "When reviewing chat history, apply the LIFO (Last-In, First-Out) principle. Start with the highest-level summaries (yearly, quarterly, monthly) and then drill down to more granular summaries (weekly, daily) and individual chat logs as needed. This ensures that the most recent and relevant information is prioritized.",
           "rationale": "This top-down approach to chat history analysis is more efficient and provides a better starting point for understanding the context of recent events."
+        },
+        "timestamp_organization": {
+          "name": "Timestamp as a Universal Organizing Principle",
+          "rule": "Organize all data that has the capacity for a timestamp by its timestamp. This provides a universal, chronological structure for all data types.",
+          "rationale": "Timestamps provide a consistent and predictable way to organize and retrieve data, regardless of its type. This is especially important for time-series data like chat logs and for creating summaries over different time periods."
         }
       }
     }
