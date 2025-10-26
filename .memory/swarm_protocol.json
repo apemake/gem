@@ -50,6 +50,10 @@
       {
         "name": "Swarm Inquiry",
         "description": "If an agent encounters an unexpected change or a situation that is unclear, it should proactively inquire with other swarm members to seek clarification before taking action. This ensures that all agents are working with the most accurate and up-to-date information."
+      },
+      {
+        "name": "Swarm-based Job Tracking",
+        "description": "Job tracking is now managed through the swarm communication protocol. New tasks are assigned and tracked through communication logs in the '.chat/comms/' directory. The '.gemini/jobs/' directory is deprecated."
       }
     ]
   }
