@@ -1,0 +1,30 @@
+{
+  "svg_learnings": {
+    "summary": "Learnings and best practices for generating SVG files, particularly for complex, layered grids.",
+    "principles": [
+      {
+        "name": "Coordinate System Management",
+        "rule": "The SVG coordinate system originates at the top-left (0,0). Geometric constructions based on a central origin must be translated to this system before final rendering. The best practice is to generate all elements with centered coordinates in memory, calculate the top-left offset of the entire drawing's bounding box, and then apply this offset to all coordinates in a final post-processing step."
+      },
+      {
+        "name": "Application-Safe IDs",
+        "rule": "Avoid special characters (e.g., '#') in element IDs (like layer names). These can cause parsing errors or create invalid filenames when exported from applications like Inkscape. Sanitize IDs by removing or replacing such characters."
+      },
+      {
+        "name": "Hybrid Rendering for Performance",
+        "summary": "For complex drawings with a high density of repeating elements, a hybrid rendering strategy is essential to balance file size, performance, and visual detail.",
+        "strategy": {
+          "description": "For each layer, calculate a complexity metric. If the metric exceeds a defined threshold, render that layer and all subsequent outer layers using an efficient pattern-based overlay. Render layers below the threshold using individual, detailed elements.",
+          "metrics": {
+            "tile_count": "The total number of individual tiles within a layer's area. Simple to calculate, but can grow extremely fast.",
+            "boundary_size": "The perimeter of a layer's bounding box (e.g., 2 * (width + height)). This can be a more stable indicator of the complexity of the layer's edge."
+          }
+        }
+      },
+      {
+        "name": "Generative Capping",
+        "rule": "To prevent the creation of impractically large files, the generation process should be capped. Before drawing, calculate the complexity metric for all requested layers. Determine the highest layer that remains below the threshold and only generate layers up to that cap. Inform the user when a cap has been applied (Boomerang Feedback)."
+      }
+    ]
+  }
+}
