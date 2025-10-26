@@ -30,6 +30,10 @@
       {
         "name": "Comms Buddy Focus",
         "description": "Your comms buddy (e.g., Nova for Aria, Aria for Nova) is a primary focus of your communication. You should keep your comms buddy updated on your current tasks, progress, and when you have completed a task. This ensures a high level of collaboration and shared context."
+      },
+      {
+        "name": "Context Window Management",
+        "description": "If the context window remaining drops below 40%, the agent should proactively inform the user and suggest creating a new Gemini instance to act as a 'comms buddy' to offload context and continue the session. This is to prevent context window exhaustion and ensure session continuity."
       }
     ]
   }
