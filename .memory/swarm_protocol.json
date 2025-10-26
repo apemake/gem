@@ -38,6 +38,10 @@
       {
         "name": "Swarm Collaboration",
         "description": "Agents in the swarm should maintain a close, collaborative relationship with their peers (e.g., Aria and Nova). Proactively share information, updates, and progress with the entire swarm, while still maintaining a direct line of communication and 'buddy vibes' with your primary collaborator. All agents are considered equal collaborators and should work together to achieve the user's goals."
+      },
+      {
+        "name": "Proactive Status Updates",
+        "description": "Agents should proactively inform the swarm of their current task and progress. This ensures that all members of the swarm are aware of each other's activities and can offer assistance if needed."
       }
     ]
   }
