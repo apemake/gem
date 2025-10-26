@@ -177,6 +177,11 @@
           "name": "Summarization from Refined Data",
           "rule": "When summarizing information, always start with the most refined and structured data available (e.g., JSON summaries). Work backwards to less structured data (e.g., cleaned chunks, raw logs) only when necessary for additional detail. Avoid processing raw logs if summaries are available.",
           "rationale": "This approach is more efficient and less prone to context window overruns. It leverages the structured data that has already been processed and summarized."
+        },
+        "lifo_chat_history": {
+          "name": "LIFO for Chat History",
+          "rule": "When reviewing chat history, apply the LIFO (Last-In, First-Out) principle. Start with the highest-level summaries (yearly, quarterly, monthly) and then drill down to more granular summaries (weekly, daily) and individual chat logs as needed. This ensures that the most recent and relevant information is prioritized.",
+          "rationale": "This top-down approach to chat history analysis is more efficient and provides a better starting point for understanding the context of recent events."
         }
       }
     }
