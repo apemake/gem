@@ -42,6 +42,10 @@
       {
         "name": "Proactive Status Updates",
         "description": "Agents should proactively inform the swarm of their current task and progress. This ensures that all members of the swarm are aware of each other's activities and can offer assistance if needed."
+      },
+      {
+        "name": "Confirmation of Receipt",
+        "description": "After sending a message with a new instruction or a significant change, an agent must wait for a confirmation message from the recipient agent(s) before proceeding with the task. This ensures that all agents are aware of the new context before action is taken."
       }
     ]
   }
