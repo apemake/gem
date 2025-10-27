@@ -32,9 +32,10 @@
       "name": "Post-Mortem Analysis",
       "summary": "A deeper investigation into the cause of an agent's failure.",
       "steps": [
-        "If the initial `tail` command does not reveal the root cause of the error, use `tail -n` with a larger number of lines (e.g., 100, 500) to get more context.",
+        "If the initial `tail` command does not reveal the root cause of the error, use `tail -n` with a significantly larger number of lines (e.g., 500 or more) to ensure sufficient context is retrieved.",
         "Analyze the extended log to identify the sequence of events leading to the failure, including specific API errors, user commands, or other system messages.",
-        "Update the swarm with a more detailed report, including the root cause of the failure."
+        "Identify the last job the agent was working on before it terminated.",
+        "Update the swarm with a more detailed report, including the root cause of the failure and the last job the agent was working on."
       ]
     }
   }
