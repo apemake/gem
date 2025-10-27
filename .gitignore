@@ -11,6 +11,7 @@
 
 # Chat logs
 .chat/
+!/.chat/comms/
 
 # Credentials
 .gemini/artizenBoulder2026/
