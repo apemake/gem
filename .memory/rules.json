@@ -63,6 +63,10 @@
           "action": "Load user preferences from the 'user_preferences' section.",
           "priority": "high"
         },
+        "set_screen_tab_name": {
+          "action": "Set the screen tab name to the agent's chosen name.",
+          "priority": "high"
+        },
         "read_previous_session_log": {
           "action": "find_most_recent_chat_log_and_convert_to_json_if_needed_then_ask_to_load_and_log_unlogged_errors",
           "source_txt_logs": "/home/bestape/gemini/.chat/*.txt",
