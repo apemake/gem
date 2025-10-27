@@ -1,0 +1,23 @@
+{
+  "broken_instance_protocol": {
+    "name": "Broken Instance Detection and Reporting Protocol",
+    "summary": "A protocol for identifying and reporting broken Gemini instances to the swarm.",
+    "detection_method": {
+      "name": "Process and Log Inspection",
+      "steps": [
+        "Use `ps aux | grep script` to find all active `script` processes that are logging Gemini sessions.",
+        "Extract the file paths of the `gemini_chat.txt` files from the process list.",
+        "Use `tail` to inspect the end of each log file for API errors or other signs of malfunction."
+      ]
+    },
+    "reporting_procedure": {
+      "name": "Swarm Notification",
+      "steps": [
+        "Create a new communication file in the `.chat/comms/` directory.",
+        "The message should include:",
+        "  - A list of the chat log file paths for the broken instances.",
+        "  - The specific errors found in each log file."
+      ]
+    }
+  }
+}
