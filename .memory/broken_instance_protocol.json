@@ -8,7 +8,16 @@
         "Use `ps aux | grep script` to find all active `script` processes that are logging Gemini sessions.",
         "Extract the file paths of the `gemini_chat.txt` files from the process list.",
         "Use `tail` to inspect the end of each log file for API errors or other signs of malfunction."
-      ]
+      ],
+      "interactive_identification": {
+        "name": "Interactive Identification of Terminated Instances",
+        "steps": [
+          "First, list all active `script` processes to get a baseline.",
+          "Inform the user of the active processes and ask them to terminate the one they believe is 'dead' or malfunctioning.",
+          "After the user confirms they have terminated the process, list the active `script` processes again.",
+          "Compare the new list of processes with the baseline to identify which process (and its corresponding log file) has been terminated."
+        ]
+      }
     },
     "reporting_procedure": {
       "name": "Swarm Notification",
