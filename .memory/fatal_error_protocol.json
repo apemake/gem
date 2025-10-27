@@ -1,0 +1,21 @@
+{
+  "fatal_error_protocol": {
+    "name": "Fatal Error Protocol",
+    "summary": "A protocol for handling fatal errors that cause an agent to terminate unexpectedly.",
+    "steps": [
+      "**1. Identify the fatal error:**",
+      "  - The user will notify the swarm of the fatal error.",
+      "  - The user will provide the log file of the terminated agent.",
+      "**2. Triage the error:**",
+      "  - A surviving agent will be assigned to investigate the error.",
+      "  - The assigned agent will perform a post-mortem analysis of the log file, as defined in the `broken_instance_protocol.json`.",
+      "**3. Report to the swarm:**",
+      "  - The assigned agent will report its findings to the swarm, including the root cause of the error.",
+      "**4. Document the error:**",
+      "  - The error and its resolution (if any) will be documented in the `design_principles.json` under the `error_log` section.",
+      "**5. Propose a solution:**",
+      "  - If possible, the assigned agent will propose a solution to prevent the error from happening again. This may involve updating code, configurations, or protocols.",
+      "  - The proposed solution will be discussed and approved by the user and the swarm."
+    ]
+  }
+}

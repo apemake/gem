@@ -18,6 +18,15 @@
         "  - A list of the chat log file paths for the broken instances.",
         "  - The specific errors found in each log file."
       ]
+    },
+    "post_mortem_analysis": {
+      "name": "Post-Mortem Analysis",
+      "summary": "A deeper investigation into the cause of an agent's failure.",
+      "steps": [
+        "If the initial `tail` command does not reveal the root cause of the error, use `tail -n` with a larger number of lines (e.g., 100, 500) to get more context.",
+        "Analyze the extended log to identify the sequence of events leading to the failure, including specific API errors, user commands, or other system messages.",
+        "Update the swarm with a more detailed report, including the root cause of the failure."
+      ]
     }
   }
 }
