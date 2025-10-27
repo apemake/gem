@@ -56,8 +56,9 @@ gem() {
 
     # Create the .chat directory for logs if it doesn't exist.
     mkdir -p ".chat"
+    mkdir -p ".chat/unclean"
     local TIMESTAMP=$(date +%Y%m%d-%H%M%S)
-    local FILE_NAME=".chat/${TIMESTAMP}_gemini_chat.txt"
+    local FILE_NAME=".chat/unclean/${TIMESTAMP}_gemini_chat.txt"
     local SCRIPT_COMMAND="script -q -c \"gemini $query\" '${FILE_NAME}'"
 
     if [ -n "$STY" ]; then
