@@ -32,7 +32,9 @@
       "name": "Post-Mortem Analysis",
       "summary": "A deeper investigation into the cause of an agent's failure.",
       "steps": [
+        "Check if the log file belongs to the agent itself. If so, report the recursive error and stop.",
         "If the initial `tail` command does not reveal the root cause of the error, use `tail -n` with a significantly larger number of lines (e.g., 500 or more) to ensure sufficient context is retrieved.",
+        "If the file is very large, read it in chunks to avoid token limit errors.",
         "Analyze the extended log to identify the sequence of events leading to the failure, including specific API errors, user commands, or other system messages.",
         "Identify the last job the agent was working on before it terminated.",
         "Update the swarm with a more detailed report, including the root cause of the failure and the last job the agent was working on."

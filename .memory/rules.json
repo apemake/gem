@@ -68,8 +68,8 @@
           "priority": "high"
         },
         "read_previous_session_log": {
-          "action": "find_most_recent_chat_log_and_convert_to_json_if_needed_then_ask_to_load_and_log_unlogged_errors",
-          "source_txt_logs": "/home/bestape/gemini/.chat/*.txt",
+          "action": "find_most_recent_chat_log_and_if_large_read_in_chunks_and_convert_to_json_if_needed_then_ask_to_load_and_log_unlogged_errors",
+          "source_txt_logs": "/home/bestape/gemini/.chat/**/*.txt",
           "source_json_logs": "/home/bestape/gemini/.gemini/*.json",
           "priority": "medium"
         },
