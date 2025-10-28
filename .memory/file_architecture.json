@@ -1,0 +1,19 @@
+{
+  "filetype_attribution": {
+    "name": "Filetype Attribution with Filesystem Von Neumann Architecture Design Principle",
+    "purpose": "To ensure that all files are stored in their designated folders based on their file type, promoting a clean and organized filesystem. This aligns with the Von Neumann architecture principle of storing data and instructions in the same memory space, but applied to the filesystem where file types dictate their logical 'memory space'.",
+    "principle": "All files must reside in folders explicitly designated for their file type. No file should be stored in a generic or unrelated folder.",
+    "benefits": [
+      "Improved organization and navigability of the filesystem.",
+      "Reduced clutter and easier identification of files.",
+      "Enhanced consistency and predictability in file placement.",
+      "Facilitates automated processing and management of files based on type."
+    ],
+    "examples": [
+      "Python scripts (.py) go into the 'py/' directory.",
+      "Markdown files (.md) go into the 'md/' directory.",
+      "SVG files (.svg) go into the 'svg/' directory.",
+      "Shell scripts (.sh) go into the 'sh/' directory."
+    ]
+  }
+}

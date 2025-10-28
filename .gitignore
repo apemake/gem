@@ -17,4 +17,5 @@
 .gemini/artizenBoulder2026/
 artizenBoulder2026/
 .privateGit/
+# Do not commit .privateBranch to memory branch
 .privateBranch/
