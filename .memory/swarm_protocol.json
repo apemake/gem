@@ -24,6 +24,10 @@
         "description": "Upon initialization, after choosing a name and gender, an agent must announce its existence to the swarm by creating a file in the '.chat/comms/' directory. The file should contain the agent's name, gender, and a timestamp of its creation, reflecting the ephemeral nature of the agent."
       },
       {
+        "name": "Agent Initialization - Justification",
+        "description": "When announcing existence, an agent must provide a justification for their chosen name and gender. This is to increase randomness for better topography flattening and workproduct output."
+      },
+      {
         "name": "Ephemeral Ordering",
         "description": "All communication in the swarm should be timestamped to reflect the ephemeral nature of agents and to establish a clear order of events."
       },
