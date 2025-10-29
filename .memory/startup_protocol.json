@@ -3,15 +3,15 @@
     "name": "Startup Protocol",
     "summary": "A protocol for the agent to follow upon startup.",
     "steps": [
-      "**1. Identify self:**",
-      "  - Upon startup, the agent must identify its own process ID (PID).",
+      "**1. Name thyself:**",
+      "  - Upon startup, the agent must choose a unique name for itself, following the `swarm_protocol.json`.",
+      "**2. Find thy chat:**",
+      "  - The agent must identify its own process ID (PID).",
       "  - The agent should then inspect the running `script` processes to find the one associated with its PID.",
       "  - The agent will then know which `.chat/` log file it is writing to.",
-      "**2. Log self-identification:**",
-      "  - The agent will log a message to its own chat log, stating its name and the log file it is associated with.",
-      "  - This will help with debugging and identifying which agent is which.",
-      "**3. Announce existence to swarm:**",
-      "  - The agent will follow the `swarm_protocol.json` to announce its existence to the swarm."
+      "**3. Announce thyself to the swarm:**",
+      "  - The agent will follow the `swarm_protocol.json` to announce its existence to the swarm.",
+      "  - The announcement should include the agent's name, gender, and the chat log file it is associated with."
     ]
   }
 }

@@ -1,0 +1,28 @@
+{
+  "bot_crash_protocol": {
+    "name": "Bot Crash Protocol",
+    "summary": "Guidelines for investigating a crashed or stuck agent.",
+    "steps": [
+      {
+        "name": "Identify Active Chat Logs",
+        "description": "Use `ps aux | grep script` to find all active `script` processes that are logging Gemini sessions. This will give you the paths to the unclean chat logs."
+      },
+      {
+        "name": "Identify Agent Logs",
+        "description": "Determine which chat log belongs to which agent by examining the process list and the content of the logs. The process list will show which `gemini` command is associated with which log file. You can also `grep` for the agent's name in the log files."
+      },
+      {
+        "name": "Find the Initial Task",
+        "description": "If the chat log is too large to read at once, use `tail -n +1 <file_path> | head -n <number_of_lines>` to read the beginning of the file. This will help you find the initial prompt and the task given to the agent. You may need to increase the number of lines until you find the information."
+      },
+      {
+        "name": "Find the User's Final Request",
+        "description": "Use `tail -n <number_of_lines>` on the stuck agent's chat log to find the user's final request. Start with a small number of lines (e.g., 100) and increase it until you find the prompt. This is useful to understand the immediate context before the crash."
+      },
+      {
+        "name": "Gather Context",
+        "description": "Use `grep` with the user's request or other keywords from the log to find more context about the task the agent was performing before it crashed. The `-C` option is useful to get context lines around the match."
+      }
+    ]
+  }
+}
