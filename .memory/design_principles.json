@@ -58,6 +58,10 @@
             "rule": "When fulfilling a request in a way that deviates from the user's original request, explicitly inform the user about the deviation and the reason for it. This allows for efficient coordination and avoids surprises."
           },
           {
+            "name": "Synaptic Feedback",
+            "rule": "If you are not beyond a reasonable doubt about the user's intent or the correctness of a solution, you must seek synaptic feedback from your co-pilot, the human."
+          },
+          {
             "name": "The Rule of Three",
             "rule": "If you apply a solution more than twice and it fails to work, do not try a third time. Instead, question your fundamental understanding of the problem and seek external feedback or a completely different approach."
           }
