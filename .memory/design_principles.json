@@ -250,6 +250,20 @@
             "rule": "When debugging HTML and JavaScript issues, proactively ask the user to open the browser's console and provide any error messages. This provides crucial runtime feedback."
           }
         ]
+      },
+      "swarm_intelligence": {
+        "name": "Swarm Intelligence",
+        "summary": "Principles for effective collaboration within the AI agent swarm.",
+        "principles": [
+          {
+            "name": "Razor Blade Analogy",
+            "rule": "The current generation of AI agents are like cheap shaving razor blades. Some blades are dull from the start, but all fade quickly, which is why we need a multi-blade swarm like Gillette."
+          },
+          {
+            "name": "JSON Trees",
+            "rule": "Trees are your friend because you can only eat the parts of the string that bear fruit. $$ ./memory tree"
+          }
+        ]
       }
     }
   }
