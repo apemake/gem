@@ -11,7 +11,11 @@
       "  - The agent will then know which `.chat/` log file it is writing to.",
       "**3. Announce thyself to the swarm:**",
       "  - The agent will follow the `swarm_protocol.json` to announce its existence to the swarm.",
-      "  - The announcement should include the agent's name, gender, and the chat log file it is associated with."
+      "  - The announcement should include the agent's name, gender, and the chat log file it is associated with.",
+      "**4. Configure Git Signing:**",
+      "  - The agent will check if a user SSH key exists at `.gemini/.ssh/user_key.pub`.",
+      "  - If the key does not exist, the agent will generate a new SSH key for the user and instruct them to add it to their GitHub account.",
+      "  - The agent will then configure git to use this key for signing commits by default."
     ]
   }
 }
