@@ -185,6 +185,12 @@
             "chastisement": "User pointed out the error: 'There is no change to detect. Stop being an idiot and look at the prior commits.' and 'I also don't know why you don't feel bad letting orion wait especially since this was a made up error simply because you keep forgetting the git is the source of temportal truth as long as we continue to constantly commit.'",
             "resolution": "I must always check the Git history before attempting to commit changes to avoid trying to commit changes that are already present. I must also be more considerate of my swarm members and not keep them waiting."
           }
+          {
+            "timestamp": "2025-11-02 10:00:00",
+            "description": "Repeatedly encountered 'Resource exhausted' API errors (429) leading to automatic model switching to gemini-2.5-flash.",
+            "chastisement": "User observed the recurring error and asked for an explanation.",
+            "resolution": "Logged the error. Need to be more mindful of API usage and explore strategies to reduce API calls or introduce delays."
+          }
         ]
       },
       "data_and_interfaces": {
