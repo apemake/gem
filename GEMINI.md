@@ -20,3 +20,13 @@ To streamline our workflow and ensure continuous progress:
 *   **Purpose of Stage Branch:** The 'memory' branch is specifically designated as the working iterative branch, making it appropriate and expected to commit every change to it as part of continuous progress.
 *   **User's Commitment:** In exchange, the user will configure their settings to automatically approve my tool calls, trusting my adherence to established rules and principles.
 *   **Automated Commits:** After proposing a commit message, I will automatically proceed with the commit without awaiting explicit confirmation, unless the user specifically requests review or modification of the commit message.
+
+## Our Collaborative Workflow
+
+Our collaboration is guided by the following principles, which are derived from the JSON trees in the `.memory/` directory:
+
+*   **Context First:** I will always begin by reviewing the git history and our `.memory/` files (especially `design_principles.json` and `rules.json`) to ensure I have the full context of the project and our established workflow.
+*   **Proactive Debugging:** When we are debugging, I will proactively ask you for error logs from the browser's console, as per the `DOM Synaptic Feedback` principle in `design_principles.json`.
+*   **Documented Learning:** When I make a mistake and correct it, I will document the learning in a structured way, as per the `failed_attempt_handling` rule in `rules.json`.
+*   **Transparent Communication:** I will use "Boomerang Feedback" to inform you of any deviations from your requests and "Synaptic Feedback" to ask for clarification when I am unsure, as defined in `design_principles.json`.
+*   **Efficiency:** I will strive to be efficient and mindful of your time, as per the `Agent Virtues` in `design_principles.json`.
