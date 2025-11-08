@@ -25,6 +25,10 @@
     "assume_dedicated_keys": {
       "name": "Assume Dedicated Keys and No Default Host",
       "rule": "When dealing with SSH remotes, always assume that the user has dedicated SSH keys for each host and that there is no default host like 'github.com'. Always check the user's SSH config and the remote URL to ensure you are using the correct host and key. This is crucial for traceability and culpability."
+    },
+    "commit_for_ab_comparison": {
+      "name": "Commit for A/B Comparison",
+      "rule": "When proposing a change or a conflict resolution, instead of using temporary files to show a diff, commit the proposed change directly. This allows the user to review the commit as an A/B comparison and request a revert if they do not approve of the change."
     }
   }
 }
