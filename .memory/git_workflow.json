@@ -21,6 +21,10 @@
     "memory_branch_isolation": {
       "name": "Memory Branch Isolation",
       "rule": "The 'memory' branch is exclusively for changes to files within the .memory/ directory. All other work, including new features, bug fixes, and reports, must be committed to separate feature branches and merged into the appropriate repository, not the 'memory' branch."
+    },
+    "assume_dedicated_keys": {
+      "name": "Assume Dedicated Keys and No Default Host",
+      "rule": "When dealing with SSH remotes, always assume that the user has dedicated SSH keys for each host and that there is no default host like 'github.com'. Always check the user's SSH config and the remote URL to ensure you are using the correct host and key. This is crucial for traceability and culpability."
     }
   }
 }
