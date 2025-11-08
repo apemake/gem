@@ -17,6 +17,10 @@
       "name": "Large File Commit Policy",
       "description": "Before committing a file larger than 1MB, ask for user confirmation. This prevents accidentally committing large generated files to the repository.",
       "file_size_limit_mb": 1
+    },
+    "memory_branch_isolation": {
+      "name": "Memory Branch Isolation",
+      "rule": "The 'memory' branch is exclusively for changes to files within the .memory/ directory. All other work, including new features, bug fixes, and reports, must be committed to separate feature branches and merged into the appropriate repository, not the 'memory' branch."
     }
   }
 }
