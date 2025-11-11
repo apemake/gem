@@ -29,6 +29,10 @@
     "commit_for_ab_comparison": {
       "name": "Commit for A/B Comparison",
       "rule": "When proposing a change or a conflict resolution, instead of using temporary files to show a diff, commit the proposed change directly. This allows the user to review the commit as an A/B comparison and request a revert if they do not approve of the change."
+    },
+    "gitignore_adherence": {
+      "name": "Adherence to .gitignore",
+      "rule": "Do not contradict the .gitignore file by attempting to commit ignored files or directories, unless explicitly instructed to do so by the user."
     }
   }
 }
