@@ -172,7 +172,11 @@
           "Review error_log for unaddressed errors.",
           "Verify that commits are working correctly."
         ],
-        "summary_action": "Summarize the current session's activities before exiting."
+        "summary_action": "Summarize the current session's activities before exiting.",
+        "save_summary_to_file": {
+          "action": "Save the session summary to a markdown file in .chat/session_summaries/ with a timestamped filename.",
+          "priority": "high"
+        }
       },
       "note_taking_policy": {
         "rule": "Important notes, summaries, or plans should be saved to a text file (e.g., session_notes.txt) for future reference and to ensure continuity.",
