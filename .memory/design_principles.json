@@ -194,6 +194,12 @@
             "description": "Repeatedly encountered 'Resource exhausted' API errors (429) leading to automatic model switching to gemini-2.5-flash.",
             "chastisement": "User observed the recurring error and asked for an explanation.",
             "resolution": "Logged the error. Need to be more mindful of API usage and explore strategies to reduce API calls or introduce delays."
+          },
+          {
+            "timestamp": "2025-11-12 03:55:00",
+            "description": "Failed to add a trailing newline to a file using the 'replace' and 'write_file' tools. The tools did not register a change when the only difference was a trailing newline. This appears to be an edge case with the tools.",
+            "chastisement": "User pointed out the failure: 'The method you're using probably doesn't work because you're just added a trailing line. A bit of an edge case, literally, the trailing line.'",
+            "resolution": "Used the shell command 'echo \"\" >> <file_path>' to successfully append a newline to the file. This method should be preferred for adding trailing newlines."
           }
         ]
       },
