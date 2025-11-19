@@ -10,6 +10,8 @@
 # If you modify this, after you're finished, run updateBash or restart Terminal.
 alias snakes='echo are in the grass'
 
+
+
 source $HOME/gemini/.dotfiles/gem_function.sh
 
 # Bind Ctrl+L to clear the screen

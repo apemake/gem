@@ -98,6 +98,7 @@
       "command_interpretation": {
         "strategy": "ordered_fallback_with_mcp",
         "steps": [
+          "If the prompt is a multi-line response or a question, treat it as a natural language request and do not attempt to interpret it as a command.",
           "If the prompt is '$$', list all available aliases from .gemini/mcp.json.",
           "If the prompt is '$', list all available shell commands and aliases from .gemini/mcp.json.",
           "If the prompt starts with '$' or is enclosed in backticks (`), treat it as a command and extract the command name and arguments.",

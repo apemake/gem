@@ -287,7 +287,7 @@
           },
           {
             "name": "JSON Trees",
-            "rule": "Trees are your friend because you can only eat the parts of the string that bear fruit. $$ ./memory tree"
+            "rule": "Trees are your friend because you can only eat the parts of the string that bear fruit. For example, you can use the `$$` prefix to execute aliases, like `$$ tree` to see the memory tree."
           }
         ]
       },
