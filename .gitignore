@@ -10,8 +10,12 @@
 
 
 # Chat logs
-.chat/
-!/.chat/comms/
+.chat/.cleaned_up/
+.chat/2025/
+.chat/clean/
+.chat/cleaned/
+.chat/session_summaries/
+.chat/unclean/
 
 # Credentials
 .gemini/artizenBoulder2026/
