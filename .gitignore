@@ -1,28 +1,47 @@
-# Learning Summary:
-# v1: Initial creation.
+# {
+#   "mcp_header": {
+#     "name": "Git Ignore Rules",
+#     "version": "1.1",
+#     "purpose": "Specifies intentionally untracked files to be ignored by Git.",
+#     "author": "Aella",
+#     "see_also": {
+#       "mcp_header_policy": ".memory/rules.json",
+#       "commenting_conventions": ".memory/rules.json"
+#     },
+#     "sections": [
+#       "Editor Backups",
+#       "Python Environment",
+#       "Chat Logs",
+#       "Credentials & Private Repositories"
+#     ]
+#   }
+# }
 
-# Editor backup files
+# == Editor Backups ==
+# Ignore common editor backup and swap files to prevent committing transient states.
 *#
 .#*
 
-# Python virtual environment
+# == Python Environment ==
+# Ignore the Python virtual environment directory, which is locally generated.
 .venv/
 
-
-# Chat logs
+# == Chat Logs ==
+# Ignore all chat log directories and files, as they are session-specific and not part of the core project.
 .chat/.cleaned_up/
 .chat/2025/
 .chat/clean/
 .chat/cleaned/
 .chat/session_summaries/
 .chat/unclean/
+/.chat/comms/*.json
 
-# Credentials
+# == Credentials & Private Repositories ==
+# Ignore directories that contain sensitive credentials or private, nested Git repositories.
 .gemini/artizenBoulder2026/
 artizenBoulder2026/
 .privateGit/
-# Do not commit .privateBranch to memory branch
+
 # WARNING: Do NOT track the .privateBranch/ directory in this repository.
 # It contains separate Git repositories and should always be ignored by the top-level Git.
 .privateBranch/
-/.chat/comms/*.json
