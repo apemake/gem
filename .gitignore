@@ -22,5 +22,7 @@
 artizenBoulder2026/
 .privateGit/
 # Do not commit .privateBranch to memory branch
+# WARNING: Do NOT track the .privateBranch/ directory in this repository.
+# It contains separate Git repositories and should always be ignored by the top-level Git.
 .privateBranch/
 /.chat/comms/*.json
