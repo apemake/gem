@@ -42,6 +42,6 @@
 artizenBoulder2026/
 .privateGit/
 
-# WARNING: Do NOT track the .privateBranch/ directory in this repository.
+# WARNING: Do NOT track the repos/ directory in this repository.
 # It contains separate Git repositories and should always be ignored by the top-level Git.
-.privateBranch/
+repos/
