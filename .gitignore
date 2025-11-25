@@ -28,13 +28,7 @@
 
 # == Chat Logs ==
 # Ignore all chat log directories and files, as they are session-specific and not part of the core project.
-.chat/.cleaned_up/
-.chat/2025/
-.chat/clean/
-.chat/cleaned/
-.chat/session_summaries/
-.chat/unclean/
-/.chat/comms/*.json
+.chat/
 
 # == Credentials & Private Repositories ==
 # Ignore directories that contain sensitive credentials or private, nested Git repositories.
