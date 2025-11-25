@@ -25,6 +25,7 @@
 # == Python Environment ==
 # Ignore the Python virtual environment directory, which is locally generated.
 .venv/
+.venv_precommit/
 
 # == Chat Logs ==
 # Ignore all chat log directories and files, as they are session-specific and not part of the core project.
