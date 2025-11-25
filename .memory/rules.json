@@ -32,11 +32,37 @@
         "memory_interaction_rule": "For any operations involving the .memory directory, switch to the 'boilerplate' branch. Do not merge changes from 'boilerplate' into 'private' branches for this purpose."
       },
       "pre_publish_security_check": {
-        "rule": "Always perform a security check for sensitive information before publishing externally.",
+        "rule": "Always perform a comprehensive security check for sensitive information before publishing externally.",
         "procedure": [
-          "Scan all tracked files for keywords such as 'key', 'secret', 'password', 'token', 'private'.",
-          "Manually review files that are likely to contain sensitive information, such as configuration files.",
-          "Ensure that no private keys or credentials are present in the repository."
+          "Use automated tools to scan the entire repository's history for secrets.",
+          "Manually review files that are likely to contain sensitive information, such as configuration files, scripts, and documentation.",
+          "Ensure that no private keys, API keys, passwords, tokens, or other credentials are present in the repository.",
+          "Verify that the .gitignore file is comprehensive and excludes all sensitive files and directories."
+        ]
+      },
+      "security_best_practices": {
+        "description": "Best practices to prevent secrets from being committed to the repository.",
+        "practices": [
+          {
+            "name": "Use .gitignore",
+            "description": "Add sensitive files and directories (e.g., .env, config.yml, secrets.json, API key files) to your .gitignore file to prevent Git from tracking them."
+          },
+          {
+            "name": "Use Environment Variables",
+            "description": "Never hardcode secrets directly into your source code. Instead, store them as environment variables and load them from untracked files (e.g., .env) during development."
+          },
+          {
+            "name": "Use Secret Management Tools",
+            "description": "For production and shared development environments, use robust secret management solutions like AWS Secrets Manager, HashiCorp Vault, or GitHub's repository secrets."
+          },
+          {
+            "name": "Use Pre-commit Hooks",
+            "description": "Implement pre-commit hooks to automatically scan for secrets before a commit is finalized. This is a critical line of defense to prevent accidental commits of sensitive data."
+          },
+          {
+            "name": "Remediation Plan",
+            "description": "If a secret is accidentally committed, assume it is compromised. Immediately revoke and rotate the exposed secret, and then remove it from the Git history using tools like git filter-repo."
+          }
         ]
       }
     },
