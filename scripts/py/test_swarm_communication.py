@@ -9,8 +9,8 @@ import glob
 AGENT_ALPHA = "Alpha"
 AGENT_BETA = "Beta"
 COMMS_DIR = os.path.join(".chat", "comms")
-SEND_SCRIPT = os.path.join(".py", "send_swarm_message.py")
-READ_SCRIPT = os.path.join(".py", "read_swarm_messages.py")
+SEND_SCRIPT = os.path.join("scripts", "py", "send_swarm_message.py")
+READ_SCRIPT = os.path.join("scripts", "py", "read_swarm_messages.py")
 
 class TestSwarmCommunication(unittest.TestCase):
 
@@ -33,7 +33,7 @@ class TestSwarmCommunication(unittest.TestCase):
             os.remove(f)
         
     def _send_message(self, sender, recipient, message_type, content, file_paths=None, commit_hashes=None, other_info=None):
-        cmd = ["python", SEND_SCRIPT,
+        cmd = ["python3", SEND_SCRIPT,
                "--sender", sender,
                "--recipient", recipient,
                "--message_type", message_type,
@@ -50,7 +50,7 @@ class TestSwarmCommunication(unittest.TestCase):
         time.sleep(0.1) # Give a small delay for file system operations
 
     def _read_messages(self, agent_name):
-        cmd = ["python", READ_SCRIPT, "--agent_name", agent_name]
+        cmd = ["python3", READ_SCRIPT, "--agent_name", agent_name]
         result = subprocess.run(cmd, capture_output=True, text=True, check=True)
         return result.stdout
 

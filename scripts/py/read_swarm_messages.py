@@ -4,7 +4,7 @@ import argparse
 import subprocess
 
 PROCESSED_MESSAGES_FILE = os.path.join(".chat", "comms", "processed_messages.txt")
-SEND_MESSAGE_SCRIPT = os.path.join(".py", "send_swarm_message.py")
+SEND_MESSAGE_SCRIPT = os.path.join("scripts", "py", "send_swarm_message.py")
 
 def get_processed_messages():
     if not os.path.exists(PROCESSED_MESSAGES_FILE):
@@ -21,7 +21,7 @@ def send_acknowledgment(sender_name, recipient_name, acknowledged_message_filena
     try:
         subprocess.run(
             [
-                "python", SEND_MESSAGE_SCRIPT,
+                "python3", SEND_MESSAGE_SCRIPT,
                 "--sender", sender_name,
                 "--recipient", recipient_name,
                 "--message_type", "acknowledgment",
