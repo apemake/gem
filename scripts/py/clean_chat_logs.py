@@ -7,7 +7,7 @@ import shutil
 CHAT_DIR = "/home/bestape/gemini/.chat/"
 CLEANED_ORIGINAL_DIR = "/home/bestape/gemini/.chat/cleaned/original/"
 CLEANED_CLEAN_DIR = "/home/bestape/gemini/.chat/cleaned/clean/"
-PARSE_SCRIPT = "/home/bestape/gemini/.py/parse_chat_log.py"
+PARSE_SCRIPT = "/home/bestape/gemini/scripts/py/parse_chat_log.py"
 TIME_THRESHOLD_HOURS = 5
 
 def clean_old_chat_logs():
