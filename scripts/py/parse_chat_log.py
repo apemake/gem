@@ -7,49 +7,14 @@ def strip_ansi_codes(line):
     ansi_escape = re.compile(r'(\x9B|\x1B\[)[0-?]*[ -/]*[@-~]')
     return ansi_escape.sub('', line)
 
-def is_noise(line):
+def is_noise(line, noise_patterns):
     """Checks if a line is considered noise and should be filtered out."""
-    # Common noise patterns observed in the logs
-    noise_patterns = [
-        r"Script started on",
-        r"Loaded cached credentials.",
-        r"Tips for getting started:",
-        r"Ask questions, edit files, or run commands.",
-        r"Be specific for the best results.",
-        r"/help for more information.",
-        r"Using: \d+ GEMINI.md files",
-        r"Press 'i' for INSERT mode and 'Esc' for NORMAL mode.",
-        r"Waiting for auth...",
-        r"Summoning the code gremlins...",
-        r"Acknowledging and Logging Updates",
-        r"Analyzing Confidentiality Clauses",
-        r"Concluding the Review",
-        r"Dissecting the Copyright Details",
-        r"Deconstructing the Contract",
-        r"╭", r"─", r"╮", r"│", r"╰", # Box drawing characters
-        r"\\[NORMAL\\]", r"\\[INSERT\\]", # Terminal prompts
-        r"Error: \(none\)", # Corrected
-        r"███", r"░░░", # ASCII art
-        r"\(stage\*\)", # Corrected
-        r"/docs\)", # Corrected
-        r"left\)", # Corrected
-        r"details\)", # Corrected
-        r"Pre-heating the servers...", # Added: terminal status
-        r"Checking for syntax errors in the universe...", # Added: terminal status
-        r"Polishing the algorithms...", # Added: terminal status
-        r"Garbage collecting...", # Added: terminal status
-        r"Giving Cloudy a pat on the head...", # Added: terminal status
-        r"⠋|⠙|⠹|⠸|⠼|⠴|⠦|⠧|⠇|⠏|esc to cancel", # Spinner and cancel message
-        r"\u001b]2;Gemini - gemini\u0007",
-        r"\[NORMAL\]",
-        r"Queued \(press .* to edit\):",
-    ]
     for pattern in noise_patterns:
         if re.search(pattern, line):
             return True
     return False
 
-def parse_chat_log(file_path):
+def parse_chat_log(file_path, noise_patterns):
     chat_turns = []
     current_user_input = []
     current_gemini_response = []
@@ -68,7 +33,7 @@ def parse_chat_log(file_path):
 
             cleaned_line = strip_ansi_codes(line).strip()
 
-            if not cleaned_line or is_noise(cleaned_line):
+            if not cleaned_line or is_noise(cleaned_line, noise_patterns):
                 continue
 
             # Check for user input pattern
@@ -124,10 +89,21 @@ def parse_chat_log(file_path):
     return chat_turns
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("Usage: python parse_chat_log.py <path_to_chat_file>", file=sys.stderr)
+    if len(sys.argv) < 2:
+        print("Usage: python parse_chat_log.py <path_to_chat_file> [noise_patterns_json]", file=sys.stderr)
         sys.exit(1)
 
     file_path = sys.argv[1]
-    parsed_data = parse_chat_log(file_path)
+    noise_patterns = []
+
+    if len(sys.argv) > 2:
+        noise_patterns = json.loads(sys.argv[2])
+    else:
+        # Load noise patterns from config
+        config_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), '..', '..', '.memory', 'parsing_config.json')
+        with open(config_path, 'r') as f:
+            config = json.load(f)
+        noise_patterns = config.get("noise_patterns", [])
+
+    parsed_data = parse_chat_log(file_path, noise_patterns)
     print(json.dumps(parsed_data, indent=2))

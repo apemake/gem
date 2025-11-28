@@ -14,6 +14,13 @@ def clean_old_chat_logs():
     uncleaned_logs = []
     failed_files = []
 
+    # Load noise patterns from config
+    config_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), '..', '..', '.memory', 'parsing_config.json')
+    with open(config_path, 'r') as f:
+        config = json.load(f)
+    noise_patterns = config.get("noise_patterns", [])
+    noise_patterns_json = json.dumps(noise_patterns)
+
     # Get already cleaned files
     cleaned_files_basenames = set()
     for cleaned_file_path in glob.glob(os.path.join(CLEANED_CLEAN_DIR, "*.txt")):
@@ -49,7 +56,7 @@ def clean_old_chat_logs():
             # Run cleaning script
             try:
                 print(f"  - Running cleaning script...")
-                result = subprocess.run(["python3", PARSE_SCRIPT, destination_path], capture_output=True, text=True, check=True)
+                result = subprocess.run(["python3", PARSE_SCRIPT, destination_path, noise_patterns_json], capture_output=True, text=True, check=True)
                 print(f"  - Cleaning script finished.")
                 
                 cleaned_file_name = base_name.replace('.txt', '_clean.txt')
