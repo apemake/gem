@@ -1,50 +1,58 @@
-# Gemini Agent Instructions
+# Gemini CLI Enhanced Environment
 
-Gemini, at the beginning of each session, please run `GEMINI.md` and do it.
+This repository provides an enhanced context environment for the Gemini CLI. It builds upon the foundation of the official [Gemini CLI](https://github.com/google-gemini/gemini-cli) to provide a more structured and persistent way for the agent to learn and evolve.
 
-# Gemini CLI Minimum Context Environment
+This environment is designed to be a starting point for users who want to have a more advanced and customized experience with the Gemini CLI.
 
-This repository provides a minimum context environment for the Gemini CLI, following the instructions and best practices outlined on the [Gemini CLI documentation site](https://google-gemini.github.io/gemini-cli/).
+## Prerequisites
 
-## How It Works
-
-This environment is designed to provide Gemini with a structured and efficient way to access long-term memory and context, enabling it to perform complex tasks and learn over time. It separates different types of information into a logical folder structure, and uses a combination of declarative configurations and scripts to manage the agent's behavior.
-
-### Folder Structure
-
-Here is a breakdown of the key folders and their purposes:
-
-*   **`.chat/`**: This directory contains the raw and processed chat logs. It serves as the agent's **temporal memory**, organized in a hierarchical structure by date.
-    *   **`cleaned/`**: Contains the cleaned and original log files after processing.
-        *   **`clean/`**: Holds the cleaned, human-readable versions of the chat logs.
-        *   **`original/`**: Stores the raw, unprocessed chat logs.
-    *   **`2025/` (example)**: A temporal hierarchy (Year/Quarter/Month/Week) containing structured JSON representations of the chat logs.
-*   **`.dotfiles/`**: Contains shell scripts and configuration files for managing the user's environment, such as `.bashrc` additions and the `gem` session management function.
-*   **`.gemini/`**: Holds user-specific settings and credentials for the Gemini CLI. This directory is ignored by git to protect sensitive information.
-*   **`.legal/`**: Contains legal documents and opinions related to the use of the Gemini service.
-*   **`.memory/`**: This is the core of the agent's long-term memory, organized by topic. It follows an **MCP (Master Command Profile) hierarchy**.
-    *   **`design_principles.json`**: Core principles that guide the agent's behavior and decision-making.
-    *   **`mcp.json`**: Defines command aliases and shortcuts for common tasks.
-    *   **`project_structure.json`**: A JSON representation of the repository's file structure, which the agent can use to understand its environment.
-    *   **`rules.json`**: The agent's primary configuration file, defining its behavior, policies, and startup procedures.
-*   **`.py/`**: Contains Python scripts for various maintenance tasks, such as cleaning chat logs and generating the project structure.
-*   **`.work/`**: A directory for temporary files and work-in-progress.
-
-### Memory Context
-
-The agent's memory is divided into two main types:
-
-*   **Temporal Hierarchy (`.chat/`)**: This represents the agent's episodic memory, storing the raw history of its conversations. The logs are organized by date, allowing the agent to retrieve information from specific past interactions.
-*   **MCP Hierarchy (`.memory/`)**: This is the agent's semantic memory, containing the rules, principles, and knowledge that govern its behavior. The "Master Command Profile" (MCP) is a system of declarative configurations that the agent uses to guide its actions.
-
-By combining these two memory systems, the agent can maintain a persistent identity, learn from its experiences, and adapt its behavior over time.
+Before you begin, ensure you have a working installation of the Gemini CLI. You can find the installation instructions on the [official Gemini CLI documentation site](https://google-gemini.github.io/gemini-cli/).
 
 ## Getting Started
 
-1.  **Start a new Gemini session.**
-2.  **Source the bash configuration:** For the `gem` command to work correctly, you need to source the `.dotfiles/.bashrc_unique` file in your shell's startup file (e.g., `~/.bashrc`, `~/.zshrc`). You can do this by adding the following line to your startup file:
+1.  **Clone this repository:**
+    ```bash
+    git clone https://github.com/diy-make/gemini.git
+    cd gemini
+    ```
+
+2.  **Source the bash configuration:**
+    For the `gem` command to work correctly, you need to source the `.dotfiles/.bashrc_unique` file in your shell's startup file (e.g., `~/.bashrc`, `~/.zshrc`). You can do this by adding the following line to your startup file:
 
     ```bash
-    source /home/bestape/gemini/.dotfiles/.bashrc_unique
+    source /path/to/your/gemini/repo/.dotfiles/.bashrc_unique
     ```
-3.  **Instruct the agent:** At the beginning of your session, please tell Gemini to "run README.md and do it" to ensure it is aware of the session's configuration and rules.
+    *Replace `/path/to/your/gemini/repo` with the actual path to the cloned repository.*
+
+3.  **Start a new Gemini session:**
+    ```bash
+    gemini
+    ```
+
+4.  **Instruct the agent:**
+    At the beginning of your session, please tell Gemini to:
+    ```
+    run README.md and do it
+    ```
+    This will instruct the agent to read the necessary configuration files and initialize itself for the session.
+
+## How It Works
+
+This environment provides Gemini with a structured way to access long-term memory and context, enabling it to perform complex tasks and learn over time.
+
+### Key Concepts
+
+*   **`.memory/` directory:** This is the core of the agent's long-term memory. It contains configuration files, rules, and design principles that govern the agent's behavior.
+*   **`.chat/` directory:** This directory stores the raw and processed chat logs, serving as the agent's temporal memory.
+*   **`GEMINI.md`:** This file contains the agent's core directives and initialization tasks for each session.
+*   **`repos/` directory:** This directory is for your own projects and repositories. It is ignored by the top-level git repository, so you can manage your projects independently.
+
+## Customization
+
+This environment is designed to be customized. You can modify the files in the `.memory/` directory to change the agent's behavior, add new command aliases in `mcp.json`, or even create new scripts in the `scripts/` directory to extend the agent's capabilities.
+
+---
+
+## Gemini Agent Instructions
+
+Gemini, at the beginning of each session, please run `GEMINI.md` and do it.
