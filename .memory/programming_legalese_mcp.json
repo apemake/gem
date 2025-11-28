@@ -1,0 +1,23 @@
+{                                                                             
+  "title": "Programming Legalese MCP",                                        
+  "description": "Machine Coded Principle for our programming legalese.",     
+  "principles": [                                                             
+    {                                                                         
+      "id": "PL-001",                                                         
+      "name": "Highly Structured JavaScript for Type Annotation",             
+      "description": "Our programming legalese, characterized by highly struct
+ured JavaScript, inherently annotates type through its consistent and explicit
+ structural patterns. This approach ensures clarity, predictability, and facil
+itates static analysis without relying solely on formal type annotation syntax
+.",                                                                           
+      "applies_to": ["JavaScript", "Frontend Development", "Backend Developmen
+t"],                                                                          
+      "benefits": [                                                           
+        "Improved code readability and maintainability",                      
+        "Reduced type-related errors",                                        
+        "Enhanced static analysis capabilities",                              
+        "Clearer communication of data structures and interfaces"             
+      ]                                                                       
+    }                                                                         
+  ]                                                                           
+}

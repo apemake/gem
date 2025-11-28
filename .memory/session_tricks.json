@@ -1,0 +1,9 @@
+{
+  "session_tricks": [
+    {
+      "trick": "use_git_commit_timestamps",
+      "description": "When the user is unsure about the timeline of our work, 
+I can use 'git log --since=\"YYYY-MM-DD\" --until=\"YYYY-MM-DD\"' to review the commits made on a specific day or range of days. This helps to reconstruct the work done in a session, even if the session spans multiple days."
+    }
+  ]
+}
