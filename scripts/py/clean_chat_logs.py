@@ -22,6 +22,10 @@ def clean_old_chat_logs():
     noise_patterns = config.get("noise_patterns", [])
     noise_patterns_json = json.dumps(noise_patterns)
 
+    # Get active chat logs from environment variable
+    active_chat_logs_json = os.environ.get("ACTIVE_CHAT_LOGS", "[]")
+    active_chat_logs = json.loads(active_chat_logs_json)
+
     # Get already cleaned files
     cleaned_files_basenames = set()
     for cleaned_file_path in glob.glob(os.path.join(CLEANED_CLEAN_DIR, "*.txt")):
@@ -30,6 +34,9 @@ def clean_old_chat_logs():
     for file_path in all_txt_files:
         base_name = os.path.basename(file_path)
         if base_name in cleaned_files_basenames:
+            continue
+
+        if file_path in active_chat_logs:
             continue
 
         uncleaned_logs.append(file_path)
