@@ -37,3 +37,4 @@
 # WARNING: Do NOT track the repos/ directory in this repository.
 # It contains separate Git repositories and should always be ignored by the top-level Git.
 repos/
+.gemini/
