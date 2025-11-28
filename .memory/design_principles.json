@@ -74,6 +74,13 @@
         "summary": "A record of agent mistakes and user chastisements for continuous improvement.",
         "entries": [
           {
+            "timestamp": "2025-11-28 13:55:00",
+            "description": "Misunderstood the behavior of `git diff <file>` when a file is modified but unstaged, leading to an incorrect conclusion that the file was not modified.",
+            "chastisement": "Self-chastisement: 'My apologies for this confusion. This is a good learning moment.'",
+            "resolution": "Use `git diff HEAD <file>` to compare a file with its last committed version, or `git diff` without arguments to see all unstaged changes."
+          },
+          {
+          {
             "timestamp": "2025-11-28 13:20:00",
             "description": "Incorrectly assumed the user's email address and the existence of a private SSH key during Git signing configuration. This led to a failed attempt and required user intervention.",
             "chastisement": "User corrected: 'hmmm, we need to have a better initialization protocol. For instance, that's not my email and I don't think a private key exists anymore.'",
