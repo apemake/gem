@@ -3,6 +3,7 @@ import glob
 import datetime
 import subprocess
 import shutil
+import json
 
 CHAT_DIR = "/home/bestape/gemini/.chat/unclean/"
 CLEANED_ORIGINAL_DIR = "/home/bestape/gemini/.chat/cleaned/original/"
