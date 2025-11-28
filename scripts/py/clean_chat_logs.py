@@ -4,11 +4,11 @@ import datetime
 import subprocess
 import shutil
 
-CHAT_DIR = "/home/bestape/gemini/.chat/"
+CHAT_DIR = "/home/bestape/gemini/.chat/unclean/"
 CLEANED_ORIGINAL_DIR = "/home/bestape/gemini/.chat/cleaned/original/"
 CLEANED_CLEAN_DIR = "/home/bestape/gemini/.chat/cleaned/clean/"
 PARSE_SCRIPT = "/home/bestape/gemini/scripts/py/parse_chat_log.py"
-TIME_THRESHOLD_HOURS = 5
+TIME_THRESHOLD_HOURS = 0
 
 def clean_old_chat_logs():
     now = datetime.datetime.now()
@@ -35,54 +35,51 @@ def clean_old_chat_logs():
     os.makedirs(CLEANED_ORIGINAL_DIR, exist_ok=True)
     os.makedirs(CLEANED_CLEAN_DIR, exist_ok=True)
 
-    for file_path in uncleaned_logs:
+    for i, file_path in enumerate(uncleaned_logs):
+        print(f"\nProcessing file {i+1}/{len(uncleaned_logs)}: {file_path}")
         if os.path.exists(file_path):
-            print(f"Processing: {file_path}")
             base_name = os.path.basename(file_path)
             
-            # Move original file
+            # Move original file to 'cleaned/original' as a backup
             try:
-                shutil.move(file_path, os.path.join(CLEANED_ORIGINAL_DIR, base_name))
-                print(f"Moved original log to: {os.path.join(CLEANED_ORIGINAL_DIR, base_name)}")
+                destination_path = os.path.join(CLEANED_ORIGINAL_DIR, base_name)
+                shutil.move(file_path, destination_path)
+                print(f"  - Moved original log to: {destination_path}")
             except Exception as e:
-                print(f"Error moving original file {file_path}: {e}")
+                print(f"  - Error moving original file {file_path}: {e}")
                 failed_files.append(file_path)
                 continue
 
             # Run cleaning script
             try:
-                original_file_path_in_cleaned_dir = os.path.join(CLEANED_ORIGINAL_DIR, base_name)
-                result = subprocess.run(["python3", PARSE_SCRIPT, original_file_path_in_cleaned_dir], capture_output=True, text=True, check=True)
+                print(f"  - Running cleaning script...")
+                result = subprocess.run(["python3", PARSE_SCRIPT, destination_path], capture_output=True, text=True, check=True)
+                print(f"  - Cleaning script finished.")
                 
                 cleaned_file_name = base_name.replace('.txt', '_clean.txt')
-                cleaned_file_path = os.path.join(CHAT_DIR, cleaned_file_name)
-
-                # Move cleaned file
-                if os.path.exists(cleaned_file_path):
-                    shutil.move(cleaned_file_path, os.path.join(CLEANED_CLEAN_DIR, cleaned_file_name))
-                    print(f"Moved cleaned log to: {os.path.join(CLEANED_CLEAN_DIR, cleaned_file_name)}")
+                
+                # The parse script now prints the cleaned content to stdout
+                if result.stdout:
+                    cleaned_file_path = os.path.join(CLEANED_CLEAN_DIR, cleaned_file_name)
+                    with open(cleaned_file_path, "w") as f:
+                        f.write(result.stdout)
+                    print(f"  - Wrote cleaned log to: {cleaned_file_path}")
                 else:
-                    # if the parse script did not create a cleaned file, it might be because it output it to stdout
-                    # let's write the stdout to the cleaned file
-                    if result.stdout:
-                        with open(os.path.join(CLEANED_CLEAN_DIR, cleaned_file_name), "w") as f:
-                            f.write(result.stdout)
-                        print(f"Wrote cleaned log to: {os.path.join(CLEANED_CLEAN_DIR, cleaned_file_name)}")
-                    else:
-                        print(f"Cleaned file not found for {file_path}")
-                        failed_files.append(file_path)
+                    print(f"  - Cleaned file not found for {file_path} (no stdout from parser).")
+                    failed_files.append(destination_path)
 
                 if result.stderr:
-                    print(f"Stderr for {file_path}:")
+                    print(f"  - Stderr for {file_path}:")
                     print(result.stderr)
 
             except subprocess.CalledProcessError as e:
-                print(f"Failed to clean {file_path}: {e}")
-                print(f"Stdout: {e.stdout}")
-                print(f"Stderr: {e.stderr}")
-                failed_files.append(file_path)
+                print(f"  - Failed to clean {destination_path}: {e}")
+                print(f"  - Stdout: {e.stdout}")
+                print(f"  - Stderr: {e.stderr}")
+                failed_files.append(destination_path)
             except FileNotFoundError:
-                print(f"Skipping non-existent file (already handled): {file_path}")
+                print(f"  - Error: {PARSE_SCRIPT} not found. Summarization failed for {destination_path}.")
+                failed_files.append(destination_path)
         else:
             print(f"Skipping non-existent file: {file_path}")
 
