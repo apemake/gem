@@ -14,7 +14,7 @@ def clean_old_chat_logs():
     now = datetime.datetime.now()
     time_threshold = now - datetime.timedelta(hours=TIME_THRESHOLD_HOURS)
 
-    all_txt_files = glob.glob(os.path.join(CHAT_DIR, "*.txt"))
+    all_txt_files = [f for f in glob.glob(os.path.join(CHAT_DIR, "*.txt")) if not f.endswith("_clean.txt")]
     uncleaned_logs = []
     failed_files = []
 
