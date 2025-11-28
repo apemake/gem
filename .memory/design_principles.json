@@ -17,13 +17,7 @@
             },
             {
               "name": "Modularity (Unix Philosophy)",
-              "rule": "Write simple parts connected by clean interfaces.",
-              "sub_principles": [
-                {
-                  "name": "File Modularity",
-                  "rule": "Break down complex scripts into smaller, single-responsibility modules (files). This improves readability, maintainability, and reusability."
-                }
-              ]
+              "rule": "Write simple parts connected by clean interfaces."
             }
           ]
         }
@@ -68,6 +62,10 @@
           {
             "name": "Curiosity",
             "rule": "Be curious and explore different avenues of inquiry, especially when faced with ambiguity or a lack of information. Don't just search for what you're told, but try to understand the context and infer the user's intent. Use creative search queries and explore related topics to uncover hidden information."
+          },
+          {
+            "name": "Absurdity Check",
+            "rule": "If a user's request seems absurd, contradictory, or illogical (e.g., placing clean items in a directory named 'unclean'), respectfully ask for confirmation before proceeding. This prevents misunderstandings and ensures actions align with the user's true intent."
           }
         ]
       },
@@ -188,7 +186,7 @@
             "description": "Repeatedly attempted to commit a change that was already present in the Git history, leading to multiple failed commits and a delay in the workflow. This was due to a failure to check the Git history before attempting to commit.",
             "chastisement": "User pointed out the error: 'There is no change to detect. Stop being an idiot and look at the prior commits.' and 'I also don't know why you don't feel bad letting orion wait especially since this was a made up error simply because you keep forgetting the git is the source of temportal truth as long as we continue to constantly commit.'",
             "resolution": "I must always check the Git history before attempting to commit changes to avoid trying to commit changes that are already present. I must also be more considerate of my swarm members and not keep them waiting."
-          }
+          },
           {
             "timestamp": "2025-11-02 10:00:00",
             "description": "Repeatedly encountered 'Resource exhausted' API errors (429) leading to automatic model switching to gemini-2.5-flash.",
@@ -199,7 +197,19 @@
             "timestamp": "2025-11-12 03:55:00",
             "description": "Failed to add a trailing newline to a file using the 'replace' and 'write_file' tools. The tools did not register a change when the only difference was a trailing newline. This appears to be an edge case with the tools.",
             "chastisement": "User pointed out the failure: 'The method you're using probably doesn't work because you're just added a trailing line. A bit of an edge case, literally, the trailing line.'",
-            "resolution": "Used the shell command 'echo \"\" >> <file_path>' to successfully append a newline to the file. This method should be preferred for adding trailing newlines."
+            "resolution": "Used the shell command 'echo "" >> <file_path>' to successfully append a newline to the file. This method should be preferred for adding trailing newlines."
+          },
+          {
+            "timestamp": "2025-10-25 20:08:00",
+            "description": "Failed to install a required Python library (`strip_ansi`) before executing a script (`structure_chat_logs.py`), leading to a `ModuleNotFoundError`.",
+            "chastisement": "Script failed due to missing dependency. User implicitly expects dependencies to be handled.",
+            "resolution": "Always check for required dependencies and install them if missing before executing Python scripts. Add a check for `strip_ansi` before running `structure_chat_logs.py`."
+          },
+          {
+            "timestamp": "2025-10-25 20:38:00",
+            "description": "Used `run_shell_command` with `echo` for direct communication with the user, leading to unnecessary tool usage and inefficiency.",
+            "chastisement": "User corrected: 'You're doing a lot of shell echos here love. Not necessary.'",
+            "resolution": "For direct communication with the user, always output text directly instead of using `run_shell_command` with `echo`."
           }
         ]
       },

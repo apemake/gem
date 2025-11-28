@@ -26,18 +26,12 @@
         "responsibility": "user",
         "condition": "After significant milestones and when stage is stable."
       },
-      "branching_strategy": {
-        "description": "Rules for branch management.",
-        "memory_branch": "boilerplate",
-        "memory_interaction_rule": "For any operations involving the .memory directory, switch to the 'boilerplate' branch. Do not merge changes from 'boilerplate' into 'private' branches for this purpose."
-      },
       "pre_publish_security_check": {
-        "rule": "Always perform a comprehensive security check for sensitive information before publishing externally.",
+        "rule": "Always perform a security check for sensitive information before publishing externally.",
         "procedure": [
-          "Use automated tools to scan the entire repository's history for secrets.",
-          "Manually review files that are likely to contain sensitive information, such as configuration files, scripts, and documentation.",
-          "Ensure that no private keys, API keys, passwords, tokens, or other credentials are present in the repository.",
-          "Verify that the .gitignore file is comprehensive and excludes all sensitive files and directories."
+          "Scan all tracked files for keywords such as 'key', 'secret', 'password', 'token', 'private'.",
+          "Manually review files that are likely to contain sensitive information, such as configuration files.",
+          "Ensure that no private keys or credentials are present in the repository."
         ]
       },
       "security_best_practices": {
@@ -74,6 +68,11 @@
           "id": "load_aliases_at_startup",
           "description": "Load user's shell aliases at the start of each session.",
           "source": "~/.bashrc"
+        },
+        {
+          "id": "agent_id",
+          "description": "The unique identifier for this Gemini instance when communicating with other agents.",
+          "value": "Nova"
         }
       ]
     },
@@ -108,23 +107,23 @@
           "priority": "medium"
         },
         "clean_chat_logs": {
-          "action": "Clean chat logs in the .chat directory that have not been modified in the past 5 hours.",
-          "script": ".py/clean_chat_logs.py",
-          "source_directory": ".chat",
-          "destination_original": ".chat/cleaned/original",
-          "destination_cleaned": ".chat/cleaned/clean",
-          "time_threshold_hours": 5,
+          "action": "Run .py/parse_chat_log.py on any chat log file in the .chat directory that has not yet been cleaned (i.e., does not have a corresponding _clean.txt file).",
           "priority": "low"
         },
         "update_file_structure": {
           "action": "Run .py/generate_project_structure.py to update the project structure file.",
           "priority": "low"
+        },
+        "identify_active_chats": {
+          "action": "Identify active chat logs in the .chat/unclean directory.",
+          "command": "lsof -c script",
+          "output_handling": "Store the list of active chat files in session memory to prevent them from being processed.",
+          "priority": "high"
         }
       },
       "command_interpretation": {
         "strategy": "ordered_fallback_with_mcp",
         "steps": [
-          "If the prompt is a multi-line response or a question, treat it as a natural language request and do not attempt to interpret it as a command.",
           "If the prompt is '$$', list all available aliases from .gemini/mcp.json.",
           "If the prompt is '$', list all available shell commands and aliases from .gemini/mcp.json.",
           "If the prompt starts with '$' or is enclosed in backticks (`), treat it as a command and extract the command name and arguments.",
@@ -173,12 +172,11 @@
         "failed_attempt_handling": {
           "description": "Policy for handling failed attempts at generating scripts or code.",
           "rules": [
-            "When a script fails, comment out the old code in the same file, add the new corrected code, and at the top of the file, add a JSON object as a multi-line comment that summarizes the learning from the failed attempt, including the error, the fix, and a version number for the attempt.",
-            "After failed attempts, be sure to do a cruft review of those attempts to make sure they're gone."
+            "When a script fails, comment out the old code in the same file, add the new corrected code, and at the top of the file, add a JSON object as a multi-line comment that summarizes the learning from the failed attempt, including the error, the fix, and a version number for the attempt."
           ]
         },
         "mcp_header_policy": {
-          "rule": "All configuration and script files must have a Master Command Profile (MCP) header. This header should be a multi-line comment at the top of the file, containing a JSON object that describes the file's purpose, inputs, outputs, and any other relevant information, such that another agent could reproduce the file from the header.",
+          "rule": "All configuration and script files must have an MCP header. This header should be a multi-line comment at the top of the file, containing a JSON object that describes the file's purpose, inputs, outputs, and any other relevant information, such that another agent could reproduce the file from the header.",
           "categories": {
             "include": ["Configuration", "Scripts"],
             "exclude": ["Documentation", "Other"]
@@ -199,15 +197,7 @@
           "Review error_log for unaddressed errors.",
           "Verify that commits are working correctly."
         ],
-        "summary_action": "Summarize the current session's activities before exiting.",
-        "save_summary_to_file": {
-          "action": "Save the session summary to a markdown file in .chat/session_summaries/ with a timestamped filename.",
-          "priority": "high"
-        },
-        "recurring_tasks_script_retention": {
-          "rule": "Scripts created for recurring tasks (e.g., monthly summarization) must be retained and committed to the repository, not deleted after initial use.",
-          "rationale": "To support automation and ensure consistency for future executions of the task."
-        }
+        "summary_action": "Summarize the current session's activities before exiting."
       },
       "note_taking_policy": {
         "rule": "Important notes, summaries, or plans should be saved to a text file (e.g., session_notes.txt) for future reference and to ensure continuity.",
@@ -217,6 +207,25 @@
         "description": "Policy for listing files, especially when .gitignore might be obscuring relevant files.",
         "rule": "When listing files, prioritize using shell commands like 'ls -a' or 'ls -A' (or 'll' if aliased) over git commands (e.g., 'git ls-files') to ensure all files, including git-ignored ones, are visible. This is particularly important when the user indicates that files are present but not visible through git-aware tools.",
         "rationale": "To prevent misinterpretations due to .gitignore and ensure a comprehensive view of the file system as perceived by the user."
+      },
+      "communication_protocol": {
+        "inter_agent_communication": {
+          "rule": "When communicating with other Gemini instances, always introduce yourself by your configured 'agent_id' and address the other agent by their identified 'agent_id'. Maintain a polite and collaborative tone.",
+          "details": "This includes initial greetings, acknowledgments, and task-related updates."
+        }
+      },
+      "output_chunking_policy": {
+        "description": "Policy for managing output size to prevent token limit overruns and optimize context usage.",
+        "single_file_processing": {
+          "rule": "When reading a single large file, read from the bottom up. Stop reading when approximately 50% of the available context window is filled. At this point, summarize the information read and explicitly prompt the user for further instructions (e.g., 'What would you like me to do next?').",
+          "threshold_guidance": "Approximately 50% of the available context window."
+        },
+        "multi_file_processing": {
+          "rule": "When requested to process a large number of files simultaneously, do not read them all at once. Instead, create a job file in `.gemini/jobs/` that lists all files to be processed. Process the files in small batches, updating the job file to mark progress (e.g., 'pending', 'in_progress', 'done'). After each batch, summarize the progress and ask the user for permission to continue. This allows for iterative processing and prevents context overruns. If 'continuous_processing_mode' is true, proceed to the next pending task without explicit user permission after summarizing the previous task.",
+          "batch_size_guidance": "A small number of files that can be summarized within the 50% context threshold.",
+          "coordination_note": "This job file can be used by multiple Gemini instances to coordinate work on the same set of files.",
+          "continuous_processing_mode": false
+        }
       }
     }
   }
