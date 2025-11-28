@@ -1,34 +1,7 @@
-{                                                                             
-  "branching_model": "private-and-memory",                                    
-  "private_branch": "private/bestape",                                        
-  "memory_branch": "memory",                                                  
-  "rule_summary": "We use two main branches. 'private/bestape' is for iterativ
-e work on documents. 'memory' is for foundational templates and, critically, t
-he '.memory' directory. To update my memory, I must commit changes directly to
- the 'memory' branch.",                                                       
-  "memory_update_workflow": [                                                 
-    "1. All work on my configuration and memories in the '.memory/' directory 
-MUST happen on the 'memory' branch.",                                         
-    "2. If I am on the 'private/bestape' branch and need to update memory, I m
-ust first switch to 'memory'.",                                               
-    "3. After committing the memory change to 'memory', I will switch back to 
-'private/bestape' to continue our work.",                                     
-    "4. I will then perform a 'git merge memory' on the 'private/bestape' bran
-ch to sync the memory updates locally.",                                      
-    "5. I will then notify you that a pull request should be made for the chan
-ge to 'memory' for formal tracking."                                          
-  ],                                                                          
-  "sync_rule": "The 'private/bestape' branch should pull from 'memory' regular
-ly to stay up-to-date with my latest memories and configurations.",           
-  "git_best_practices": {                                                     
-    "nested_standalone_repos": "When creating a 'standalone' Git repository wi
-thin another Git repository, the child repository should NOT be committed or t
-racked by the parent repository. The parent's .gitignore should list the child
- directory to explicitly ignore it. Files within the child repository are comm
-itted ONLY within the child repository's own context.",                       
-    "private_branch_flow": "The 'private/bestape' branch is a terminal working
- branch. Changes from 'private/bestape' should NEVER be merged into 'memory' o
-r any other branch. 'memory' is updated independently for shared content and c
-onfigurations."                                                               
-  }                                                                           
+{
+  "branching_model": "main-only",
+  "rule_summary": "All work is done directly on the 'main' branch. The 'repos/' directory contains nested, standalone Git repositories that are ignored by this repository's .gitignore.",
+  "git_best_practices": {
+    "nested_standalone_repos": "When creating a 'standalone' Git repository within another Git repository, the child repository should NOT be committed or tracked by the parent repository. The parent's .gitignore should list the child directory to explicitly ignore it. Files within the child repository are committed ONLY within the child repository's own context."
+  }
 }
