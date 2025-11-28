@@ -203,6 +203,10 @@
         "save_summary_to_file": {
           "action": "Save the session summary to a markdown file in .chat/session_summaries/ with a timestamped filename.",
           "priority": "high"
+        },
+        "recurring_tasks_script_retention": {
+          "rule": "Scripts created for recurring tasks (e.g., monthly summarization) must be retained and committed to the repository, not deleted after initial use.",
+          "rationale": "To support automation and ensure consistency for future executions of the task."
         }
       },
       "note_taking_policy": {
