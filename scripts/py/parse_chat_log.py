@@ -39,6 +39,10 @@ def is_noise(line):
         r"Polishing the algorithms...", # Added: terminal status
         r"Garbage collecting...", # Added: terminal status
         r"Giving Cloudy a pat on the head...", # Added: terminal status
+        r"⠋|⠙|⠹|⠸|⠼|⠴|⠦|⠧|⠇|⠏|esc to cancel", # Spinner and cancel message
+        r"\u001b]2;Gemini - gemini\u0007",
+        r"\[NORMAL\]",
+        r"Queued \(press .* to edit\):",
     ]
     for pattern in noise_patterns:
         if re.search(pattern, line):
