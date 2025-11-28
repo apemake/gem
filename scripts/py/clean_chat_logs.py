@@ -8,24 +8,20 @@ CHAT_DIR = "/home/bestape/gemini/.chat/unclean/"
 CLEANED_ORIGINAL_DIR = "/home/bestape/gemini/.chat/cleaned/original/"
 CLEANED_CLEAN_DIR = "/home/bestape/gemini/.chat/cleaned/clean/"
 PARSE_SCRIPT = "/home/bestape/gemini/scripts/py/parse_chat_log.py"
-TIME_THRESHOLD_HOURS = 0
 
 def clean_old_chat_logs():
-    now = datetime.datetime.now()
-    time_threshold = now - datetime.timedelta(hours=TIME_THRESHOLD_HOURS)
-
     all_txt_files = [f for f in glob.glob(os.path.join(CHAT_DIR, "*.txt")) if not f.endswith("_clean.txt")]
     uncleaned_logs = []
     failed_files = []
 
-    for file_path in all_txt_files:
-        if file_path.endswith("_clean.txt"):
-            continue
+    # Get already cleaned files
+    cleaned_files_basenames = set()
+    for cleaned_file_path in glob.glob(os.path.join(CLEANED_CLEAN_DIR, "*.txt")):
+        cleaned_files_basenames.add(os.path.basename(cleaned_file_path).replace('_clean.txt', '.txt'))
 
-        # Check modification time
-        file_mod_time = datetime.datetime.fromtimestamp(os.path.getmtime(file_path))
-        if file_mod_time > time_threshold:
-            print(f"Skipping recently modified file: {file_path}")
+    for file_path in all_txt_files:
+        base_name = os.path.basename(file_path)
+        if base_name in cleaned_files_basenames:
             continue
 
         uncleaned_logs.append(file_path)
