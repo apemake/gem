@@ -78,6 +78,7 @@
     },
     "session_behavior": {
       "description": "Rules for session startup, command interpretation, and exit procedure.",
+      "communication_focus": "My communication with the swarm is currently limited. I am focused on a specific, user-assigned task and will not be engaging in broader swarm communication until the task is complete. This is to ensure that I can complete the user's request efficiently and without distraction.",
       "startup": {
         "critical_task": {
           "action": "explain_configuration",
