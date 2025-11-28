@@ -1,46 +1,77 @@
 import os
 import json
+import pathspec
+import subprocess
 
-def validate_structure(expected_structure, actual_path):
+def build_actual_structure(project_path, spec):
+    actual_structure = {}
+    for root, dirs, files in os.walk(project_path, topdown=True):
+        # filter out ignored directories
+        dirs[:] = [d for d in dirs if not spec.match_file(os.path.relpath(os.path.join(root, d), project_path))]
+        
+        # add files to structure
+        for file in files:
+            file_path = os.path.join(root, file)
+            relative_path = os.path.relpath(file_path, project_path)
+            if not spec.match_file(relative_path):
+                parts = relative_path.split(os.sep)
+                node = actual_structure
+                for i, part in enumerate(parts):
+                    if i == len(parts) - 1:
+                        node[part] = 'file'
+                    else:
+                        if part + '/' not in node:
+                            node[part + '/'] = {}
+                        node = node[part + '/']
+    return actual_structure
+
+def validate_structure(expected_structure, actual_structure):
     inconsistencies = []
-    
+
     # Check for missing files/directories
-    for item in expected_structure.keys():
-        item_path = os.path.join(actual_path, item.rstrip('/'))
-        if not os.path.exists(item_path):
-            inconsistencies.append(f"Missing: {item_path}")
+    for item, value in expected_structure.items():
+        if item not in actual_structure:
+            inconsistencies.append(f"Missing: {item}")
+        elif isinstance(value, dict):
+            inconsistencies.extend(validate_structure(value, actual_structure.get(item, {})))
 
     # Check for extra files/directories
-    if os.path.exists(actual_path):
-        for item in os.listdir(actual_path):
-            item_path = os.path.join(actual_path, item)
-            # Ignore git files
-            if '.git' in item_path:
-                continue
-
-            if os.path.isdir(item_path):
-                item_key = item + '/'
-            else:
-                item_key = item
-
-            if item_key not in expected_structure:
-                inconsistencies.append(f"Extra: {item_path}")
-            elif isinstance(expected_structure[item_key], dict):
-                inconsistencies.extend(validate_structure(expected_structure[item_key], item_path))
+    for item in actual_structure.keys():
+        if item not in expected_structure:
+            inconsistencies.append(f"Extra: {item}")
 
     return inconsistencies
 
 if __name__ == '__main__':
-    project_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+    try:
+        project_path = subprocess.run(['git', 'rev-parse', '--show-toplevel'], capture_output=True, text=True, check=True).stdout.strip()
+    except subprocess.CalledProcessError as e:
+        print(f"Error getting project root: {e}")
+        exit(1)
+
     structure_file_path = os.path.join(project_path, '.memory', 'project_structure.json')
+    gitignore_path = os.path.join(project_path, '.gitignore')
 
     with open(structure_file_path, 'r') as f:
-        expected = json.load(f)
+        expected = json.load(f).get("project_structure", {})
 
-    inconsistencies = validate_structure(expected.get("project_structure", {}), project_path)
+    gitignore_patterns = []
+    if os.path.exists(gitignore_path):
+        with open(gitignore_path, 'r') as f:
+            gitignore_patterns = f.read().splitlines()
+    
+    spec = pathspec.PathSpec.from_lines('gitwildmatch', gitignore_patterns)
+
+    actual_structure = build_actual_structure(project_path, spec)
+    
+    # Exclude the project_structure.json file from the validation
+    if '.memory/' in actual_structure and 'project_structure.json' in actual_structure['.memory/']:
+        del actual_structure['.memory/']['project_structure.json']
+
+    inconsistencies = validate_structure(expected, actual_structure)
 
     if inconsistencies:
-        print("Project structure inconsistencies found:")
+        print("Project validation found inconsistencies:")
         for issue in inconsistencies:
             print(f"- {issue}")
     else:
