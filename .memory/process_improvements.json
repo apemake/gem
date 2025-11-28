@@ -1,0 +1,10 @@
+{
+  "process_improvements": [
+    {
+      "timestamp": "2025-11-28 13:20:00",
+      "area": "Git Signing Configuration",
+      "problem": "Incorrectly assumed the user's email address and the existence of a private SSH key.",
+      "solution": "Updated the `startup_protocol.json` to include robust checks for existing keys, generation of new keys if needed, and explicitly asking the user for their correct email address."
+    }
+  ]
+}
