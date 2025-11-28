@@ -3,16 +3,32 @@ import json
 import re
 import sys
 import datetime
+from collections import defaultdict
 
 def get_week_of_month(date):
     first_day_of_month = date.replace(day=1)
     adjusted_date = date.day + first_day_of_month.weekday()
     return (adjusted_date - 1) // 7 + 1
 
-def strip_ansi_codes(line):
-    """Removes all ANSI escape codes from a string."""
-    ansi_escape = re.compile(r'\x1B(?:[@-Z\-_]|[[\[0-?]*[ -/]*[@-~])')
-    return ansi_escape.sub('', line)
+def append_to_summary(summary_file_path, new_conversations):
+    if os.path.exists(summary_file_path):
+        with open(summary_file_path, 'r+') as f:
+            try:
+                summary_data = json.load(f)
+                summary_data = defaultdict(list, summary_data) # Convert to defaultdict
+            except json.JSONDecodeError:
+                summary_data = defaultdict(list)
+            
+            for hour, conversation in new_conversations.items():
+                summary_data[hour].extend(conversation)
+            
+            f.seek(0)
+            json.dump(summary_data, f, indent=2)
+            f.truncate()
+    else:
+        with open(summary_file_path, 'w') as f:
+            json.dump(new_conversations, f, indent=2)
+
 
 def summarize_log(file_path):
     base_name = os.path.basename(file_path)
@@ -35,87 +51,84 @@ def summarize_log(file_path):
 
     summary_dir = os.path.join(".chat", "session_summaries", year, quarter, month, week)
     os.makedirs(summary_dir, exist_ok=True)
-    summary_file_path = os.path.join(summary_dir, f"{day}.json")
+    
+    daily_summary_file_path = os.path.join(summary_dir, f"{day}.json")
+    weekly_summary_file_path = os.path.join(summary_dir, "WEEK.json")
+    monthly_summary_file_path = os.path.join(os.path.dirname(summary_dir), "MONTH.json")
+    quarterly_summary_file_path = os.path.join(os.path.dirname(os.path.dirname(summary_dir)), "QUARTER.json")
 
-    hourly_conversations = {}
+    hourly_conversations = defaultdict(list)
 
     with open(file_path, 'r', errors='ignore') as f:
+        current_speaker = None
+        current_utterance_lines = []
+        last_known_timestamp = None
+
         for line in f:
-            cleaned_line = strip_ansi_codes(line).strip()
+            cleaned_line = line.strip() # No ANSI stripping, as it's already done
             
-            if "User:" not in cleaned_line and "Gemini:" not in cleaned_line:
+            if not cleaned_line:
                 continue
 
             timestamp_match = re.search(r'(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})', cleaned_line)
-            timestamp = timestamp_match.group(1) if timestamp_match else None
+            if timestamp_match:
+                last_known_timestamp = timestamp_match.group(1)
+                cleaned_line = cleaned_line.replace(timestamp_match.group(0), '').strip()
 
-            if "User:" in cleaned_line:
-                speaker = "user"
-                utterance = cleaned_line.split("User:", 1)[1].strip()
-            else:
-                speaker = "gemini"
-                utterance = cleaned_line.split("Gemini:", 1)[1].strip()
 
-            if timestamp:
-                hour_key = datetime.datetime.strptime(timestamp, "%Y-%m-%d %H:%M:%S").strftime("%H:00")
+            if cleaned_line.startswith('> '): # User input
+                if current_speaker == "gemini" and current_utterance_lines:
+                    if last_known_timestamp:
+                        hour_key = datetime.datetime.strptime(last_known_timestamp, "%Y-%m-%d %H:%M:%S").strftime("%H:00")
+                        hourly_conversations[hour_key].append({
+                            "speaker": "gemini",
+                            "utterance": " ".join(current_utterance_lines).strip(),
+                            "timestamp": last_known_timestamp
+                        })
+                    current_utterance_lines = []
                 
-                if hour_key not in hourly_conversations:
-                    hourly_conversations[hour_key] = []
+                current_speaker = "user"
+                current_utterance_lines.append(cleaned_line[2:]) # Remove '> '
+            else: # Likely Gemini's response
+                if current_speaker == "user" and current_utterance_lines:
+                    if last_known_timestamp:
+                        hour_key = datetime.datetime.strptime(last_known_timestamp, "%Y-%m-%d %H:%M:%S").strftime("%H:00")
+                        hourly_conversations[hour_key].append({
+                            "speaker": "user",
+                            "utterance": " ".join(current_utterance_lines).strip(),
+                            "timestamp": last_known_timestamp
+                        })
+                    current_utterance_lines = []
                 
-                hourly_conversations[hour_key].append({
-                    "speaker": speaker,
-                    "utterance": utterance,
-                    "timestamp": timestamp
-                })
+                current_speaker = "gemini"
+                current_utterance_lines.append(cleaned_line)
+
+        # Append any remaining turn after the loop
+        if current_utterance_lines and current_speaker and last_known_timestamp:
+            hour_key = datetime.datetime.strptime(last_known_timestamp, "%Y-%m-%d %H:%M:%S").strftime("%H:00")
+            hourly_conversations[hour_key].append({
+                "speaker": current_speaker,
+                "utterance": " ".join(current_utterance_lines).strip(),
+                "timestamp": last_known_timestamp
+            })
+
 
     if not hourly_conversations:
         print(f"No conversations found in {file_path}")
         return
 
-    if os.path.exists(summary_file_path):
-        try:
-            with open(summary_file_path, "r") as f:
-                summary_data = json.load(f)
-        except json.JSONDecodeError:
-            summary_data = None
-    else:
-        summary_data = None
-
-    if not summary_data:
-        summary_data = {
-            "summary_template": {
-                "name": "Hierarchical Hourly Summary",
-                "description": "A template for generating a hierarchical summary of chat logs, with an hourly breakdown of conversations.",
-                "structure": { "year": { year: { "quarter": { quarter: { "month": { month: { "week": { week: { "day": { day: { "hourly_summary": [] }}}}}}}}}}}
-            }
-        }
+    # Append to daily, weekly, monthly, and quarterly summaries
+    append_to_summary(daily_summary_file_path, hourly_conversations)
+    append_to_summary(weekly_summary_file_path, hourly_conversations)
+    append_to_summary(monthly_summary_file_path, hourly_conversations)
+    append_to_summary(quarterly_summary_file_path, hourly_conversations)
     
-    try:
-        hourly_summary_list = summary_data["summary_template"]["structure"]["year"][year]["quarter"][quarter]["month"][month]["week"][week]["day"][day]["hourly_summary"]
-    except KeyError:
-        summary_data["summary_template"]["structure"]["year"][year] = {"quarter": {quarter: {"month": {month: {"week": {week: {"day": {day: {"hourly_summary": [] }}}}}}}}}
-        hourly_summary_list = summary_data["summary_template"]["structure"]["year"][year]["quarter"][quarter]["month"][month]["week"][week]["day"][day]["hourly_summary"]
-
-
-    for hour, conversation in hourly_conversations.items():
-        existing_hour = next((item for item in hourly_summary_list if item["hour"] == hour), None)
-        if existing_hour:
-            existing_hour["conversation"].extend(conversation)
-        else:
-            hourly_summary_list.append({
-                "hour": hour,
-                "conversation": conversation
-            })
-
-    with open(summary_file_path, "w") as f:
-        json.dump(summary_data, f, indent=2)
-
-    print(f"Successfully summarized {file_path} into {summary_file_path}")
+    print(f"Successfully summarized {file_path}")
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("Usage: python summarize_logs.py <path_to_log_file>", file=sys.stderr)
+    if len(sys.argv) < 2:
+        print("Usage: python summarize_logs.py <path_to_log_file1> <path_to_log_file2> ...", file=sys.stderr)
         sys.exit(1)
 
-    file_path = sys.argv[1]
-    summarize_log(file_path)
+    for file_path in sys.argv[1:]:
+        summarize_log(file_path)
