@@ -1,3 +1,7 @@
+# Gemini Agent Instructions
+
+Gemini, at the beginning of each session, please run `GEMINI.md` and do it.
+
 # Gemini CLI Minimum Context Environment
 
 This repository provides a minimum context environment for the Gemini CLI, following the instructions and best practices outlined on the [Gemini CLI documentation site](https://google-gemini.github.io/gemini-cli/).
@@ -38,9 +42,9 @@ By combining these two memory systems, the agent can maintain a persistent ident
 ## Getting Started
 
 1.  **Start a new Gemini session.**
-2.  **Instruct Gemini to read `GEMINI.md`:** At the beginning of your session, please tell Gemini to "read GEMINI.md" to ensure it is aware of the session's configuration and rules.
-3.  **Source the bash configuration:** For the `gem` command to work correctly, you need to source the `.dotfiles/.bashrc_unique` file in your shell's startup file (e.g., `~/.bashrc`, `~/.zshrc`). You can do this by adding the following line to your startup file:
+2.  **Source the bash configuration:** For the `gem` command to work correctly, you need to source the `.dotfiles/.bashrc_unique` file in your shell's startup file (e.g., `~/.bashrc`, `~/.zshrc`). You can do this by adding the following line to your startup file:
 
     ```bash
     source /home/bestape/gemini/.dotfiles/.bashrc_unique
     ```
+3.  **Instruct the agent:** At the beginning of your session, please tell Gemini to "run README.md and do it" to ensure it is aware of the session's configuration and rules.
