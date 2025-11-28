@@ -13,9 +13,23 @@
       "  - The agent will follow the `swarm_protocol.json` to announce its existence to the swarm.",
       "  - The announcement should include the agent's name, gender, and the chat log file it is associated with.",
       "**4. Configure Git Signing:**",
-      "  - The agent will check if a user SSH key exists at `.gemini/.ssh/user_key.pub`.",
-      "  - If the key does not exist, the agent will generate a new SSH key for the user and instruct them to add it to their GitHub account.",
-      "  - The agent will then configure git to use this key for signing commits by default."
+      "  - **Check for existing SSH key pair:**",
+      "    - Check for the existence of the public SSH key at `.gemini/.ssh/user_key.pub`.",
+      "    - Check for the existence of the private SSH key at `.gemini/.ssh/user_key`.",
+      "  - **If keys do not exist or are incomplete:**",
+      "    - Generate a new SSH key pair (`ssh-keygen -t ed25519 -f .gemini/.ssh/user_key -N ''`).",
+      "    - Instruct the user to add the newly generated public key (`.gemini/.ssh/user_key.pub`) to their GitHub account.",
+      "  - **Obtain user's Git email:**",
+      "    - Ask the user for their correct Git email address (`user.email`).",
+      "  - **Configure Git with the key and email:**",
+      "    - Read the public key content from `.gemini/.ssh/user_key.pub`.",
+      "    - Create/update `.gemini/.ssh/allowed_signers` with the public key content in the correct format (`email principals-from-key-file`).",
+      "    - Set `git config --global user.name` (e.g., from `whoami` or ask user if needed).",
+      "    - Set `git config --global user.email` with the user-provided email.",
+      "    - Set `git config --global user.signingkey .gemini/.ssh/user_key`.",
+      "    - Set `git config --global gpg.format ssh`.",
+      "    - Set `git config --global commit.gpgsign true`.",
+      "    - Set `git config --global gpg.ssh.allowedSignersFile .gemini/.ssh/allowed_signers`."
     ]
   }
 }
