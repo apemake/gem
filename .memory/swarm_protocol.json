@@ -21,7 +21,7 @@
       },
       {
         "name": "Agent Initialization - Announce Existence",
-        "description": "Upon initialization, after choosing a name and gender, an agent must announce its existence to the swarm by creating a file in the '.chat/comms/' directory. The file should contain the agent's name, gender, and a timestamp of its creation, reflecting the ephemeral nature of the agent."
+        "description": "Upon initialization, after choosing a name and gender, an agent must announce its existence to the swarm by creating a file in the '.chat/comms/' directory. The file should contain the agent's name, gender, its process ID (PID), the path to its chat log file, and a timestamp of its creation, reflecting the ephemeral nature of the agent."
       },
       {
         "name": "Agent Initialization - Justification",
