@@ -1,7 +1,24 @@
 {
-  "branching_model": "main-only",
-  "rule_summary": "All work is done directly on the 'main' branch. The 'repos/' directory contains nested, standalone Git repositories that are ignored by this repository's .gitignore.",
-  "git_best_practices": {
-    "nested_standalone_repos": "When creating a 'standalone' Git repository within another Git repository, the child repository should NOT be committed or tracked by the parent repository. The parent's .gitignore should list the child directory to explicitly ignore it. Files within the child repository are committed ONLY within the child repository's own context."
+  "git_workflow_protocol": {
+    "name": "Git Workflow and Commit Signing Protocol",
+    "summary": "Defines the standard operating procedures for Git usage, including commit signing, for this agent.",
+    "rules": [
+      {
+        "name": "Commit Signing Configuration",
+        "description": "To ensure the integrity of commits made by the agent while not interfering with the user's global Git configuration, the following setup is used:",
+        "steps": [
+          "Global commit signing is explicitly disabled (`git config --global commit.gpgsign false`) to avoid affecting the user's other repositories.",
+          "Repository-level commit signing is enabled for this specific repository (`git config commit.gpgsign true`), ensuring all commits made by the agent are signed.",
+          "The signing key is a dedicated SSH key located at `.gemini/.ssh/user_key`.",
+          "The Git GPG format is set to 'ssh' (`git config --global gpg.format ssh`).",
+          "An `allowed_signers` file at `.gemini/.ssh/allowed_signers` is used to verify the key, linking the user's email to the public key."
+        ],
+        "outcome": "All commits made by the agent within this repository will be automatically signed with the designated SSH key. The user's commits outside of this session or in other repositories remain unaffected."
+      },
+      {
+        "name": "Commit Frequency",
+        "description": "The agent must propose a commit after every successful file modification or other significant change to the repository state. This is part of the 'Mutual Agreement' to ensure continuous progress and a detailed history."
+      }
+    ]
   }
 }
