@@ -2,6 +2,7 @@ import json
 import datetime
 import os
 import argparse
+import subprocess
 
 def send_swarm_message(sender, recipient, message_type, content, file_paths=None, commit_hashes=None, other_relevant_info=None):
     timestamp = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
@@ -27,7 +28,8 @@ def send_swarm_message(sender, recipient, message_type, content, file_paths=None
     }
 
     file_name = f"{timestamp}_{sender}_to_{recipient}_{message_type}.json"
-    file_path = os.path.join(".chat", "comms", file_name)
+    project_root = subprocess.run(['git', 'rev-parse', '--show-toplevel'], capture_output=True, text=True, check=True).stdout.strip()
+    file_path = os.path.join(project_root, ".chat", "comms", file_name)
 
     os.makedirs(os.path.dirname(file_path), exist_ok=True)
 
