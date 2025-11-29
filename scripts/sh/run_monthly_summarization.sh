@@ -2,6 +2,8 @@
 # This script is used to run the summarization process on all unclean chat logs.
 # It is intended to be run monthly or as needed to keep the chat summaries up to date.
 
+shopt -s nullglob
+
 # Find all unclean chat log files and process them
 for file in .chat/cleaned/clean/*.txt
 do
