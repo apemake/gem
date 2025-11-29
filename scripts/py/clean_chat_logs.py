@@ -5,10 +5,11 @@ import subprocess
 import shutil
 import json
 
-CHAT_DIR = "/home/bestape/gemini/.chat/unclean/"
-CLEANED_ORIGINAL_DIR = "/home/bestape/gemini/.chat/cleaned/original/"
-CLEANED_CLEAN_DIR = "/home/bestape/gemini/.chat/cleaned/clean/"
-PARSE_SCRIPT = "/home/bestape/gemini/scripts/py/parse_chat_log.py"
+PROJECT_ROOT = subprocess.run(['git', 'rev-parse', '--show-toplevel'], capture_output=True, text=True, check=True).stdout.strip()
+CHAT_DIR = os.path.join(PROJECT_ROOT, ".chat", "unclean")
+CLEANED_ORIGINAL_DIR = os.path.join(PROJECT_ROOT, ".chat", "cleaned", "original")
+CLEANED_CLEAN_DIR = os.path.join(PROJECT_ROOT, ".chat", "cleaned", "clean")
+PARSE_SCRIPT = os.path.join(PROJECT_ROOT, "scripts", "py", "parse_chat_log.py")
 
 def clean_old_chat_logs():
     all_txt_files = [f for f in glob.glob(os.path.join(CHAT_DIR, "*.txt")) if not f.endswith("_clean.txt")]
