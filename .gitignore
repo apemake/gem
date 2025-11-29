@@ -38,3 +38,4 @@
 # It contains separate Git repositories and should always be ignored by the top-level Git.
 repos/
 .gemini/
+index.js
