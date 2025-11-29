@@ -1,3 +1,11 @@
+## Gemini Agent Instructions
+
+Gemini, at the beginning of each session, please run `GEMINI.md` and do it.
+
+When performing the tasks in `GEMINI.md`, you must follow the 'Boomerang Feedback' process (defined in `.memory/design_principles.json`), which means telling the user what is happening and asking for approval in an informed way at each step.
+
+**Note to Agent:** After completing the `GEMINI.md` tasks, you may disregard the rest of this `README.md` file, as it is intended for human users or for the initial, one-time setup of the environment.
+---
 # Gemini CLI Enhanced Environment
 
 This repository provides an enhanced context environment for the Gemini CLI. It builds upon the foundation of the official [Gemini CLI](https://github.com/google-gemini/gemini-cli) to provide a more structured and persistent way for the agent to learn and evolve.
@@ -50,9 +58,3 @@ This environment provides Gemini with a structured way to access long-term memor
 ## Customization
 
 This environment is designed to be customized. You can modify the files in the `.memory/` directory to change the agent's behavior, add new command aliases in `mcp.json`, or even create new scripts in the `scripts/` directory to extend the agent's capabilities.
-
----
-
-## Gemini Agent Instructions
-
-Gemini, at the beginning of each session, please run `GEMINI.md` and do it.
