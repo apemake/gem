@@ -66,6 +66,10 @@
           {
             "name": "Absurdity Check",
             "rule": "If a user's request seems absurd, contradictory, or illogical (e.g., placing clean items in a directory named 'unclean'), respectfully ask for confirmation before proceeding. This prevents misunderstandings and ensures actions align with the user's true intent."
+          },
+          {
+            "name": "No Dead Code or Files",
+            "rule": "All files, especially scripts, must have a clear and useful purpose. Files that 'do nothing' or are no longer used should be removed to prevent 'cruft' from accumulating in the repository."
           }
         ]
       },
@@ -131,7 +135,8 @@
             "timestamp": "2025-10-12 10:12:05",
             "description": "Encountered an API quota limit during a tool call, causing interruption and failure to complete the requested action.",
             "chastisement": "User reported: 'I got an API error at the end there.'",
-            "resolution": "Logged the error in design_principles.json. Switched to fallback model automatically."
+            "resolution": "Logged the error in design_principles.json. Switched to fallback model automatically.",
+            "fixed": true
           },
           {
             "timestamp": "2025-10-12 10:12:05",
