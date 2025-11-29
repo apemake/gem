@@ -43,7 +43,9 @@ gem() {
 
         local query="$@"
         local SESSION_NAME="gem"
-        local target_directory="/home/bestape/gemini" # Default directory
+        local project_root
+        project_root=$(git rev-parse --show-toplevel)
+        local target_directory="$project_root" # Default directory
 
         # Check if the first argument is a valid directory
         if [ -n "$1" ] && [ -d "$1" ]; then
@@ -72,7 +74,7 @@ gem() {
             screen -d -r "${SESSION_NAME}"
         else
             # Session does not exist, create it
-            screen -c /home/bestape/gemini/.dotfiles/.screenrc -dmS "${SESSION_NAME}"
+            screen -c "$project_root/.dotfiles/.screenrc" -dmS "${SESSION_NAME}"
             screen -S "${SESSION_NAME}" -p 1 -X title "Gemini"
             screen -S "${SESSION_NAME}" -p 1 -X stuff "${SCRIPT_COMMAND}\n"
             screen -r "${SESSION_NAME}"
