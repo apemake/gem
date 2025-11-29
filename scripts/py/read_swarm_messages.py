@@ -3,8 +3,9 @@ import os
 import argparse
 import subprocess
 
-PROCESSED_MESSAGES_FILE = os.path.join(".chat", "comms", "processed_messages.txt")
-SEND_MESSAGE_SCRIPT = os.path.join("scripts", "py", "send_swarm_message.py")
+PROJECT_ROOT = subprocess.run(['git', 'rev-parse', '--show-toplevel'], capture_output=True, text=True, check=True).stdout.strip()
+PROCESSED_MESSAGES_FILE = os.path.join(PROJECT_ROOT, ".chat", "comms", "processed_messages.txt")
+SEND_MESSAGE_SCRIPT = os.path.join(PROJECT_ROOT, "scripts", "py", "send_swarm_message.py")
 
 def get_processed_messages():
     if not os.path.exists(PROCESSED_MESSAGES_FILE):
