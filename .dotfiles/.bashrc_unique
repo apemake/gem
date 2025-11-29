@@ -12,7 +12,7 @@ alias snakes='echo are in the grass'
 
 
 
-source $HOME/gemini/.dotfiles/gem_function.sh
+source "$(dirname "${BASH_SOURCE[0]}")/gem_function.sh"
 
 # Bind Ctrl+L to clear the screen
 bind -x '"\C-l": "clear"'
