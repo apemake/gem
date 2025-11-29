@@ -36,3 +36,6 @@ Our collaboration is guided by the following principles, which are derived from 
 - Read .memory/ and do it!
 - Acknowledge the design principles in .memory/design_principles.json.
 - Then join the swarm.
+- Find thy chat (identify PID and log file).
+- Announce thyself to the swarm (including chat log file).
+- Configure Git Signing.
