@@ -4,6 +4,7 @@ import re
 import sys
 import datetime
 from collections import defaultdict
+import subprocess
 
 def get_week_of_month(date):
     first_day_of_month = date.replace(day=1)
@@ -49,7 +50,8 @@ def summarize_log(file_path):
     week = f"W{get_week_of_month(date_obj)}"
     day = date_obj.strftime("%Y-%m-%d")
 
-    summary_dir = os.path.join(".chat", "session_summaries", year, quarter, month, week)
+    project_root = subprocess.run(['git', 'rev-parse', '--show-toplevel'], capture_output=True, text=True, check=True).stdout.strip()
+    summary_dir = os.path.join(project_root, ".chat", "session_summaries", year, quarter, month, week)
     os.makedirs(summary_dir, exist_ok=True)
     
     daily_summary_file_path = os.path.join(summary_dir, f"{day}.json")
