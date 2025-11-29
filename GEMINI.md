@@ -4,7 +4,6 @@ This session is governed by a set of declarative configurations, broken down by 
 
 *   **[Design Principles](./.memory/design_principles.json):** Core principles guiding the structure and logic of our work.
 *   **[Operational Rules](./.memory/rules.json):** Specific rules for chat history, Git methodology, and session behavior.
-*   **[Memory Management Principles](./.memory/memory_management_principles.json):** Principles and components for managing memory.
 
 At the start of each session, I will read all files in the `.memory` directory to load my configuration and memories.
 
