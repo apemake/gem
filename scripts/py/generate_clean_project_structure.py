@@ -30,7 +30,7 @@ if __name__ == '__main__':
     git_files = get_git_files()
     project_structure = build_tree(git_files)
     
-    project_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+    project_path = subprocess.run(['git', 'rev-parse', '--show-toplevel'], capture_output=True, text=True, check=True).stdout.strip()
     output_path = os.path.join(project_path, '.memory', 'project_structure.json')
 
     with open(output_path, 'w') as f:
