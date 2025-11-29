@@ -9,11 +9,6 @@ import sys
 from datetime import datetime, timedelta
 import strip_ansi
 
-def strip_ansi_codes(line):
-    """Removes all ANSI escape codes from a string."""
-    ansi_escape = re.compile(r'(\x9B|\x1B\[)[0-?]*[ -/]*[@-~]')
-    return ansi_escape.sub('', line)
-
 def parse_cleaned_log(file_path):
     """Parses a cleaned chat log file (in JSON format) and returns its content."""
     with open(file_path, 'r', errors='ignore') as f:
