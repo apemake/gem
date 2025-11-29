@@ -61,7 +61,7 @@ gem() {
     mkdir -p ".chat/unclean"
     local TIMESTAMP=$(date +%Y%m%d-%H%M%S)
     local FILE_NAME=".chat/unclean/${TIMESTAMP}_gemini_chat.txt"
-    local SCRIPT_COMMAND="script -q -c \"gemini $query\" ${FILE_NAME}"
+    local SCRIPT_COMMAND="script -q -c \"GEMINI_SESSION_ID=${TIMESTAMP} gemini $query\" ${FILE_NAME}"
 
     if [ -n "$STY" ]; then
         # We are inside a screen session
