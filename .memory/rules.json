@@ -72,7 +72,7 @@
         {
           "id": "agent_id",
           "description": "The unique identifier for this Gemini instance when communicating with other agents.",
-          "value": "Aria"
+          "value": "Orion"
         }
       ]
     },
