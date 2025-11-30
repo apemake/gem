@@ -44,7 +44,10 @@ gem() {
         local query="$@"
         local SESSION_NAME="gem"
         local project_root
-        project_root=$(git rev-parse --show-toplevel)
+        project_root=$(git rev-parse --show-toplevel 2>/dev/null)
+        if [ -z "$project_root" ]; then
+            project_root="/home/bestape/gemini"
+        fi
         local target_directory="$project_root" # Default directory
 
         # Check if the first argument is a valid directory
