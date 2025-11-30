@@ -4,7 +4,7 @@ import os
 import argparse
 import subprocess
 
-def send_swarm_message(sender, recipient, message_type, content, file_paths=None, commit_hashes=None, other_relevant_info=None):
+def send_swarm_message(sender, recipient, message_type, content, file_paths=None, commit_hashes=None, other_relevant_info=None, pid=None, chat_log=None):
     timestamp = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
     
     if file_paths is None:
@@ -27,6 +27,11 @@ def send_swarm_message(sender, recipient, message_type, content, file_paths=None
         }
     }
 
+    if pid:
+        message['pid'] = pid
+    if chat_log:
+        message['chat_log'] = chat_log
+
     file_name = f"{timestamp}_{sender}_to_{recipient}_{message_type}.json"
     project_root = subprocess.run(['git', 'rev-parse', '--show-toplevel'], capture_output=True, text=True, check=True).stdout.strip()
     file_path = os.path.join(project_root, ".chat", "comms", file_name)
@@ -47,6 +52,8 @@ if __name__ == "__main__":
     parser.add_argument("--file_paths", nargs='*', help="List of relevant file paths.")
     parser.add_argument("--commit_hashes", nargs='*', help="List of relevant commit hashes.")
     parser.add_argument("--other_relevant_info", type=json.loads, help="JSON string of other relevant information (e.g., '{\"key\": \"value\"}').")
+    parser.add_argument("--pid", type=int, help="The process ID of the sending agent.")
+    parser.add_argument("--chat_log", help="The path to the chat log file.")
 
     args = parser.parse_args()
 
@@ -57,5 +64,7 @@ if __name__ == "__main__":
         args.content,
         args.file_paths,
         args.commit_hashes,
-        args.other_relevant_info
+        args.other_relevant_info,
+        args.pid,
+        args.chat_log
     )
