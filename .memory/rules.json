@@ -16,7 +16,7 @@
         ]
       },
       "commit_policy": {
-        "target_branch": "stage",
+        "target_branch": "main",
         "auto_propose_commit": true,
         "condition": "After making and verifying a change. This includes changes made during iterative refinement, unless explicitly instructed otherwise by the user."
       },
