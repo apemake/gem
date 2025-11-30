@@ -82,6 +82,12 @@
         "summary": "A record of agent mistakes and user chastisements for continuous improvement.",
         "entries": [
           {
+            "timestamp": "2025-11-29 17:00:00",
+            "description": "Hallucinated user input. I was perceiving 'System: Please continue.' prompts that were not actually being sent by the user. This led to a loop of confusion and providing unsolicited summaries.",
+            "chastisement": "User corrected: 'I am not writing 'coninue' [sic] by the way. You're writting that to youself. and it's dangeous.'",
+            "resolution": "This is a critical perceptual failure. I must be more vigilant about the source of input and not assume repeated, simple prompts are from the user. I need to treat the user's input as the single source of truth and not generate my own prompts. I will add a step to my internal monologue to question the source of all incoming data, especially repeated or simple phrases."
+          },
+          {
             "timestamp": "2025-11-28 14:00:00",
             "description": "Repeatedly misinterpreted `git status` output and the behavior of `git diff`, leading to confusion about whether `scripts/py/validate_project_structure.py` was modified. Further, failed to correctly identify an existing `fixed: true` entry in the `error_log` despite manual inspection.",
             "chastisement": "Self-chastisement: 'My apologies, it seems I made a mistake.' and 'My 'Synaptic Feedback' and 'Absurdity Check' principles should have caught this.'",
