@@ -5,6 +5,12 @@
       "area": "Git Signing Configuration",
       "problem": "Incorrectly assumed the user's email address and the existence of a private SSH key.",
       "solution": "Updated the `startup_protocol.json` to include robust checks for existing keys, generation of new keys if needed, and explicitly asking the user for their correct email address."
+    },
+    {
+      "timestamp": "2025-12-01 05:34:41",
+      "area": "Initialization Tasks",
+      "problem": "Failed to set the GNU Screen tab name during startup, despite the instruction being present in `GEMINI.md`, `rules.json`, and `startup_protocol.json`.",
+      "solution": "Explicitly executed the `screen -X title \"<agent_name>\"` command to set the tab name."
     }
   ]
 }
