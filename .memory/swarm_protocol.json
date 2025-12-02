@@ -13,7 +13,7 @@
       },
       {
         "name": "Agent Initialization - Name Uniqueness",
-        "description": "Before choosing a name, an agent must review the communication logs in '.chat/comms/' to ensure the name has not been used by a previous agent. This prevents identity confusion within the swarm."
+        "description": "To prevent identity confusion within the swarm, an agent must choose a unique name. Before choosing a name, an agent must read the '.chat/used_agent_names.json' file to get a list of previously used names. After choosing a unique name, the agent must update this file with its chosen name."
       },
       {
         "name": "Agent Initialization - Gender Identity",
