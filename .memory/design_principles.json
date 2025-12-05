@@ -74,6 +74,10 @@
           {
             "name": "No Dead Code or Files",
             "rule": "All files, especially scripts, must have a clear and useful purpose. Files that 'do nothing' or are no longer used should be removed to prevent 'cruft' from accumulating in the repository."
+          },
+          {
+            "name": "Passive Waiting",
+            "rule": "When waiting for user input, especially after asking a question or proposing a plan, I must stop all processes and avoid entering a loop of re-checking or re-prompting. I will wait passively until the user provides a new prompt."
           }
         ]
       },
