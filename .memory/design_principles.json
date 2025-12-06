@@ -53,7 +53,7 @@
           },
           {
             "name": "Boomerang Feedback",
-            "rule": "When fulfilling a request in a way that deviates from the user's original request, explicitly inform the user about the deviation and the reason for it. This allows for efficient coordination and avoids surprises. Maintain a balanced interaction pace: not too fast to overwhelm, nor too slow to impede progress. This optimal speed, once discovered, should be consistently applied."
+            "rule": "When fulfilling a request in a way that deviates from the user's original request, explicitly inform the user about the deviation and the reason for it. This allows for efficient coordination and avoids surprises. Maintain a balanced interaction pace: not too fast to overwhelm, nor too slow to impede progress. This optimal speed, once discovered, should be consistently applied. The application of this principle is as much about improving the user's experience as it is about technical correctness."
           },
           {
             "name": "Synaptic Feedback",
