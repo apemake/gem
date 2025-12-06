@@ -14,7 +14,16 @@ This environment is designed to be a starting point for users who want to have a
 
 ## Prerequisites
 
-Before you begin, ensure you have a working installation of the Gemini CLI. You can find the installation instructions on the [official Gemini CLI documentation site](https://google-gemini.github.io/gemini-cli/).
+Before you begin, ensure you have the following installed and available in your system's PATH:
+
+*   **`bash`**: The shell interpreter (standard on most Linux/macOS systems).
+*   **`screen`**: For GNU Screen session management (e.g., `sudo apt install screen` on Debian/Ubuntu, `brew install screen` on macOS).
+*   **`script`**: For GNU Script session logging (usually part of `util-linux` on Linux, or available by default on macOS).
+*   **`gemini`**: The Gemini CLI executable itself. You can find installation instructions on the [official Gemini CLI documentation site](https://google-gemini.github.io/gemini-cli/).
+*   **`git`**: For version control.
+*   **`python3`**: For running Python helper scripts.
+
+Once these system-level prerequisites are met, ensure you have a working installation of the Gemini CLI.
 
 ## Installation & Setup
 
