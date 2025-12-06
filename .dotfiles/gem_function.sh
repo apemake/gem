@@ -44,9 +44,13 @@ gem() {
         local query="$@"
         local SESSION_NAME="gem"
         local project_root
-        project_root=$(git rev-parse --show-toplevel 2>/dev/null)
-        if [ -z "$project_root" ]; then
-            project_root="/home/bestape/gemini"
+        # Determine the project root. Prioritize the GEMINI_ROOT env var.
+        if [ -n "$GEMINI_ROOT" ] && [ -d "$GEMINI_ROOT" ]; then
+            local project_root="$GEMINI_ROOT"
+        else
+            echo "Error: GEMINI_ROOT is not set or does not point to a valid directory." >&2
+            echo "Please set GEMINI_ROOT to the absolute path of your gemini repository clone." >&2
+            return 1
         fi
         local target_directory="$project_root" # Default directory
 

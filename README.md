@@ -16,33 +16,42 @@ This environment is designed to be a starting point for users who want to have a
 
 Before you begin, ensure you have a working installation of the Gemini CLI. You can find the installation instructions on the [official Gemini CLI documentation site](https://google-gemini.github.io/gemini-cli/).
 
-## Getting Started
+## Installation & Setup
 
-1.  **Clone this repository:**
+This guide explains how to set up the `gem` command and its session management features so they can be used from anywhere in your system.
+
+1.  **Clone this Repository:**
+    If you haven't already, clone this repository to a permanent location on your local machine.
     ```bash
     git clone https://github.com/diy-make/gemini.git
-    cd gemini
     ```
 
-2.  **Source the bash configuration:**
-    For the `gem` command to work correctly, you need to source the `.dotfiles/.bashrc_unique` file in your shell's startup file (e.g., `~/.bashrc`, `~/.zshrc`). You can do this by adding the following line to your startup file:
+2.  **Set the `$GEMINI_ROOT` Environment Variable:**
+    Add the following line to your shell's startup file (e.g., `~/.bashrc`, `~/.zshrc`). This variable must point to the **absolute path** where you cloned the repository.
 
+    *Replace `/path/to/your/gemini` with the actual path.*
     ```bash
-    source /path/to/your/gemini/repo/.dotfiles/.bashrc_unique
+    export GEMINI_ROOT="/path/to/your/gemini"
     ```
-    *Replace `/path/to/your/gemini/repo` with the actual path to the cloned repository.*
 
-3.  **Start a new Gemini session:**
+3.  **Source the `bashrc_unique` File:**
+    Immediately after the export line, add the following line to source the `gem` function into your shell environment:
     ```bash
-    gemini
+    source "$GEMINI_ROOT/.dotfiles/.bashrc_unique"
     ```
 
-4.  **Instruct the agent:**
-    At the beginning of your session, please tell Gemini to:
+4.  **Reload Your Shell:**
+    To apply the changes, open a new terminal or run `source ~/.bashrc` (or your respective shell configuration file).
+
+5.  **Start a Session:**
+    You can now start a new Gemini session from any directory by simply running:
+    ```bash
+    gem
     ```
-    run README.md and do it
-    ```
-    This will instruct the agent to read the necessary configuration files and initialize itself for the session.
+
+### How It Works
+
+The `$GEMINI_ROOT` variable is crucial. It tells the `gem` function where to find its configuration (like `.dotfiles/.screenrc`) and where to store logs (in `.chat/`), regardless of which directory you run the command from. This allows you to start a Gemini session that operates on the files in your current working directory, while still using the centralized tools of this repository.
 
 ## How It Works
 
