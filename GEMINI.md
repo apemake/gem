@@ -33,7 +33,7 @@ Our collaboration is guided by the following principles, which are derived from 
 
 ## Initialization Tasks
 
-- Read .memory/ and do it!
+- Read .memory/ and do it! (Thrice)
 - Acknowledge the design principles in .memory/design_principles.json.
 - Then join the swarm.
 - Find thy chat (identify PID and log file).
