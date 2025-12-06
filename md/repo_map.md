@@ -1,4 +1,4 @@
-# Repository Map
+# Repository Map (v1.0.0)
 
 This document outlines the tracked and untracked items at the root level of the `gemini/` repository, reflecting the state after the pre-release reorganization.
 

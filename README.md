@@ -34,25 +34,37 @@ This guide explains how to set up the `gem` command and its session management f
     export GEMINI_ROOT="/path/to/your/gemini"
     ```
 
-3.  **Source the `bashrc_unique` File:**
-    Immediately after the export line, add the following line to source the `gem` function into your shell environment:
+3.  **Install Dependencies:**
+    The helper scripts in this repository require Python dependencies. It is highly recommended to use a virtual environment.
+    ```bash
+    # Navigate to your repository clone
+    cd $GEMINI_ROOT
+
+    # Create a virtual environment
+    python3 -m venv .venv
+
+    # Activate the virtual environment
+    source .venv/bin/activate
+
+    # Install the required packages
+    pip install -r requirements.txt
+    ```
+
+4.  **Source the `bashrc_unique` File:**
+    Immediately after the export line in your shell's startup file, add the following line to source the `gem` function into your shell environment:
     ```bash
     source "$GEMINI_ROOT/.dotfiles/.bashrc_unique"
     ```
     (These dotfiles are maintained at [https://github.com/bestape/.0.sh](https://github.com/bestape/.0.sh) and should be kept updated.)
 
-4.  **Reload Your Shell:**
+5.  **Reload Your Shell:**
     To apply the changes, open a new terminal or run `source ~/.bashrc` (or your respective shell configuration file).
 
-5.  **Start a Session:**
+6.  **Start a Session:**
     You can now start a new Gemini session from any directory by simply running:
     ```bash
     gem
     ```
-
-### How It Works
-
-The `$GEMINI_ROOT` variable is crucial. It tells the `gem` function where to find its configuration (like `.dotfiles/.screenrc`) and where to store logs (in `.chat/`), regardless of which directory you run the command from. This allows you to start a Gemini session that operates on the files in your current working directory, while still using the centralized tools of this repository.
 
 ## How It Works
 

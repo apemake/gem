@@ -1,6 +1,6 @@
 {
   "name": "gemini-cli",
-  "version": "0.1.2",
+  "version": "1.0.0",
   "description": "CLI tools for managing Gemini sessions",
   "scripts": {},
   "keywords": ["gemini", "cli", "ai", "agent", "swarm"],
