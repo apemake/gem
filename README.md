@@ -82,7 +82,7 @@ This environment provides Gemini with a structured way to access long-term memor
 ### Key Concepts
 
 *   **`.memory/` directory:** This is the core of the agent's long-term memory. It contains configuration files, rules, and design principles that govern the agent's behavior.
-*   **`.chat/` directory:** This directory stores the raw and processed chat logs, serving as the agent's temporal memory.
+*   **`.chat/` directory:** This is a nested Git repository for storing and tracking all local chat logs. It is ignored by the main boilerplate repository, allowing users to maintain a private, version-controlled history of their sessions.
 *   **`GEMINI.md`:** This file contains the agent's core directives and initialization tasks for each session.
 *   **`repos/` directory:** This directory is for your own projects and repositories. It is ignored by the top-level git repository, so you can manage your projects independently.
 

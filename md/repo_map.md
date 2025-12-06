@@ -25,7 +25,7 @@ These are files and directories that exist in the local project but are not comm
 ### Ignored by `.gitignore`:
 These items are explicitly ignored by rules in the `.gitignore` file.
 
-*   `.chat/` (Directory for session logs)
+*   `.chat/` (A nested Git repository for local session logs, ignored by this parent repository)
 *   `repos/` (Directory for other repositories)
 *   `.venv/` (Directory for Python virtual environment)
 *   `.venv_precommit/` (Directory for pre-commit hooks' environment)

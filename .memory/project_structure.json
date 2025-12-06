@@ -7,10 +7,6 @@
     },
     ".gemini/": {
       ".secrets.baseline": "file",
-      ".ssh/": {
-        "user_key.pub": "file"
-      },
-      "google_accounts.json": "file",
       "settings.json": "file"
     },
     ".gitignore": "file",
@@ -25,7 +21,9 @@
       "mcp.json": "file",
       "parsing_config.json": "file",
       "personality.json": "file",
+      "process_improvements.json": "file",
       "programming_legalese_mcp.json": "file",
+      "project_structure.json": "file",
       "rules.json": "file",
       "session_tricks.json": "file",
       "startup_protocol.json": "file",
@@ -36,29 +34,16 @@
     ".pre-commit-config.yaml": "file",
     "GEMINI.md": "file",
     "README.md": "file",
-    "notes/": {
-      "legal/": {
-        "hash_workflow_summary.md": "file",
-        "patent_tos_opinion.md": "file"
-      },
-      "recovery_report.md": "file",
+    "md/": {
+      "repo_map.md": "file",
       "safe_public_commits_report.md": "file",
-      "tree_liturgy.md": "file",
-      "wormhole_speculations.txt": "file"
+      "tree_liturgy.md": "file"
     },
     "package.json": "file",
-    "repos/": {
-      "local_only/": {
-        "map/": {
-          "generate_project_structure.py": "file"
-        }
-      }
-    },
     "requirements.txt": "file",
     "scripts/": {
       "py/": {
         "clean_chat_logs.py": "file",
-        "clean_old_chat_logs.py": "file",
         "create_higher_level_summaries.py": "file",
         "estimate_chunks.py": "file",
         "generate_clean_project_structure.py": "file",
@@ -74,7 +59,6 @@
       "sh/": {
         "run_monthly_summarization.sh": "file"
       }
-    },
-    "temp_summarize_by_day.sh": "file"
+    }
   }
 }

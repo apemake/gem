@@ -18,6 +18,11 @@
       {
         "name": "Commit Frequency",
         "description": "The agent must propose a commit after every successful file modification or other significant change to the repository state. This is part of the 'Mutual Agreement' to ensure continuous progress and a detailed history."
+      },
+      {
+        "name": "Nested Repository Handling",
+        "description": "This repository acts as a 'meta-repo' and contains other, separate Git repositories within its directory structure (e.g., in '.chat/' and 'repos/'). These nested repositories are ignored by this parent repository's .gitignore file.",
+        "rule": "The agent must not attempt to stage or commit changes to files within these nested repositories from the parent repository. All Git operations for a nested repository must be performed from within that nested repository's own directory."
       }
     ]
   }
