@@ -42,7 +42,7 @@ This manifest provides a detailed, indexed explanation for every file tracked in
 2.  **`GEMINI.md`**: The core instruction set for the AI agent at the start of each session. It defines the initialization tasks and mutual agreements between the user and the agent, ensuring a consistent and predictable startup sequence. This is the agent's primary "mission briefing".
 3.  **`.gitignore`**: A critical file that defines which files and directories should be ignored by Git. It is configured to ignore local development environments (`.venv/`), session-specific logs (`.chat/`), and other non-boilerplate content, which is essential for keeping the public repository clean. It also contains explicit exceptions for tracked boilerplate files within ignored directories.
 4.  **`package.json`**: Defines Node.js project metadata and dependencies. It is included to support potential future web-based or Node.js extensions of the agent's capabilities or for providing an interactive UI.
-5.  **`requirements.txt`**: Lists the Python dependencies required by the various helper scripts in the `scripts/` directory. It is essential for ensuring that the agent's tools run correctly in a reproducible `venv`.
+5.  **`requirements.txt`**: Lists the Python dependencies required by the various helper scripts in the `scripts/` directory. It is essential for ensuring that the agent's tools and helper scripts run correctly in a reproducible `venv`.
 6.  **`.pre-commit-config.yaml`**: The configuration file for the `pre-commit` framework. It sets up the `detect-secrets` tool to run automatically before each commit, acting as a critical security guardrail to prevent secrets from entering the Git history.
 
 ### Dotfiles (`.dotfiles/`, 3 files)
@@ -109,3 +109,21 @@ This directory contains Python and shell scripts that extend the agent's capabil
 44. **`scripts/py/test_swarm_communication.py`**: A utility for debugging the swarm communication system.
 45. **`scripts/py/validate_project_structure.py`**: A tool to check if a project's directory structure conforms to the rules in `.memory/project_structure.json`.
 46. **`scripts/sh/run_monthly_summarization.sh`**: A shell script that likely orchestrates several Python scripts to perform a recurring monthly summarization task.
+
+---
+
+## Analysis of File Inclusions
+
+A final review was conducted to determine if any tracked files were "cruft" or outside the repository's mission as a public boilerplate. The conclusion is that **no files should be removed**, as each serves a distinct and valuable purpose.
+
+Two files were identified as requiring special consideration, but were ultimately deemed essential features of the boilerplate:
+
+### 1. `md/tree_liturgy.md`
+
+*   **What it is:** A metaphorical, "lore" document that explains the philosophical purpose of the `.memory/` files as a grove of "sacred trees."
+*   **Justification:** This file is a defining feature of the boilerplate's character. It provides a unique and memorable way to understand the architecture of the agent's "mind." It elevates the project from a simple collection of scripts to a cohesive, philosophical system. **It is not cruft; it is a feature.**
+
+### 2. `.memory/svg_learnings.json`
+
+*   **What it is:** A dedicated knowledge-base file for storing information and techniques related to handling SVG files.
+*   **Justification:** This file is the perfect, practical *example* of the agent's knowledge management capability. It demonstrates how a user can and should extend the agent's memory with new, format-specific learnings. Removing it would make the knowledge management principle purely theoretical. **It is not cruft; it is a working example.**
