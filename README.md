@@ -39,6 +39,7 @@ This guide explains how to set up the `gem` command and its session management f
     ```bash
     source "$GEMINI_ROOT/.dotfiles/.bashrc_unique"
     ```
+    (These dotfiles are maintained at [https://github.com/bestape/.0.sh](https://github.com/bestape/.0.sh) and should be kept updated.)
 
 4.  **Reload Your Shell:**
     To apply the changes, open a new terminal or run `source ~/.bashrc` (or your respective shell configuration file).
