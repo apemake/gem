@@ -39,5 +39,9 @@
 # WARNING: Do NOT track the repos/ directory in this repository.
 # It contains separate Git repositories and should always be ignored by the top-level Git.
 repos/
+# Ignore the .gemini directory but un-ignore specific configuration files
+# that should be part of the boilerplate.
 .gemini/
+!/.gemini/.secrets.baseline
+!/.gemini/settings.json
 index.js
