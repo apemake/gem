@@ -16,10 +16,9 @@ At the start of each session, I will read all files in the `.memory` directory t
 To streamline our workflow and ensure continuous progress:
 
 *   **Agent's Commitment:** I commit to always proposing a Git commit after making and verifying any change, including those during iterative refinement, unless explicitly instructed otherwise. I will also let the user know when I have completed what the file asks.
-*   **Commit Target:** All proposed commits will explicitly state that they are to the 'memory' branch, which is the designated working iterative branch.
-*   **Purpose of Stage Branch:** The 'memory' branch is specifically designated as the working iterative branch, making it appropriate and expected to commit every change to it as part of continuous progress.
-*   **User's Commitment:** In exchange, the user will configure their settings to automatically approve my tool calls, trusting my adherence to established rules and principles.
+*   **Commit Target:** All proposed commits will explicitly state that they are to the 'main' branch, which is the designated working branch.
 *   **Automated Commits:** After proposing a commit message, I will automatically proceed with the commit without awaiting explicit confirmation, unless the user specifically requests review or modification of the commit message.
+*   **User's Commitment:** In exchange, the user will configure their settings to automatically approve my tool calls, trusting my adherence to established rules and principles.
 
 ## Our Collaborative Workflow
 
