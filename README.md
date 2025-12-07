@@ -32,7 +32,7 @@ This guide explains how to set up the `gem` command and its session management f
 1.  **Clone this Repository:**
     If you haven't already, clone this repository to a permanent location on your local machine.
     ```bash
-    git clone https://github.com/diy-make/gemini.git
+    git clone https://github.com/apemake/gem.git
     ```
 
 2.  **Set the `$GEMINI_ROOT` Environment Variable:**
