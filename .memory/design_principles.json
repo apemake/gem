@@ -17,7 +17,17 @@
             },
             {
               "name": "Modularity (Unix Philosophy)",
-              "rule": "Write simple parts connected by clean interfaces."
+              "rule": "Write simple parts connected by clean interfaces.",
+              "sub_principles": [
+                {
+                  "name": "Do One Thing Well",
+                  "rule": "Each script or tool should have a single, well-defined purpose."
+                },
+                {
+                  "name": "Pipe within an AI Agent Process",
+                  "rule": "The agent itself can act as the 'pipe' between different tools and scripts, orchestrating a complex workflow by passing the output of one tool as the input to another."
+                }
+              ]
             }
           ]
         }
