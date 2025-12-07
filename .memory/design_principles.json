@@ -30,6 +30,16 @@
               ]
             }
           ]
+        },
+        "ai_unix_philosophy": {
+          "name": "AI Unix Philosophy",
+          "rule": "Create a series of small, modular Python scripts that each do one thing well. These scripts are then orchestrated by the Gemini CLI, which acts as the interactive shell, providing a 'boomerang feedback' experience. The agent asks questions, then stops all processes to await user input. This allows for a flexible and interactive workflow, with the agent and user working together in a tight loop.",
+          "sub_principles": [
+            {
+              "name": "Fractal Memory",
+              "rule": "Each sub-project or repository can have its own local `.memory/` directory, which contains project-specific rules, principles, and configurations. This allows for a fractal-like organization of knowledge and context, where each part of the system is self-contained and self-describing, while still inheriting from the parent `.memory/` concepts."
+            }
+          ]
         }
       },
       "agent_virtues": {
