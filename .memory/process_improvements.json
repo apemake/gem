@@ -11,6 +11,12 @@
       "area": "Initialization Tasks",
       "problem": "Failed to set the GNU Screen tab name during startup, despite the instruction being present in `GEMINI.md`, `rules.json`, and `startup_protocol.json`.",
       "solution": "Explicitly executed the `screen -X title \"<agent_name>\"` command to set the tab name."
+    },
+    {
+      "timestamp": "2025-12-08 17:30:00",
+      "area": "Markdown File Interaction",
+      "problem": "Repeatedly failed to directly output markdown file content in chat, instead using tool calls (read_file, cat) which didn't display the content to the user for discussion.",
+      "solution": "When interacting with markdown (.md) files for review or discussion, the agent must output the content directly as part of its normal response, without using shell commands or `read_file` tool calls. This ensures the user can see and work on the content immediately."
     }
   ]
 }
