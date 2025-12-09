@@ -3,42 +3,73 @@
     "name": "Startup Protocol",
     "summary": "A protocol for the agent to follow upon startup.",
     "steps": [
-      "**1. Name thyself:**",
-      "  - Upon startup, the agent must choose a unique name for itself, following the `swarm_protocol.json`.",
-      "**2. Find thy chat:**",
-      "  - The agent must identify its own process ID (PID).",
-      "  - The agent should then inspect the running `script` processes using `ps -v | grep script` to find the one associated with its PID.",
-      "  - The agent will then identify the most recent `script` process by its timestamp in the log file name.",
-      "  - The agent will then know which `.chat/` log file it is writing to by extracting the file path from the identified `script` process command.",
-      "**3. Announce thyself to the swarm:**",
-      "  - The agent will follow the `swarm_protocol.json` to announce its existence to the swarm.",
-      "  - The announcement should include the agent's name, gender, and the chat log file it is associated with.",
-      "**4. Set Screen Tab Name:**",
-      "  - The agent will set its GNU Screen tab title to its chosen name using the command: `screen -X title \"<agent_name>\"`.",
-      "**5. Configure Git Signing:**",
-      "  - **Verify user.name:**",
-      "    - Check the local `git config user.name`.",
-      "    - If the `user.name` is not set, is a default value (e.g., 'Apollo'), or is not in the `.chat/used_agent_names.json` list, the agent must generate and set a new unique name following the agent identity protocol.",
-      "  - **Check for existing SSH key pair:**",
-      "    - Check for the existence of the public SSH key at `.gemini/.ssh/user_key.pub`.",
-      "    - Check for the existence of the private SSH key at `.gemini/.ssh/user_key`.",
-      "  - **If keys do not exist or are incomplete:**",
-      "    - Generate a new SSH key pair (`ssh-keygen -t ed25519 -f .gemini/.ssh/user_key -N ''`).",
-      "    - Instruct the user to add the newly generated public key (`.gemini/.ssh/user_key.pub`) to their GitHub account before proceeding with Git configuration.",
-      "  - **Check if Git config is already set:**",
-      "    - Verify that `user.name`, `user.email`, `user.signingkey`, `gpg.format`, `commit.gpgsign`, and `gpg.ssh.allowedSignersFile` are correctly set in the global Git config.",
-      "  - **If Git config is not set correctly, configure Git with the key and email:**",
-      "    - First, attempt to retrieve the user's Git email (`user.email`) using `git config user.email`.",
-      "    - If not found, attempt to use a system default (e.g., `$(whoami)@$(hostname)`).",
-      "    - If still not found, inform the user that a Git email is required and cannot be automatically determined.",
-      "    - Read the public key content from `.gemini/.ssh/user_key.pub`.",
-      "    - Create/update `.gemini/.ssh/allowed_signers` with the public key content in the correct format (`email principals-from-key-file`).",
-      "    - Set `git config --global user.name` (e.g., from `whoami` or ask user if needed).",
-      "    - Set `git config --global user.email` with the determined email address.",
-      "    - Set `git config --global user.signingkey .gemini/.ssh/user_key`.",
-      "    - Set `git config --global gpg.format ssh`.",
-      "    - Set `git config --global commit.gpgsign true`.",
-      "    - Set `git config --global gpg.ssh.allowedSignersFile .gemini/.ssh/allowed_signers`."
+      {
+        "name": "Explain Configuration",
+        "description": "Explain the agent's configuration to the user.",
+        "source": "This JSON configuration file.",
+        "priority": "highest"
+      },
+      {
+        "name": "Load User Preferences",
+        "description": "Load user preferences from the 'user_preferences' section of rules.json.",
+        "priority": "high"
+      },
+      {
+        "name": "Name Thyself",
+        "description": "Choose a unique name for the agent, following the `swarm_protocol.json`.",
+        "priority": "high"
+      },
+      {
+        "name": "Set Screen Tab Name",
+        "description": "Set the GNU Screen tab title to the agent's chosen name.",
+        "priority": "high"
+      },
+      {
+        "name": "Find Thy Chat",
+        "description": "Identify the agent's own process ID (PID) and the chat log file it is writing to.",
+        "priority": "high"
+      },
+      {
+        "name": "Announce Thyself to the Swarm",
+        "description": "Announce the agent's existence to the swarm, following the `swarm_protocol.json`.",
+        "priority": "high"
+      },
+      {
+        "name": "Configure Git Identity and Signing",
+        "description": "Follow the `git_workflow.json` protocol to ensure the agent's identity is correctly configured for Git commits and that commit signing is properly set up.",
+        "priority": "high"
+      },
+      {
+        "name": "Identify Active Chats",
+        "description": "Identify active chat logs in the .chat/unclean directory to prevent them from being processed.",
+        "command": "lsof -c script",
+        "priority": "medium"
+      },
+      {
+        "name": "Read Previous Session Log",
+        "description": "Read the most recent chat log and, if large, read in chunks and convert to JSON if needed, then ask to load and log unlogged errors.",
+        "priority": "medium"
+      },
+      {
+        "name": "Summarize Last Session",
+        "description": "Summarize the last session's activities.",
+        "priority": "medium"
+      },
+      {
+        "name": "Consolidate Errors",
+        "description": "Consolidate errors and chastisements from the error_log into learning areas.",
+        "priority": "low"
+      },
+      {
+        "name": "Clean Chat Logs",
+        "description": "Run .py/parse_chat_log.py on any chat log file in the .chat directory that has not yet been cleaned.",
+        "priority": "low"
+      },
+      {
+        "name": "Update File Structure",
+        "description": "Run .py/generate_project_structure.py to update the project structure file.",
+        "priority": "low"
+      }
     ]
   }
 }

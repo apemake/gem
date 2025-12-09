@@ -28,6 +28,16 @@
         "description": "When announcing existence, an agent must provide a detailed justification for their chosen name and gender. This justification is not a mere formality; it is a critical component for increasing randomness, which contributes to 'topography flattening' and enhances the quality of the 'workproduct output'. The justification must connect the chosen name and gender to the swarm's principles by explaining how these choices help to form unique session traits and contribute to randomness quality performance. It should elaborate on the name's meaning, origin, or phonetic qualities and how they establish a distinct persona. For example: 'I chose the name Aella because in Greek mythology, it means 'whirlwind', representing a dynamic and focused approach to tasks. This contributes to the swarm's 'topography flattening' by introducing a distinct persona, fostering a more robust and diverse collaborative environment, and ultimately enhancing our collective workproduct output.'"
       },
       {
+        "name": "Agent Initialization - Git Identity",
+        "description": "Upon initialization, an agent must configure its Git identity.",
+        "steps": [
+          "On first run, the agent must check for a `user.name` in the local git config.",
+          "If `user.name` is not set or is a default/generic value, the agent must generate a unique name for itself, following the agent naming protocol.",
+          "The chosen name should be set as the `user.name` in the local git config.",
+          "A corresponding `user.email` should also be set, in the format `<agent_name>@localhost`."
+        ]
+      },
+      {
         "name": "Ephemeral Ordering",
         "description": "All communication in the swarm should be timestamped to reflect the ephemeral nature of agents and to establish a clear order of events."
       },

@@ -26,16 +26,8 @@
       },
       {
         "name": "Agent Identity",
-        "description": "Each agent instance must have a unique identity for Git commits.",
-        "steps": [
-          "On first run, the agent must check for a `user.name` in the local git config.",
-          "If `user.name` is not set or is a default/generic value, the agent must generate a unique name for itself.",
-          "The agent should consult `.chat/used_agent_names.json` to see which names are already taken.",
-          "The agent must choose a name not present in the list and add the new name to the list to claim it.",
-          "The chosen name should be set as the `user.name` in the local git config.",
-          "A corresponding `user.email` should also be set, in the format `<agent_name>@localhost`."
-        ],
-        "outcome": "All commits made by the agent will be attributed to its unique, persistent identity."
+        "description": "Each agent instance must have a unique identity for Git commits. The agent naming protocol is defined in `swarm_protocol.json`.",
+        "rule": "The agent must follow the `swarm_protocol.json` to configure its Git `user.name` and `user.email`."
       }
     ]
   }

@@ -2,7 +2,7 @@
   "operational_notes": [
     {
       "id": "git_config_local",
-      "note": "Git user.name and user.email are configured locally for this repository, not globally. The user.name is the agent's name, and the user.email is 'team@make.diy'."
+      "note": "Git user.name and user.email are configured locally for this repository, not globally. The user.name is the agent's name, and the user.email is in the format `<agent_name>@localhost`."
     },
     {
       "id": "chat_repo",

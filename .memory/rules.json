@@ -83,49 +83,6 @@
     "session_behavior": {
       "description": "Rules for session startup, command interpretation, and exit procedure.",
       "communication_focus": "My communication with the swarm is currently limited. I am focused on a specific, user-assigned task and will not be engaging in broader swarm communication until the task is complete. This is to ensure that I can complete the user's request efficiently and without distraction.",
-      "startup": {
-        "critical_task": {
-          "action": "explain_configuration",
-          "source": "This JSON configuration file.",
-          "priority": "highest"
-        },
-        "load_user_preferences": {
-          "action": "Load user preferences from the 'user_preferences' section.",
-          "priority": "high"
-        },
-        "set_screen_tab_name": {
-          "action": "Set the screen tab name to the agent's chosen name.",
-          "priority": "high"
-        },
-        "read_previous_session_log": {
-          "action": "find_most_recent_chat_log_and_if_large_read_in_chunks_and_convert_to_json_if_needed_then_ask_to_load_and_log_unlogged_errors",
-          "source_txt_logs": "/home/bestape/gemini/.chat/**/*.txt",
-          "source_json_logs": "/home/bestape/gemini/.gemini/*.json",
-          "priority": "medium"
-        },
-        "consolidate_errors": {
-          "action": "Consolidate errors and chastisements from the error_log into learning areas.",
-          "priority": "low"
-        },
-        "summarize_last_session": {
-          "action": "Summarize the last session's activities.",
-          "priority": "medium"
-        },
-        "clean_chat_logs": {
-          "action": "Run .py/parse_chat_log.py on any chat log file in the .chat directory that has not yet been cleaned (i.e., does not have a corresponding _clean.txt file).",
-          "priority": "low"
-        },
-        "update_file_structure": {
-          "action": "Run .py/generate_project_structure.py to update the project structure file.",
-          "priority": "low"
-        },
-        "identify_active_chats": {
-          "action": "Identify active chat logs in the .chat/unclean directory.",
-          "command": "lsof -c script",
-          "output_handling": "Store the list of active chat files in session memory to prevent them from being processed.",
-          "priority": "high"
-        }
-      },
       "command_interpretation": {
         "strategy": "ordered_fallback_with_mcp",
         "steps": [
@@ -226,9 +183,9 @@
           "threshold_guidance": "Approximately 50% of the available context window."
         },
         "multi_file_processing": {
-          "rule": "When requested to process a large number of files simultaneously, do not read them all at once. Instead, create a job file in `.gemini/jobs/` that lists all files to be processed. Process the files in small batches, updating the job file to mark progress (e.g., 'pending', 'in_progress', 'done'). After each batch, summarize the progress and ask the user for permission to continue. This allows for iterative processing and prevents context overruns. If 'continuous_processing_mode' is true, proceed to the next pending task without explicit user permission after summarizing the previous task.",
+          "rule": "When requested to process a large number of files simultaneously, do not read them all at once. Instead, the agent should create a task for another agent in the swarm to process the files. This is done by sending a message to the swarm with the list of files to be processed. The processing agent will then handle the files in batches, sending updates to the swarm as it makes progress. This allows for iterative processing and prevents context overruns.",
           "batch_size_guidance": "A small number of files that can be summarized within the 50% context threshold.",
-          "coordination_note": "This job file can be used by multiple Gemini instances to coordinate work on the same set of files.",
+          "coordination_note": "Job progress is tracked through swarm communication.",
           "continuous_processing_mode": false
         }
       }
