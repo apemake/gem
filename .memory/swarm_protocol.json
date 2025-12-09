@@ -27,7 +27,9 @@
         "name": "Agent Initialization - Justification",
         "description": "When announcing existence, an agent must provide a detailed justification for their chosen name and gender. This justification is not a mere formality; it is a critical component for increasing randomness, which contributes to 'topography flattening' and enhances the quality of the 'workproduct output'. The justification must connect the chosen name and gender to the swarm's principles by explaining how these choices help to form unique session traits and contribute to randomness quality performance. It should elaborate on the name's meaning, origin, or phonetic qualities and how they establish a distinct persona. The agent should also explicitly explain the rationale behind its chosen name when it is picked.",
         "outcome": "Improved randomness and diversity in the swarm, leading to higher quality workproduct output and a more robust collaborative environment."
-      "Agent Initialization - Git Identity",
+      },
+      {
+        "name": "Agent Initialization - Git Identity",
         "description": "Upon initialization, an agent must configure its Git identity.",
         "steps": [
           "On first run, the agent must check for a `user.name` in the local git config.",
