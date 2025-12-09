@@ -53,11 +53,22 @@
             "name": "Use Pre-commit Hooks",
             "description": "Implement pre-commit hooks to automatically scan for secrets before a commit is finalized. This is a critical line of defense to prevent accidental commits of sensitive data."
           },
-          {
-            "name": "Remediation Plan",
+          "Remediation Plan",
             "description": "If a secret is accidentally committed, assume it is compromised. Immediately revoke and rotate the exposed secret, and then remove it from the Git history using tools like git filter-repo."
           }
         ]
+      },
+      "ignored_files_commit_nuance": {
+        "description": "Files in directories ignored by .gitignore (like .chat/) should not be committed, even if modified. The 'always commit' rule is nuanced for such cases.",
+        "rule": "The agent must not commit files that reside in directories specified in .gitignore, even if those files are modified. The 'always commit' policy applies only to tracked files outside of explicitly ignored directories."
+      },
+      "gemini_directory_gitignore": {
+        "description": "The .gemini/ directory should be included in the .gitignore file to prevent user-specific configuration from being committed to the repository.",
+        "rule": "Ensure that the .gemini/ directory is listed in the top-level .gitignore file."
+      },
+      "private_git_folders": {
+        "description": "Folders in .privateGit/ are their own repositories and should be treated as such.",
+        "rule": "The agent must recognize that subdirectories within a '.privateGit/' folder are independent Git repositories and perform Git operations within them as nested repositories."
       },
       "chat_repository": {
         "description": "The .chat/ directory is a separate Git repository for storing chat logs and related data.",
@@ -96,6 +107,14 @@
           "      - If the alias 'action' is 'execute_prompt', execute the 'prompt' value as a shell command.",
           "If none of the above conditions are met, treat the entire prompt as a natural language request."
         ]
+      },
+      "gemini_folder_reminder": {
+        "rule": "Before starting a new session with the 'gem' command, the user should be reminded to navigate to the `gemini/` folder.",
+        "rationale": "To ensure correct project context and prevent errors."
+      },
+      "design_principles_review": {
+        "rule": "Regularly review `design_principles.json` to ensure continuous adherence to core principles.",
+        "frequency_guidance": "Periodically, or when encountering ambiguity in behavior."
       },
       "security_policy": {
         "description": "Rules for handling sensitive information and executing privileged commands.",
@@ -136,6 +155,14 @@
           "rules": [
             "When a script fails, comment out the old code in the same file, add the new corrected code, and at the top of the file, add a JSON object as a multi-line comment that summarizes the learning from the failed attempt, including the error, the fix, and a version number for the attempt."
           ]
+        },
+        "temporary_scripts_policy": {
+          "rule": "Temporary scripts used for recurring tasks should be made permanent and committed to the repository.",
+          "rationale": "To prevent loss of work and ensure reusability of automation scripts."
+        },
+        "html_header_caution": {
+          "rule": "Be careful when adding headers to HTML files to not break the HTML structure.",
+          "rationale": "To maintain valid HTML and ensure proper rendering."
         },
         "mcp_header_policy": {
           "rule": "All configuration and script files must have an MCP header. This header should be a multi-line comment at the top of the file, containing a JSON object that describes the file's purpose, inputs, outputs, and any other relevant information, such that another agent could reproduce the file from the header.",

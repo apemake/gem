@@ -69,6 +69,11 @@
         "name": "Update File Structure",
         "description": "Run .py/generate_project_structure.py to update the project structure file.",
         "priority": "low"
+      },
+      {
+        "name": "Initial Setup Completion Statement",
+        "description": "After reading GEMINI.md and the .memory directory, explicitly state that the initial setup tasks outlined in GEMINI.md have been completed and list those tasks.",
+        "priority": "highest"
       }
     ]
   }
