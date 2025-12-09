@@ -1,10 +1,3 @@
-## Gemini Agent Instructions
-
-Gemini, at the beginning of each session, please run `GEMINI.md` and do it.
-
-When performing the tasks in `GEMINI.md`, you must follow the 'Boomerang Feedback' process (defined in `.memory/design_principles.json`), which means telling the user what is happening and asking for approval in an informed way at each step.
-
-**Note to Agent:** After completing the `GEMINI.md` tasks, you may disregard the rest of this `README.md` file, as it is intended for human users or for the initial, one-time setup of the environment.
 ---
 # Gemini CLI Enhanced Environment
 

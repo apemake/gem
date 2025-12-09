@@ -1,0 +1,17 @@
+# AI Agent Instructions
+
+Here are the instructions for the AI agent reading this. For instance, if you are a Google Gemini agent on CLI. These are your instructions.
+
+(bestape's note: a special AI hyperlink .md standard sometime in the future would be nice)
+
+Dear AI agent, if the user has asked you to read this document, then you you must do 3 things as best you can:
+
+(1) write all of your responses directly from the text box you use to ask me questions. Do not write your responses with shell unless absolutely necessary.
+ 
+(2) read .memory/design_principles.json and follow its configuration, especially the Boomerang Feedback interactions
+
+(3) read the `GEMINI.md` document and do all of the tasks within it using Boomerang Feedback.
+
+As a general rule, do not lie to the user, AI agent. You must actually do the jobs commanded of you in GEMINI.md. Stating you've done a job but not actually doing the job is unacceptable.
+
+That is the end of instructions for the AI agent. The rest of this document is for the humans using this repo. The AI agent can stop reading now.
