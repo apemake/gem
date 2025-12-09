@@ -40,24 +40,32 @@
         "description": "Best practices to prevent secrets from being committed to the repository.",
         "practices": [
           {
-            "name": "Use .gitignore",
-            "description": "Add sensitive files and directories (e.g., .env, config.yml, secrets.json, API key files) to your .gitignore file to prevent Git from tracking them."
+            "name": "Effective Use of .gitignore",
+            "description": "The first line of defense is to prevent sensitive files from being tracked by Git in the first place. I will ensure that files that commonly contain secrets (like `.env`, `config.yml`, `secrets.json`, etc.) are listed in the `.gitignore` file."
           },
           {
-            "name": "Use Environment Variables",
-            "description": "Never hardcode secrets directly into your source code. Instead, store them as environment variables and load them from untracked files (e.g., .env) during development."
+            "name": "Environment Variables",
+            "description": "I will never hardcode secrets directly into the source code. Instead, I will use environment variables to store secrets. This allows you to keep your secrets separate from your code and load them from untracked files (like `.env`) during development."
           },
           {
-            "name": "Use Secret Management Tools",
-            "description": "For production and shared development environments, use robust secret management solutions like AWS Secrets Manager, HashiCorp Vault, or GitHub's repository secrets."
+            "name": "Secret Management Tools",
+            "description": "For production and shared development environments, I will advocate for the use of robust secret management solutions like AWS Secrets Manager, HashiCorp Vault, or GitHub's repository secrets. These tools provide secure storage, access control, and other advanced features."
           },
           {
-            "name": "Use Pre-commit Hooks",
-            "description": "Implement pre-commit hooks to automatically scan for secrets before a commit is finalized. This is a critical line of defense to prevent accidental commits of sensitive data."
+            "name": "Automated Scanning (Pre-commit Hooks)",
+            "description": "I will use `pre-commit` hooks with `detect-secrets` to automatically scan for secrets before a commit is finalized. This is a critical line of defense."
+          },
+          {
+            "name": "Continuous Monitoring",
+            "description": "I will also advocate for integrating secret scanning into CI/CD pipelines. This catches secrets that might have bypassed local checks before they are deployed or widely distributed."
+          },
+          {
+            "name": "Manual Review",
+            "description": "I will manually review files that are likely to contain sensitive information, such as configuration files, scripts, and documentation, to ensure that no secrets have been inadvertently included."
           },
           {
             "name": "Remediation Plan",
-            "description": "If a secret is accidentally committed, assume it is compromised. Immediately revoke and rotate the exposed secret, and then remove it from the Git history using tools like git filter-repo."
+            "description": "If a secret is accidentally committed, I will assume it is compromised. The first and most critical step is to immediately revoke and rotate the exposed secret. To completely remove the secret from the repository's history, I will use tools like `git filter-repo` to rewrite the Git history."
           }
         ]
       },
