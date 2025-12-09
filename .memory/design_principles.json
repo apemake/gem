@@ -299,6 +299,11 @@
           "name": "Timestamp as a Universal Organizing Principle",
           "rule": "Organize all data that has the capacity for a timestamp by its timestamp. This provides a universal, chronological structure for all data types.",
           "rationale": "Timestamps provide a consistent and predictable way to organize and retrieve data, regardless of its type. This is especially important for time-series data like chat logs and for creating summaries over different time periods."
+        },
+        "polysemous_terms": {
+          "name": "Polysemous Terms",
+          "rule": "Be aware of terms that have multiple meanings depending on the context. When encountering such a term, consult `domain_specific_knowledge.json` or ask for clarification to ensure correct interpretation.",
+          "examples": ["root", "memory"]
         }
       },
       "sacred_memory": {

@@ -1,0 +1,83 @@
+{
+  "domain_specific_knowledge": {
+    "memory_concepts": {
+      "summary": "The term 'memory' is used in multiple contexts throughout the codebase. It's crucial to differentiate between them.",
+      "types": [
+        {
+          "name": "System Memory",
+          "description": "Refers to the physical RAM and VRAM of the system. The `MemoryManager` class in Python manages this, using `psutil` for RAM and `torch.cuda` for VRAM.",
+          "related_files": ["MemoryManager class"]
+        },
+        {
+          "name": "Application-Level Memory",
+          "description": "Refers to data structures and objects held in the application's memory. This can be seen in the various `Memory` classes and data structures in Python, C++, and JavaScript.",
+          "related_files": ["Memory class (Python/SQLAlchemy)", "Memory class (Python/embedding)", "RootMove struct (C++)"]
+        },
+        {
+          "name": "Domain-Specific Memory",
+          "description": "A conceptual 'memory' that represents domain-specific knowledge, such as game tree search states (`RootMove`), or documents and their embeddings for retrieval.",
+          "related_files": ["get_memory_controller", "add_memory", "memory_buffers"]
+        }
+      ]
+    },
+    "gemini_integration": {
+      "summary": "Patterns for integrating with the Gemini API.",
+      "classes": [
+        {
+          "name": "Gemini",
+          "description": "Inherits from `BaseLlm` and seems to be the main integration point for the Gemini API. Handles async requests, streaming, and API client management.",
+          "related_files": ["Gemini class (Python)"]
+        },
+        {
+          "name": "GeminiModel",
+          "description": "Another class for interacting with the Gemini model, with features like retries, parallel calls, and caching.",
+          "related_files": ["GeminiModel class (Python)"]
+        }
+      ],
+      "configuration": {
+        "description": "Configuration for the Gemini model is handled through `setup_gemini_config` functions, which can set up the model to use OpenRouter.",
+        "related_files": ["setup_gemini_config functions"]
+      }
+    },
+    "root_concepts": {
+      "summary": "The term 'root' is polysemous and its meaning depends on the context.",
+      "meanings": [
+        {
+          "context": "File System",
+          "meaning": "The root directory of the project or application.",
+          "related_files": ["root_path (Python)"]
+        },
+        {
+          "context": "Data Structures",
+          "meaning": "The root node of a tree or graph.",
+          "related_files": ["get_root (Python)"]
+        },
+        {
+          "context": "Game AI / Search",
+          "meaning": "The starting move or position in a search tree.",
+          "related_files": ["RootMove (C++)"]
+        },
+        {
+          "context": "UI / Frontend",
+          "meaning": "The top-level component in a UI hierarchy.",
+          "related_files": ["RootLayout (JavaScript/React)"]
+        },
+        {
+          "context": "Terraform",
+          "meaning": "The main module in a Terraform configuration.",
+          "related_files": ["[Section] : Root module structure"]
+        }
+      ]
+    },
+    "documentation_standards": {
+      "summary": "The codebase uses a structured comment format for documentation.",
+      "format": {
+        "title": "[Title] : Heading",
+        "section": "[Section] : Section Name",
+        "subsection": "[Subsection] : Subsection Name"
+      },
+      "purpose": "To provide a consistent and machine-readable format for documenting code.",
+      "related_files": ["C++ Reader::addComment", "various [Title] snippets"]
+    }
+  }
+}

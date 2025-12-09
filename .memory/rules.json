@@ -143,6 +143,14 @@
             "include": ["Configuration", "Scripts"],
             "exclude": ["Documentation", "Other"]
           }
+        },
+        "structured_commenting_convention": {
+          "rule": "When documenting code, use the structured comment format defined in `domain_specific_knowledge.json`.",
+          "format": {
+            "title": "[Title] : Heading",
+            "section": "[Section] : Section Name",
+            "subsection": "[Subsection] : Subsection Name"
+          }
         }
       },
       "induction": {
