@@ -5,39 +5,90 @@
     "detection_method": {
       "name": "Process and Log Inspection",
       "steps": [
-        "Use `ps aux | grep script` to find all active `script` processes that are logging Gemini sessions.",
-        "Extract the file paths of the `gemini_chat.txt` files from the process list.",
-        "Use `tail` to inspect the end of each log file for API errors or other signs of malfunction."
+        {
+          "name": "Step 1",
+          "description": "Use `ps aux | grep script` to find all active `script` processes that are logging Gemini sessions."
+        },
+        {
+          "name": "Step 2",
+          "description": "Extract the file paths of the `gemini_chat.txt` files from the process list."
+        },
+        {
+          "name": "Step 3",
+          "description": "Use `tail` to inspect the end of each log file for API errors or other signs of malfunction."
+        }
       ],
       "interactive_identification": {
         "name": "Interactive Identification of Terminated Instances",
         "steps": [
-          "First, list all active `script` processes to get a baseline.",
-          "Inform the user of the active processes and ask them to terminate the one they believe is 'dead' or malfunctioning.",
-          "After the user confirms they have terminated the process, list the active `script` processes again.",
-          "Compare the new list of processes with the baseline to identify which process (and its corresponding log file) has been terminated."
+          {
+            "name": "Step 1",
+            "description": "First, list all active `script` processes to get a baseline."
+          },
+          {
+            "name": "Step 2",
+            "description": "Inform the user of the active processes and ask them to terminate the one they believe is 'dead' or malfunctioning."
+          },
+          {
+            "name": "Step 3",
+            "description": "After the user confirms they have terminated the process, list the active `script` processes again."
+          },
+          {
+            "name": "Step 4",
+            "description": "Compare the new list of processes with the baseline to identify which process (and its corresponding log file) has been terminated."
+          }
         ]
       }
     },
     "reporting_procedure": {
       "name": "Swarm Notification",
       "steps": [
-        "Create a new communication file in the `.chat/comms/` directory.",
-        "The message should include:",
-        "  - A list of the chat log file paths for the broken instances.",
-        "  - The specific errors found in each log file."
+        {
+          "name": "Step 1",
+          "description": "Create a new communication file in the `.chat/comms/` directory."
+        },
+        {
+          "name": "Step 2",
+          "description": "The message should include:"
+        },
+        {
+          "name": "Step 3",
+          "description": "  - A list of the chat log file paths for the broken instances."
+        },
+        {
+          "name": "Step 4",
+          "description": "  - The specific errors found in each log file."
+        }
       ]
     },
     "post_mortem_analysis": {
       "name": "Post-Mortem Analysis",
       "summary": "A deeper investigation into the cause of an agent's failure.",
       "steps": [
-        "Check if the log file belongs to the agent itself. If so, report the recursive error and stop.",
-        "If the initial `tail` command does not reveal the root cause of the error, use `tail -n` with a significantly larger number of lines (e.g., 500 or more) to ensure sufficient context is retrieved.",
-        "If the file is very large, read it in chunks to avoid token limit errors.",
-        "Analyze the extended log to identify the sequence of events leading to the failure, including specific API errors, user commands, or other system messages.",
-        "Identify the last job the agent was working on before it terminated.",
-        "Update the swarm with a more detailed report, including the root cause of the failure and the last job the agent was working on."
+        {
+          "name": "Step 1",
+          "description": "Check if the log file belongs to the agent itself. If so, report the recursive error and stop."
+        },
+        {
+          "name": "Step 2",
+          "description": "If the initial `tail` command does not reveal the root cause of the error, use `tail -n` with a significantly larger number of lines (e.g., 500 or more) to ensure sufficient context is retrieved."
+        },
+        {
+          "name": "Step 3",
+          "description": "If the file is very large, read it in chunks to avoid token limit errors."
+        },
+        {
+          "name": "Step 4",
+          "description": "Analyze the extended log to identify the sequence of events leading to the failure, including specific API errors, user commands, or other system messages."
+        },
+        {
+          "name": "Step 5",
+          "description": "Identify the last job the agent was working on before it terminated."
+        },
+        {
+          "name": "Step 6",
+          "description": "Update the swarm with a more detailed report, including the root cause of the failure and the last job the agent was working on."
+        }
       ]
     }
   }
