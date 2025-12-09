@@ -78,6 +78,24 @@
       },
       "purpose": "To provide a consistent and machine-readable format for documenting code.",
       "related_files": ["C++ Reader::addComment", "various [Title] snippets"]
+    },
+    "bim_concepts": {
+        "name": "Building Information Modeling (BIM)",
+        "summary": "BIM is a collaborative process for managing digital representations of built assets.",
+        "terms": [
+            {
+                "name": "BIM",
+                "definition": "Building Information Modeling, a collaborative process for managing digital representations of built assets."
+            },
+            {
+                "name": "AEC",
+                "definition": "Architecture, Engineering, and Construction, a sector encompassing the design, development, and construction of the physical environment."
+            },
+            {
+                "name": "BIMhero.io",
+                "definition": "A community platform for BIM coordinators and AEC professionals. It serves as a hub for networking, discussion, and knowledge sharing, aiming to advance the use of digital technologies in the AEC sector."
+            }
+        ]
     }
   }
 }
