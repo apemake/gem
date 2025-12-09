@@ -66,10 +66,6 @@
         "description": "The .gemini/ directory should be included in the .gitignore file to prevent user-specific configuration from being committed to the repository.",
         "rule": "Ensure that the .gemini/ directory is listed in the top-level .gitignore file."
       },
-      "private_git_folders": {
-        "description": "Folders in .privateGit/ are their own repositories and should be treated as such.",
-        "rule": "The agent must recognize that subdirectories within a '.privateGit/' folder are independent Git repositories and perform Git operations within them as nested repositories."
-      },
       "chat_repository": {
         "description": "The .chat/ directory is a separate Git repository for storing chat logs and related data.",
         "rule": "The agent must handle the .chat/ repository independently from the main repository. This includes making commits to the .chat/ repository to track changes to chat logs."
