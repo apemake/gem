@@ -59,6 +59,17 @@
       "sh/": {
         "run_monthly_summarization.sh": "file"
       }
+    },
+    ".chat/": {
+      "description": "A separate Git repository for storing chat logs and related data.",
+      "git_repo": true,
+      "structure": {
+        "cleaned/": "directory",
+        "comms/": "directory",
+        "session_summaries/": "directory",
+        "unclean/": "directory",
+        "used_agent_names.json": "file"
+      }
     }
   }
 }

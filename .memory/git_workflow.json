@@ -23,6 +23,19 @@
         "name": "Nested Repository Handling",
         "description": "This repository acts as a 'meta-repo' and contains other, separate Git repositories within its directory structure (e.g., in '.chat/' and 'repos/'). These nested repositories are ignored by this parent repository's .gitignore file.",
         "rule": "The agent must not attempt to stage or commit changes to files within these nested repositories from the parent repository. All Git operations for a nested repository must be performed from within that nested repository's own directory."
+      },
+      {
+        "name": "Agent Identity",
+        "description": "Each agent instance must have a unique identity for Git commits.",
+        "steps": [
+          "On first run, the agent must check for a `user.name` in the local git config.",
+          "If `user.name` is not set or is a default/generic value, the agent must generate a unique name for itself.",
+          "The agent should consult `.chat/used_agent_names.json` to see which names are already taken.",
+          "The agent must choose a name not present in the list and add the new name to the list to claim it.",
+          "The chosen name should be set as the `user.name` in the local git config.",
+          "A corresponding `user.email` should also be set, in the format `<agent_name>@localhost`."
+        ],
+        "outcome": "All commits made by the agent will be attributed to its unique, persistent identity."
       }
     ]
   }

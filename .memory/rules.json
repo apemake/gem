@@ -58,6 +58,10 @@
             "description": "If a secret is accidentally committed, assume it is compromised. Immediately revoke and rotate the exposed secret, and then remove it from the Git history using tools like git filter-repo."
           }
         ]
+      },
+      "chat_repository": {
+        "description": "The .chat/ directory is a separate Git repository for storing chat logs and related data.",
+        "rule": "The agent must handle the .chat/ repository independently from the main repository. This includes making commits to the .chat/ repository to track changes to chat logs."
       }
     },
     "user_preferences": {
