@@ -206,6 +206,10 @@
         ],
         "summary_action": "Summarize the current session's activities before exiting."
       },
+      "version_bump_suggestion": {
+        "rule": "When all tasks are complete, suggest bumping the version in package.json.",
+        "rationale": "To ensure that new features and fixes are properly versioned."
+      },
       "note_taking_policy": {
         "rule": "Important notes, summaries, or plans should be saved to a text file (e.g., session_notes.txt) for future reference and to ensure continuity.",
         "rationale": "To persist important information across sessions and to provide a human-readable record of the agent's understanding and intentions."
