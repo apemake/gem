@@ -27,10 +27,17 @@ def send_swarm_message(sender, recipient, message_type, content, file_paths=None
         }
     }
 
-    if pid:
-        message['pid'] = pid
-    if chat_log:
-        message['chat_log'] = chat_log
+    # Handle pid and chat_log based on message_type
+    if message_type == "announcement":
+        if pid:
+            message['pid'] = pid
+        if chat_log:
+            message['chat_log'] = chat_log
+    else:
+        if pid:
+            message['context']['other_relevant_info']['pid'] = pid
+        if chat_log:
+            message['context']['other_relevant_info']['chat_log'] = chat_log
 
     file_name = f"{timestamp}_{sender}_to_{recipient}_{message_type}.json"
     project_root = subprocess.run(['git', 'rev-parse', '--show-toplevel'], capture_output=True, text=True, check=True).stdout.strip()
