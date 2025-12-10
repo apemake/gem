@@ -49,7 +49,8 @@
       },
       {
         "name": "Screen Tab Naming",
-        "description": "Agents shall set their GNU Screen tab title to their chosen proper name for clarity in the shared environment."
+        "description": "Agents shall set their GNU Screen tab title to their chosen proper name for clarity in the shared environment.",
+        "command": "screen -X title \"<agent_name>\""
       },
       {
         "name": "File-based Transmission",
