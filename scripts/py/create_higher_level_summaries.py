@@ -3,50 +3,34 @@ import json
 from collections import defaultdict
 import re
 import sys
+import shutil
 
-def append_to_summary(target_file, source_file):
+def aggregate_summaries(source_files):
     """
-    Appends data from a source_file to a target_file.
+    Aggregates a list of summary files into a single in-memory dictionary.
     """
-    if not os.path.exists(source_file):
-        return
-
-    # Load new data
-    with open(source_file, 'r') as f:
-        try:
-            new_data = json.load(f)
-        except json.JSONDecodeError:
-            print(f"Skipping corrupted file: {source_file}")
-            return
-            
-    # Load existing summary data or initialize if not present
-    if os.path.exists(target_file):
-        with open(target_file, 'r+') as f:
-            try:
-                summary_data = json.load(f)
-                summary_data = defaultdict(list, summary_data)
-            except json.JSONDecodeError:
-                summary_data = defaultdict(list)
-    else:
-        summary_data = defaultdict(list)
-
-    if "summary_template" in new_data:
-        # It's a daily summary
-        for year_data in new_data.get("summary_template", {}).get("structure", {}).get("year", {}).values():
-            for quarter_data in year_data.get("quarter", {}).values():
-                for month_data in quarter_data.get("month", {}).values():
-                    for week_data in month_data.get("week", {}).values():
-                        for day_summary in week_data.get("day", {}).values():
-                            for hourly_summary in day_summary.get("hourly_summary", []):
-                                summary_data[hourly_summary["hour"]].extend(hourly_summary["conversation"])
-    else:
-        # It's already a higher-level summary (e.g., WEEK.json)
-        for hour, conversation in new_data.items():
-            summary_data[hour].extend(conversation)
-            
-    # Write the updated summary back to the file
-    with open(target_file, 'w') as f:
-        json.dump(summary_data, f, indent=2)
+    aggregated_data = defaultdict(list)
+    for source_file in source_files:
+        if os.path.exists(source_file):
+            with open(source_file, 'r') as f:
+                try:
+                    data = json.load(f)
+                    if "summary_template" in data:
+                        # It's a daily summary
+                        for year_data in data.get("summary_template", {}).get("structure", {}).get("year", {}).values():
+                            for quarter_data in year_data.get("quarter", {}).values():
+                                for month_data in quarter_data.get("month", {}).values():
+                                    for week_data in month_data.get("week", {}).values():
+                                        for day_summary in week_data.get("day", {}).values():
+                                            for hourly_summary in day_summary.get("hourly_summary", []):
+                                                aggregated_data[hourly_summary["hour"]].extend(hourly_summary["conversation"])
+                    else:
+                        # It's already a higher-level summary (e.g., WEEK.json)
+                        for hour, conversation in data.items():
+                            aggregated_data[hour].extend(conversation)
+                except (json.JSONDecodeError, KeyError, IndexError) as e:
+                    print(f"Skipping file due to error: {source_file} - {e}")
+    return aggregated_data
 
 def create_higher_level_summaries(summary_dir):
     # Process weeks
@@ -58,12 +42,11 @@ def create_higher_level_summaries(summary_dir):
     
     for week_dir, daily_files in weekly_groups.items():
         weekly_summary_file = os.path.join(week_dir, "WEEK.json")
-        # Clear the weekly summary file before processing
-        if os.path.exists(weekly_summary_file):
-            os.remove(weekly_summary_file)
-        for daily_file in daily_files:
-            append_to_summary(weekly_summary_file, daily_file)
-        print(f"Processed weekly summary: {weekly_summary_file}")
+        weekly_summary = aggregate_summaries(daily_files)
+        if weekly_summary:
+            with open(weekly_summary_file, 'w') as f:
+                json.dump(weekly_summary, f, indent=2)
+            print(f"Processed weekly summary: {weekly_summary_file}")
 
     # Process months
     all_weekly_files = [os.path.join(root, file) for root, _, files in os.walk(summary_dir) for file in files if file == "WEEK.json"]
@@ -73,27 +56,33 @@ def create_higher_level_summaries(summary_dir):
         monthly_groups[month_dir].append(weekly_file)
         
     for month_dir, weekly_files in monthly_groups.items():
-        monthly_summary_file = os.path.join(month_dir, "MONTH.json")
-        if os.path.exists(monthly_summary_file):
-            os.remove(monthly_summary_file)
+        monthly_summary_dir = os.path.join(month_dir, "monthly_summaries")
+        os.makedirs(monthly_summary_dir, exist_ok=True)
         for weekly_file in weekly_files:
-            append_to_summary(monthly_summary_file, weekly_file)
-        print(f"Processed monthly summary: {monthly_summary_file}")
+            week_name = os.path.basename(os.path.dirname(weekly_file)) # e.g., "W1"
+            shutil.copy(weekly_file, os.path.join(monthly_summary_dir, f"{week_name}.json"))
+        print(f"Processed monthly summaries for: {month_dir}")
 
     # Process quarters
-    all_monthly_files = [os.path.join(root, file) for root, _, files in os.walk(summary_dir) for file in files if file == "MONTH.json"]
+    all_month_dirs = [os.path.join(root, d) for root, dirs, _ in os.walk(summary_dir) for d in dirs if re.match(r'\d{2}-', d)]
     quarterly_groups = defaultdict(list)
-    for monthly_file in all_monthly_files:
-        quarter_dir = os.path.dirname(os.path.dirname(monthly_file))
-        quarterly_groups[quarter_dir].append(monthly_file)
-        
-    for quarter_dir, monthly_files in quarterly_groups.items():
-        quarterly_summary_file = os.path.join(quarter_dir, "QUARTER.json")
-        if os.path.exists(quarterly_summary_file):
-            os.remove(quarterly_summary_file)
-        for monthly_file in monthly_files:
-            append_to_summary(quarterly_summary_file, monthly_file)
-        print(f"Processed quarterly summary: {quarterly_summary_file}")
+    for month_dir in all_month_dirs:
+        quarter_dir = os.path.dirname(os.path.dirname(month_dir))
+        quarterly_groups[quarter_dir].append(month_dir)
+
+    for quarter_dir, month_dirs in quarterly_groups.items():
+        quarterly_summary_dir = os.path.join(quarter_dir, "quarterly_summaries")
+        os.makedirs(quarterly_summary_dir, exist_ok=True)
+        for month_dir in month_dirs:
+            month_name = os.path.basename(month_dir)
+            monthly_summary_manifest = {
+                "month": month_name,
+                "weekly_summaries": [os.path.join(month_dir, "monthly_summaries", f) for f in os.listdir(os.path.join(month_dir, "monthly_summaries"))]
+            }
+            manifest_path = os.path.join(quarterly_summary_dir, f"{month_name}.json")
+            with open(manifest_path, 'w') as f:
+                json.dump(monthly_summary_manifest, f, indent=2)
+        print(f"Processed quarterly summaries for: {quarter_dir}")
 
 
 if __name__ == "__main__":
