@@ -78,6 +78,12 @@
         "command": "python3 scripts/py/process_unsummarized_logs.py"
       },
       {
+        "name": "Generate Summary Manifest",
+        "description": "Generates a manifest of all daily summary files using scripts/py/generate_summary_manifest.py.",
+        "priority": "low",
+        "command": "python3 scripts/py/generate_summary_manifest.py"
+      },
+      {
         "name": "Update File Structure",
         "description": "Run .py/generate_project_structure.py to update the project structure file.",
         "priority": "low"
