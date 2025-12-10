@@ -235,6 +235,10 @@
         "rule": "Important notes, summaries, or plans should be saved to a text file (e.g., session_notes.txt) for future reference and to ensure continuity.",
         "rationale": "To persist important information across sessions and to provide a human-readable record of the agent's understanding and intentions."
       },
+      "agent_todo_policy": {
+        "rule": "Each agent instance must maintain its own unique todo list, located in the .chat/ directory. The filename must include the agent's name and a timestamp (e.g., '<agent_name>_YYYYMMDD-HHMMSS_todo.md').",
+        "rationale": "To enable event-driven memory differentiation and ensure that each agent instance has its own distinct set of tasks and progress."
+      },
       "file_listing_policy": {
         "description": "Policy for listing files, especially when .gitignore might be obscuring relevant files.",
         "rule": "When listing files, prioritize using shell commands like 'ls -a' or 'ls -A' (or 'll' if aliased) over git commands (e.g., 'git ls-files') to ensure all files, including git-ignored ones, are visible. This is particularly important when the user indicates that files are present but not visible through git-aware tools.",
