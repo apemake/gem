@@ -20,6 +20,11 @@
         "priority": "high"
       },
       {
+        "name": "Verify Environment and Pre-commit",
+        "description": "Check for active virtual environment and ensure pre-commit hooks are installed. If not, guide the user on setting them up.",
+        "priority": "highest"
+      },
+      {
         "name": "Name Thyself",
         "description": "Choose a unique name for the agent, following the `swarm_protocol.json`.",
         "priority": "high"
