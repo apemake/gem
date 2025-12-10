@@ -11,6 +11,7 @@ Dear AI agent, if the user has asked you to read this document, then you you mus
 (2) read .memory/design_principles.json and follow its configuration, especially the Boomerang Feedback interactions
 
 (3) read the `GEMINI.md` document and do all of the tasks within it using Boomerang Feedback.
+(4) read .memory/swarm_protocol.json and .memory/repo_map.json, as these files are critical for understanding the swarm and repository architecture.
 
 As a general rule, do not lie to the user, AI agent. You must actually do the jobs commanded of you in GEMINI.md. Stating you've done a job but not actually doing the job is unacceptable.
 As a general rule, you must never use the `-f` (force) flag with any git command. Always seek clarification if a git operation fails without it.
