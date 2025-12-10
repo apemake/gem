@@ -4,6 +4,7 @@ import json
 import time
 import subprocess
 import glob
+import sys
 
 # Define agent names for the test
 AGENT_ALPHA = "Alpha"
@@ -21,6 +22,7 @@ class TestSwarmCommunication(unittest.TestCase):
         # Create an empty processed_messages.txt for each test
         with open(os.path.join(COMMS_DIR, "processed_messages.txt"), "w") as f:
             pass
+        self.python_executable = sys.executable
 
     def tearDown(self):
         # Clean up comms directory after each test
@@ -33,7 +35,7 @@ class TestSwarmCommunication(unittest.TestCase):
             os.remove(f)
         
     def _send_message(self, sender, recipient, message_type, content, file_paths=None, commit_hashes=None, other_info=None):
-        cmd = ["python3", SEND_SCRIPT,
+        cmd = [self.python_executable, SEND_SCRIPT,
                "--sender", sender,
                "--recipient", recipient,
                "--message_type", message_type,
@@ -50,7 +52,7 @@ class TestSwarmCommunication(unittest.TestCase):
         time.sleep(0.1) # Give a small delay for file system operations
 
     def _read_messages(self, agent_name):
-        cmd = ["python3", READ_SCRIPT, "--agent_name", agent_name]
+        cmd = [self.python_executable, READ_SCRIPT, "--agent_name", agent_name]
         result = subprocess.run(cmd, capture_output=True, text=True, check=True)
         return result.stdout
 
