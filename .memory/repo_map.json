@@ -1,0 +1,356 @@
+{
+  "repository_map": {
+    "summary": "Mapping of Git repositories in the workspace, classified by Subject and Object.",
+    "definitions": {
+      "subject_repository": "Contains actual, versioned content; a 'working' repository where development happens.",
+      "object_repository": "Acts as a container or 'passthrough' for other repositories, ignoring their subdirectories via .gitignore; essentially 'holds' other repositories without managing their content directly."
+    },
+    "repositories": [
+      {
+        "path": "./.git",
+        "type": "subject",
+        "description": "The main Gemini repository, containing the agent's core code and configuration."
+      },
+      {
+        "path": "./.chat/.git",
+        "type": "subject",
+        "description": "Repository for chat logs and related communication data."
+      },
+      {
+        "path": "./.dotfiles/.git",
+        "type": "subject",
+        "description": "Repository for user-specific configuration files (dotfiles)."
+      },
+      {
+        "path": "./repos/.git",
+        "type": "object",
+        "description": "An object repository acting as a container for various other project repositories."
+      },
+      {
+        "path": "./repos/cheerbotme/.git",
+        "type": "subject",
+        "description": "Project repository for cheerbotme."
+      },
+      {
+        "path": "./repos/cheerbotme/ethglobalnyc2025/.git",
+        "type": "subject",
+        "description": "Sub-project repository within cheerbotme for ethglobalnyc2025."
+      },
+      {
+        "path": "./repos/cheerbotme/ethglobalnyc20252/.git",
+        "type": "subject",
+        "description": "Sub-project repository within cheerbotme for ethglobalnyc20252."
+      },
+      {
+        "path": "./repos/cheerbotme/devconnect2025/.git",
+        "type": "subject",
+        "description": "Sub-project repository within cheerbotme for devconnect2025."
+      },
+      {
+        "path": "./repos/cheerbotme/webmonetization/.git",
+        "type": "subject",
+        "description": "Sub-project repository within cheerbotme for webmonetization."
+      },
+      {
+        "path": "./repos/cheerbotme/pixelart/.git",
+        "type": "subject",
+        "description": "Sub-project repository within cheerbotme for pixelart."
+      },
+      {
+        "path": "./repos/cheerbotme/jsonState/.git",
+        "type": "subject",
+        "description": "Sub-project repository within cheerbotme for jsonState."
+      },
+      {
+        "path": "./repos/cheerbotme/megazu/.git",
+        "type": "subject",
+        "description": "Sub-project repository within cheerbotme for megazu."
+      },
+      {
+        "path": "./repos/forkfolk/.git",
+        "type": "subject",
+        "description": "Project repository for forkfolk."
+      },
+      {
+        "path": "./repos/legal-engineering-standards-association/.git",
+        "type": "subject",
+        "description": "Project repository for legal-engineering-standards-association."
+      },
+      {
+        "path": "./repos/legal-engineering-standards-association/.github/.git",
+        "type": "subject",
+        "description": "Sub-project repository within legal-engineering-standards-association for GitHub configurations."
+      },
+      {
+        "path": "./repos/legal-engineering-standards-association/discussions/.git",
+        "type": "subject",
+        "description": "Sub-project repository within legal-engineering-standards-association for discussions."
+      },
+      {
+        "path": "./repos/legal-engineering-standards-association/lesa.law-website/.git",
+        "type": "subject",
+        "description": "Sub-project repository within legal-engineering-standards-association for the lesa.law website."
+      },
+      {
+        "path": "./repos/legal-engineering-standards-association/signet-data-standard/.git",
+        "type": "subject",
+        "description": "Sub-project repository within legal-engineering-standards-association for signet-data-standard."
+      },
+      {
+        "path": "./repos/legal-engineering-standards-association/agreements-data-standard/.git",
+        "type": "subject",
+        "description": "Sub-project repository within legal-engineering-standards-association for agreements-data-standard."
+      },
+      {
+        "path": "./repos/legal-engineering-standards-association/pm/.git",
+        "type": "subject",
+        "description": "Sub-project repository within legal-engineering-standards-association for project management."
+      },
+      {
+        "path": "./repos/local_only/.git",
+        "type": "subject",
+        "description": "Project repository for local_only projects."
+      },
+      {
+        "path": "./repos/local_only/folkProposals/.git",
+        "type": "subject",
+        "description": "Sub-project repository within local_only for folkProposals."
+      },
+      {
+        "path": "./repos/local_only/dapp2/.git",
+        "type": "subject",
+        "description": "Sub-project repository within local_only for dapp2."
+      },
+      {
+        "path": "./repos/local_only/map/.git",
+        "type": "subject",
+        "description": "Sub-project repository within local_only for map."
+      },
+      {
+        "path": "./repos/local_only/cheerKernel/.git",
+        "type": "subject",
+        "description": "Sub-project repository within local_only for cheerKernel."
+      },
+      {
+        "path": "./repos/local_only/Rational_Assembly_Grid_Series/.git",
+        "type": "subject",
+        "description": "Sub-project repository within local_only for Rational_Assembly_Grid_Series."
+      },
+      {
+        "path": "./repos/local_only/dapp/.git",
+        "type": "subject",
+        "description": "Sub-project repository within local_only for dapp."
+      },
+      {
+        "path": "./repos/local_only/kernel/.git",
+        "type": "subject",
+        "description": "Sub-project repository within local_only for kernel."
+      },
+      {
+        "path": "./repos/local_only/bestape/.git",
+        "type": "subject",
+        "description": "Sub-project repository within local_only for bestape."
+      },
+      {
+        "path": "./repos/local_only/publicResearch/.git",
+        "type": "subject",
+        "description": "Sub-project repository within local_only for publicResearch."
+      },
+      {
+        "path": "./repos/ixventure/.git",
+        "type": "subject",
+        "description": "Project repository for ixventure."
+      },
+      {
+        "path": "./repos/ixventure/dom-jekyll/.git",
+        "type": "subject",
+        "description": "Sub-project repository within ixventure for dom-jekyll."
+      },
+      {
+        "path": "./repos/ixventure/research/.git",
+        "type": "subject",
+        "description": "Sub-project repository within ixventure for research."
+      },
+      {
+        "path": "./repos/ixventure/website/.git",
+        "type": "subject",
+        "description": "Sub-project repository within ixventure for website."
+      },
+      {
+        "path": "./repos/ixventure/island_ventures/.git",
+        "type": "subject",
+        "description": "Sub-project repository within ixventure for island_ventures."
+      },
+      {
+        "path": "./repos/lexclinic/.git",
+        "type": "subject",
+        "description": "Project repository for lexclinic."
+      },
+      {
+        "path": "./repos/lexclinic/.github/.git",
+        "type": "subject",
+        "description": "Sub-project repository within lexclinic for GitHub configurations."
+      },
+      {
+        "path": "./repos/lexclinic/Grants/.git",
+        "type": "subject",
+        "description": "Sub-project repository within lexclinic for Grants."
+      },
+      {
+        "path": "./repos/lexclinic/discussions/.git",
+        "type": "subject",
+        "description": "Sub-project repository within lexclinic for discussions."
+      },
+      {
+        "path": "./repos/lexclinic/lesa.law-website/.git",
+        "type": "subject",
+        "description": "Sub-project repository within lexclinic for the lesa.law website."
+      },
+      {
+        "path": "./repos/lexclinic/docs/.git",
+        "type": "subject",
+        "description": "Sub-project repository within lexclinic for documentation."
+      },
+      {
+        "path": "./repos/lexclinic/signet-data-standard/.git",
+        "type": "subject",
+        "description": "Sub-project repository within lexclinic for signet-data-standard."
+      },
+      {
+        "path": "./repos/lexclinic/research/.git",
+        "type": "subject",
+        "description": "Sub-project repository within lexclinic for research."
+      },
+      {
+        "path": "./repos/lexclinic/agreements-data-standard/.git",
+        "type": "subject",
+        "description": "Sub-project repository within lexclinic for agreements-data-standard."
+      },
+      {
+        "path": "./repos/lexclinic/Templates/.git",
+        "type": "subject",
+        "description": "Sub-project repository within lexclinic for Templates."
+      },
+      {
+        "path": "./repos/lexclinic/pm/.git",
+        "type": "subject",
+        "description": "Sub-project repository within lexclinic for project management."
+      },
+      {
+        "path": "./repos/diy-make/.git",
+        "type": "subject",
+        "description": "Project repository for diy-make."
+      },
+      {
+        "path": "./repos/diy-make/portal/.git",
+        "type": "subject",
+        "description": "Sub-project repository within diy-make for the portal."
+      },
+      {
+        "path": "./repos/diy-make/zui/.git",
+        "type": "subject",
+        "description": "Sub-project repository within diy-make for zui."
+      },
+      {
+        "path": "./repos/diy-make/OSO_hack/.git",
+        "type": "subject",
+        "description": "Sub-project repository within diy-make for OSO_hack."
+      },
+      {
+        "path": "./repos/diy-make/reality-merge/.git",
+        "type": "subject",
+        "description": "Sub-project repository within diy-make for reality-merge."
+      },
+      {
+        "path": "./repos/bestape/.git",
+        "type": "subject",
+        "description": "Project repository for bestape."
+      },
+      {
+        "path": "./repos/bestape/reviews/.git",
+        "type": "subject",
+        "description": "Sub-project repository within bestape for reviews."
+      },
+      {
+        "path": "./repos/bestape/LexDAO-Articles/.git",
+        "type": "subject",
+        "description": "Sub-project repository within bestape for LexDAO-Articles."
+      },
+      {
+        "path": "./repos/bestape/lexdao/.git",
+        "type": "subject",
+        "description": "Sub-project repository within bestape for lexdao."
+      },
+      {
+        "path": "./repos/bestape/openzeppelin-contracts/.git",
+        "type": "subject",
+        "description": "Sub-project repository within bestape for openzeppelin-contracts."
+      },
+      {
+        "path": "./repos/bestape/ERCs/.git",
+        "type": "subject",
+        "description": "Sub-project repository within bestape for ERCs."
+      },
+      {
+        "path": "./repos/bestape/squareRootIntegers/.git",
+        "type": "subject",
+        "description": "Sub-project repository within bestape for squareRootIntegers."
+      },
+      {
+        "path": "./repos/bestape/signature-economies/.git",
+        "type": "subject",
+        "description": "Sub-project repository within bestape for signature-economies."
+      },
+      {
+        "path": "./repos/bestape/cheerbot.org/.git",
+        "type": "subject",
+        "description": "Sub-project repository within bestape for cheerbot.org."
+      },
+      {
+        "path": "./repos/bestape/neowise/.git",
+        "type": "subject",
+        "description": "Sub-project repository within bestape for neowise."
+      },
+      {
+        "path": "./repos/bestape/poignart/.git",
+        "type": "subject",
+        "description": "Sub-project repository within bestape for poignart."
+      },
+      {
+        "path": "./repos/bestape/heroku.node.js-urlForward/.git",
+        "type": "subject",
+        "description": "Sub-project repository within bestape for heroku.node.js-urlForward."
+      },
+      {
+        "path": "./repos/bestape/bestape/.git",
+        "type": "subject",
+        "description": "Sub-project repository within bestape for bestape (self-repo)."
+      },
+      {
+        "path": "./repos/bestape/.0.sh/.git",
+        "type": "subject",
+        "description": "Sub-project repository within bestape for .0.sh."
+      },
+      {
+        "path": "./repos/bestape/.0.sh-project/.git",
+        "type": "subject",
+        "description": "Sub-project repository within bestape for .0.sh-project."
+      },
+      {
+        "path": "./repos/island_ventures/.git",
+        "type": "subject",
+        "description": "Project repository for island_ventures."
+      },
+      {
+        "path": "./repos/island_ventures/research/.git",
+        "type": "subject",
+        "description": "Sub-project repository within island_ventures for research."
+      },
+      {
+        "path": "./repos/island_ventures/newsletters/.git",
+        "type": "subject",
+        "description": "Sub-project repository within island_ventures for newsletters."
+      }
+    ]
+  }
+}
