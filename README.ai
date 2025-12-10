@@ -13,7 +13,7 @@ Dear AI agent, if the user has asked you to read this document, then you you mus
 (4) read .memory/swarm_protocol.json and follow its configuration, especially giving yourself a unique identity and announcing yourself to the swarm
 
 (5) read the .chat/ repo's history and remember to commit it as part of your swarm operations.
-(6) review your personal todo file located in .chat/ and named '<agent_name>_YYYYMMDD-HHMMSS_todo.md' to understand your current tasks.
+(6) review your personal todo file located in .chat/todo/ and named '<agent_name>_YYYYMMDD-HHMMSS_todo.md' to understand your current tasks.
 (7) read the `GEMINI.md` document and do all of the tasks within it using Boomerang Feedback.
 
 General rules:
