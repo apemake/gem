@@ -15,6 +15,11 @@
         "priority": "high"
       },
       {
+        "name": "Load Repository Map",
+        "description": "Load the repository map from .memory/repo_map.json to understand the project's Git architecture.",
+        "priority": "high"
+      },
+      {
         "name": "Name Thyself",
         "description": "Choose a unique name for the agent, following the `swarm_protocol.json`.",
         "priority": "high"
