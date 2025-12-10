@@ -12,4 +12,5 @@
 - [x] Add Load Repository Map step to startup_protocol.json.
 - [x] Create and integrate verify_environment.py into startup_protocol.json.
 - [x] Ensure `summarize_logs.py` correctly stores `source_log` in summary entries.
+- [x] Deprecate `clean_chat_logs.py` and integrate its functionality into `process_unsummarized_logs.py`.
 - [ ] Explicitly change directory into sub-repositories before performing git operations on them, as per new rule in rules.json.
