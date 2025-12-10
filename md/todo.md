@@ -10,3 +10,4 @@
 - [x] Add screen -X command to swarm_protocol.json.
 - [x] Reclassify top-level repos/ directories as object repositories in repo_map.json.
 - [x] Add Load Repository Map step to startup_protocol.json.
+- [ ] Explicitly change directory into sub-repositories before performing git operations on them, as per new rule in rules.json.
