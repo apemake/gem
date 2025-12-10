@@ -22,7 +22,8 @@
       {
         "name": "Verify Environment and Pre-commit",
         "description": "Check for active virtual environment and ensure pre-commit hooks are installed. If not, guide the user on setting them up.",
-        "priority": "highest"
+        "priority": "highest",
+        "command": "python3 scripts/py/verify_environment.py"
       },
       {
         "name": "Name Thyself",
