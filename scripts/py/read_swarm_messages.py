@@ -6,6 +6,17 @@ import subprocess
 PROJECT_ROOT = subprocess.run(['git', 'rev-parse', '--show-toplevel'], capture_output=True, text=True, check=True).stdout.strip()
 PROCESSED_MESSAGES_FILE = os.path.join(PROJECT_ROOT, ".chat", "comms", "processed_messages.txt")
 SEND_MESSAGE_SCRIPT = os.path.join(PROJECT_ROOT, "scripts", "py", "send_swarm_message.py")
+RULES_FILE = os.path.join(PROJECT_ROOT, ".memory", "rules.json")
+
+def get_current_agent_name():
+    with open(RULES_FILE, 'r') as f:
+        rules = json.load(f)
+        for rule_set in rules.get("rules", []):
+            if rule_set.get("name") == "user_preferences":
+                for preference in rule_set.get("preferences", []):
+                    if preference.get("id") == "agent_id":
+                        return preference.get("value")
+    return "UnknownAgent" # Fallback
 
 def get_processed_messages():
     if not os.path.exists(PROCESSED_MESSAGES_FILE):
@@ -41,7 +52,8 @@ def send_acknowledgment(sender_name, recipient_name, acknowledged_message_filena
     except FileNotFoundError:
         print(f"Error: {SEND_MESSAGE_SCRIPT} not found. Acknowledgment failed.")
 
-def read_swarm_messages(current_agent_name):
+def read_swarm_messages():
+    current_agent_name = get_current_agent_name()
     comms_dir = os.path.join(".chat", "comms")
     if not os.path.exists(comms_dir):
         print(f"Communication directory '{comms_dir}' does not exist.")
@@ -55,6 +67,10 @@ def read_swarm_messages(current_agent_name):
         
         # Skip directories, non-JSON files, and the processed_messages.txt file
         if not os.path.isfile(file_path) or not filename.endswith(".json") or filename == os.path.basename(PROCESSED_MESSAGES_FILE):
+            continue
+
+        # Filter by recipient: only process messages explicitly for this agent or for the 'swarm'
+        if f"_to_{current_agent_name}_" not in filename and f"_to_swarm_" not in filename:
             continue
 
         if filename not in processed_messages:
@@ -95,8 +111,4 @@ def read_swarm_messages(current_agent_name):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Read and process incoming messages from the swarm.")
-    parser.add_argument("--agent_name", required=True, help="The name of the current agent (e.g., Vesper).")
-    args = parser.parse_args()
-    
-    read_swarm_messages(args.agent_name)
+    read_swarm_messages()
