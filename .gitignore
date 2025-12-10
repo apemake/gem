@@ -45,3 +45,4 @@ repos/
 !/.gemini/.secrets.baseline
 !/.gemini/settings.json
 index.js
+scripts/py/__pycache__/

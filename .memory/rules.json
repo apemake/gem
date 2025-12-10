@@ -236,7 +236,7 @@
         "rationale": "To persist important information across sessions and to provide a human-readable record of the agent's understanding and intentions."
       },
       "agent_todo_policy": {
-        "rule": "Each agent instance must maintain its own unique todo list, located in the .chat/ directory. The filename must include the agent's name and a timestamp (e.g., '<agent_name>_YYYYMMDD-HHMMSS_todo.md').",
+        "rule": "Each agent instance must maintain its own unique todo list, located in the .chat/todo/ directory. The filename must include the agent's name and a timestamp (e.g., '<agent_name>_YYYYMMDD-HHMMSS_todo.md').",
         "rationale": "To enable event-driven memory differentiation and ensure that each agent instance has its own distinct set of tasks and progress."
       },
       "file_listing_policy": {
