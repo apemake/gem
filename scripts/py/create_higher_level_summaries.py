@@ -1,125 +1,84 @@
 import os
 import json
 from collections import defaultdict
+import gc # Import garbage collector
+import re
+import sys
+
+def process_level(source_level_files, target_summary_file):
+    """
+    Generic function to create a higher-level summary from a list of lower-level summary files.
+    """
+    summary_data = defaultdict(list)
+    for source_file in source_level_files:
+        if os.path.exists(source_file):
+            with open(source_file, 'r') as f:
+                try:
+                    data = json.load(f)
+                    # The structure of WEEK.json, MONTH.json, etc. is just a dict of hourly conversations
+                    # The daily summaries have the nested structure
+                    if "summary_template" in data:
+                        # It's a daily summary
+                        for year_data in data.get("summary_template", {}).get("structure", {}).get("year", {}).values():
+                            for quarter_data in year_data.get("quarter", {}).values():
+                                for month_data in quarter_data.get("month", {}).values():
+                                    for week_data in month_data.get("week", {}).values():
+                                        for day_summary in week_data.get("day", {}).values():
+                                            for hourly_summary in day_summary.get("hourly_summary", []):
+                                                summary_data[hourly_summary["hour"]].extend(hourly_summary["conversation"])
+                    else:
+                        # It's already a higher-level summary (e.g., WEEK.json)
+                        for hour, conversation in data.items():
+                            summary_data[hour].extend(conversation)
+
+                except (json.JSONDecodeError, KeyError, IndexError) as e:
+                    print(f"Skipping file due to error: {source_file} - {e}")
+            gc.collect() # Force garbage collection after processing each file
+
+    if summary_data:
+        with open(target_summary_file, 'w') as f:
+            json.dump(summary_data, f, indent=2)
+        print(f"Created/updated summary: {target_summary_file}")
+
 
 def create_higher_level_summaries(summary_dir):
+    # Get all daily summary files
+    all_daily_files = [os.path.join(root, file) for root, _, files in os.walk(summary_dir) for file in files if re.match(r'\d{4}-\d{2}-\d{2}\.json', file)]
+
+    # Group daily files by week
+    weekly_groups = defaultdict(list)
+    for daily_file in all_daily_files:
+        week_dir = os.path.dirname(daily_file)
+        weekly_groups[week_dir].append(daily_file)
+    
     # Process weeks
-    for year_dir in os.listdir(summary_dir):
-        year_path = os.path.join(summary_dir, year_dir)
-        if not os.path.isdir(year_path):
-            continue
-
-        for quarter_dir in os.listdir(year_path):
-            quarter_path = os.path.join(year_path, quarter_dir)
-            if not os.path.isdir(quarter_path):
-                continue
-
-            for month_dir in os.listdir(quarter_path):
-                month_path = os.path.join(quarter_path, month_dir)
-                if not os.path.isdir(month_path):
-                    continue
-
-                for week_dir in os.listdir(month_path):
-                    week_path = os.path.join(month_path, week_dir)
-                    if not os.path.isdir(week_path):
-                        continue
-                    
-                    weekly_summary_file_path = os.path.join(week_path, "WEEK.json")
-                    
-                    with open(weekly_summary_file_path, 'w') as weekly_f:
-                        weekly_summary = defaultdict(list)
-                        for day_file in os.listdir(week_path):
-                            if day_file.endswith(".json") and day_file != "WEEK.json":
-                                day_path = os.path.join(week_path, day_file)
-                                with open(day_path, 'r') as f:
-                                    try:
-                                        day_data = json.load(f)
-                                        for year, year_data in day_data.get("summary_template", {}).get("structure", {}).get("year", {}).items():
-                                            for quarter, quarter_data in year_data.get("quarter", {}).items():
-                                                for month, month_data in quarter_data.get("month", {}).items():
-                                                    for week, week_data in month_data.get("week", {}).items():
-                                                        for day, day_summary in week_data.get("day", {}).items():
-                                                            for hourly_summary in day_summary.get("hourly_summary", []):
-                                                                weekly_summary[hourly_summary["hour"]].extend(hourly_summary["conversation"])
-                                    except (json.JSONDecodeError, KeyError, IndexError) as e:
-                                        print(f"Skipping file due to error: {day_path} - {e}")
-                        
-                        if weekly_summary:
-                            json.dump(weekly_summary, weekly_f, indent=2)
-                            print(f"Created weekly summary: {weekly_summary_file_path}")
-
+    for week_dir, daily_files in weekly_groups.items():
+        weekly_summary_file = os.path.join(week_dir, "WEEK.json")
+        process_level(daily_files, weekly_summary_file)
+        
+    # Group weekly files by month
+    all_weekly_files = [os.path.join(root, file) for root, _, files in os.walk(summary_dir) for file in files if file == "WEEK.json"]
+    monthly_groups = defaultdict(list)
+    for weekly_file in all_weekly_files:
+        month_dir = os.path.dirname(os.path.dirname(weekly_file)) # Go up two levels
+        monthly_groups[month_dir].append(weekly_file)
+        
     # Process months
-    for year_dir in os.listdir(summary_dir):
-        year_path = os.path.join(summary_dir, year_dir)
-        if not os.path.isdir(year_path):
-            continue
+    for month_dir, weekly_files in monthly_groups.items():
+        monthly_summary_file = os.path.join(month_dir, "MONTH.json")
+        process_level(weekly_files, monthly_summary_file)
 
-        for quarter_dir in os.listdir(year_path):
-            quarter_path = os.path.join(year_path, quarter_dir)
-            if not os.path.isdir(quarter_path):
-                continue
-
-            for month_dir in os.listdir(quarter_path):
-                month_path = os.path.join(quarter_path, month_dir)
-                if not os.path.isdir(month_path):
-                    continue
-
-                monthly_summary_file_path = os.path.join(month_path, "MONTH.json")
-
-                with open(monthly_summary_file_path, 'w') as monthly_f:
-                    monthly_summary = defaultdict(list)
-                    for week_dir in os.listdir(month_path):
-                        week_path = os.path.join(month_path, week_dir)
-                        if not os.path.isdir(week_path):
-                            continue
-                        
-                        weekly_summary_file_path = os.path.join(week_path, "WEEK.json")
-                        if os.path.exists(weekly_summary_file_path):
-                            with open(weekly_summary_file_path, 'r') as f:
-                                try:
-                                    weekly_data = json.load(f)
-                                    for hour, conversation in weekly_data.items():
-                                        monthly_summary[hour].extend(conversation)
-                                except json.JSONDecodeError as e:
-                                    print(f"Skipping file due to error: {weekly_summary_file_path} - {e}")
-                    
-                    if monthly_summary:
-                        json.dump(monthly_summary, monthly_f, indent=2)
-                        print(f"Created monthly summary: {monthly_summary_file_path}")
-
-
+    # Group monthly files by quarter
+    all_monthly_files = [os.path.join(root, file) for root, _, files in os.walk(summary_dir) for file in files if file == "MONTH.json"]
+    quarterly_groups = defaultdict(list)
+    for monthly_file in all_monthly_files:
+        quarter_dir = os.path.dirname(os.path.dirname(monthly_file)) # Go up two levels
+        quarterly_groups[quarter_dir].append(monthly_file)
+        
     # Process quarters
-    for year_dir in os.listdir(summary_dir):
-        year_path = os.path.join(summary_dir, year_dir)
-        if not os.path.isdir(year_path):
-            continue
-
-        for quarter_dir in os.listdir(year_path):
-            quarter_path = os.path.join(year_path, quarter_dir)
-            if not os.path.isdir(quarter_path):
-                continue
-
-            quarterly_summary_file_path = os.path.join(quarter_path, "QUARTER.json")
-            with open(quarterly_summary_file_path, 'w') as quarterly_f:
-                quarterly_summary = defaultdict(list)
-                for month_dir in os.listdir(quarter_path):
-                    month_path = os.path.join(quarter_path, month_dir)
-                    if not os.path.isdir(month_path):
-                        continue
-
-                    monthly_summary_file_path = os.path.join(month_path, "MONTH.json")
-                    if os.path.exists(monthly_summary_file_path):
-                        with open(monthly_summary_file_path, 'r') as f:
-                            try:
-                                monthly_data = json.load(f)
-                                for hour, conversation in monthly_data.items():
-                                    quarterly_summary[hour].extend(conversation)
-                            except json.JSONDecodeError as e:
-                                print(f"Skipping file due to error: {monthly_summary_file_path} - {e}")
-                
-                if quarterly_summary:
-                    json.dump(quarterly_summary, quarterly_f, indent=2)
-                    print(f"Created quarterly summary: {quarterly_summary_file_path}")
+    for quarter_dir, monthly_files in quarterly_groups.items():
+        quarterly_summary_file = os.path.join(quarter_dir, "QUARTER.json")
+        process_level(monthly_files, quarterly_summary_file)
 
 
 if __name__ == "__main__":
