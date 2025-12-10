@@ -85,7 +85,8 @@ def summarize_log(file_path):
                         hourly_conversations[hour_key].append({
                             "speaker": "gemini",
                             "utterance": " ".join(current_utterance_lines).strip(),
-                            "timestamp": last_known_timestamp
+                            "timestamp": last_known_timestamp,
+                            "source_log": os.path.basename(file_path)
                         })
                     current_utterance_lines = []
                 
@@ -98,7 +99,8 @@ def summarize_log(file_path):
                         hourly_conversations[hour_key].append({
                             "speaker": "user",
                             "utterance": " ".join(current_utterance_lines).strip(),
-                            "timestamp": last_known_timestamp
+                            "timestamp": last_known_timestamp,
+                            "source_log": os.path.basename(file_path)
                         })
                     current_utterance_lines = []
                 
@@ -111,7 +113,8 @@ def summarize_log(file_path):
             hourly_conversations[hour_key].append({
                 "speaker": current_speaker,
                 "utterance": " ".join(current_utterance_lines).strip(),
-                "timestamp": last_known_timestamp
+                "timestamp": last_known_timestamp,
+                "source_log": os.path.basename(file_path)
             })
 
 
