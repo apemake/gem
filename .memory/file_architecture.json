@@ -14,6 +14,10 @@
       "Markdown files (.md) go into the 'md/' directory.",
       "SVG files (.svg) go into the 'svg/' directory.",
       "Shell scripts (.sh) go into the 'sh/' directory."
-    ]
+    ],
+    "indexing_principle": {
+      "name": "Sequential Indexing within File Type",
+      "rule": "Files are indexed based on the sequence in which they're processed within their particular file_type. The index is not reset for subdirectories. For example, an index for `md/` is not reset for `md/day_2/`."
+    }
   }
 }
