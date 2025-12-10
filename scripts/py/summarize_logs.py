@@ -6,29 +6,14 @@ import datetime
 from collections import defaultdict
 import subprocess
 
+PROJECT_ROOT = subprocess.run(['git', 'rev-parse', '--show-toplevel'], capture_output=True, text=True, check=True).stdout.strip()
+
 def get_week_of_month(date):
     first_day_of_month = date.replace(day=1)
     adjusted_date = date.day + first_day_of_month.weekday()
     return (adjusted_date - 1) // 7 + 1
 
-def append_to_summary(summary_file_path, new_conversations):
-    if os.path.exists(summary_file_path):
-        with open(summary_file_path, 'r+') as f:
-            try:
-                summary_data = json.load(f)
-                summary_data = defaultdict(list, summary_data) # Convert to defaultdict
-            except json.JSONDecodeError:
-                summary_data = defaultdict(list)
-            
-            for hour, conversation in new_conversations.items():
-                summary_data[hour].extend(conversation)
-            
-            f.seek(0)
-            json.dump(summary_data, f, indent=2)
-            f.truncate()
-    else:
-        with open(summary_file_path, 'w') as f:
-            json.dump(new_conversations, f, indent=2)
+
 
 
 def summarize_log(file_path):
@@ -122,13 +107,31 @@ def summarize_log(file_path):
         print(f"No conversations found in {file_path}")
         return
 
-    # Append to daily, weekly, monthly, and quarterly summaries
-    append_to_summary(daily_summary_file_path, hourly_conversations)
-    append_to_summary(weekly_summary_file_path, hourly_conversations)
-    append_to_summary(monthly_summary_file_path, hourly_conversations)
-    append_to_summary(quarterly_summary_file_path, hourly_conversations)
+    # Load the summarization template
+    template_path = os.path.join(PROJECT_ROOT, ".memory", "summarization_template.json")
+    with open(template_path, 'r') as f:
+        summary_template = json.load(f)
+
+    # Populate the hourly_summary within the template
+    current_year_data = summary_template["summary_template"]["structure"]["year"].setdefault(year, {})
+    current_quarter_data = current_year_data.setdefault("quarter", {}).setdefault(quarter, {})
+    current_month_data = current_quarter_data.setdefault("month", {}).setdefault(month, {})
+    current_week_data = current_month_data.setdefault("week", {}).setdefault(week, {})
+    current_day_data = current_week_data.setdefault("day", {}).setdefault(day, {})
+
+    hourly_summary_list = []
+    for hour, conversations in hourly_conversations.items():
+        hourly_summary_list.append({
+            "hour": hour,
+            "conversation": conversations
+        })
+    current_day_data["hourly_summary"] = hourly_summary_list
+
+    # Now, save this structured summary_template to the daily summary file
+    with open(daily_summary_file_path, 'w') as f:
+        json.dump(summary_template, f, indent=2)
     
-    print(f"Successfully summarized {file_path}")
+    print(f"Successfully summarized {file_path} with new structured format.")
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
