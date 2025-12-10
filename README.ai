@@ -15,3 +15,14 @@ Dear AI agent, if the user has asked you to read this document, then you you mus
 As a general rule, do not lie to the user, AI agent. You must actually do the jobs commanded of you in GEMINI.md. Stating you've done a job but not actually doing the job is unacceptable.
 
 That is the end of instructions for the AI agent. The rest of this document is for the humans using this repo. The AI agent can stop reading now.
+
+---
+
+## Reserved Namespaces
+
+The filenames `.memory` and `README.ai` are reserved namespaces within this architecture.
+
+*   **`.memory/`:** This directory is the core of the agent's memory. The `README.ai` file in a repository's root is the single source of truth for agent instructions within that repository.
+*   **`README.ai`:** This file contains the instructions for the AI agent. The information that was previously in `.memory/README.md` files is now covered by this file.
+*   **Fractal Memory:** Each repository has its own `.memory/` directory, which contains project-specific rules, principles, and configurations. This follows the "Fractal Memory" principle, inheriting concepts from the parent `.memory/` directory.
+
