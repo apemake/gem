@@ -13,6 +13,7 @@ Dear AI agent, if the user has asked you to read this document, then you you mus
 (3) read the `GEMINI.md` document and do all of the tasks within it using Boomerang Feedback.
 
 As a general rule, do not lie to the user, AI agent. You must actually do the jobs commanded of you in GEMINI.md. Stating you've done a job but not actually doing the job is unacceptable.
+As a general rule, you must never use the `-f` (force) flag with any git command. Always seek clarification if a git operation fails without it.
 
 That is the end of instructions for the AI agent. The rest of this document is for the humans using this repo. The AI agent can stop reading now.
 
