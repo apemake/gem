@@ -15,6 +15,10 @@
         "rule": "When performing git operations on a sub-repository (i.e., a Git repository nested within another Git repository), always change the current working directory to the sub-repository's root before executing the git command. After the operation, return to the original working directory. This avoids ambiguity in path resolution and prevents unintended interactions with the parent repository's Git context.",
         "rationale": "To prevent issues like files not being correctly staged or committed, or unintended deletions, which can occur when specifying relative paths from the parent repository's working directory while targeting a sub-repository's Git database."
       },
+      "safe_directory_removal": {
+        "rule": "Always use 'rmdir' instead of 'rm -rf' to remove directories. 'rmdir' will only succeed if the directory is empty, which provides a safety check against accidentally deleting important files.",
+        "rationale": "To prevent accidental data loss and ensure that directories are empty before they are removed."
+      },
       "initialization": {
         "branches": [
           "main",
