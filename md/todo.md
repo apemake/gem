@@ -7,3 +7,6 @@
 - [x] Create repo_map.json in .memory/ and clarify subject-object architecture.
 - [x] Emphasize swarm_protocol.json and repo_map.json as critical files in README.ai.
 - [x] Refactor test_swarm_communication.py to use virtual environment's python.
+- [x] Add screen -X command to swarm_protocol.json.
+- [x] Reclassify top-level repos/ directories as object repositories in repo_map.json.
+- [x] Add Load Repository Map step to startup_protocol.json.
