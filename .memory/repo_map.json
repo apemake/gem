@@ -28,7 +28,7 @@
       },
       {
         "path": "./repos/cheerbotme/.git",
-        "type": "subject",
+        "type": "object",
         "description": "Project repository for cheerbotme."
       },
       {
@@ -68,12 +68,12 @@
       },
       {
         "path": "./repos/forkfolk/.git",
-        "type": "subject",
+        "type": "object",
         "description": "Project repository for forkfolk."
       },
       {
         "path": "./repos/legal-engineering-standards-association/.git",
-        "type": "subject",
+        "type": "object",
         "description": "Project repository for legal-engineering-standards-association."
       },
       {
@@ -108,7 +108,7 @@
       },
       {
         "path": "./repos/local_only/.git",
-        "type": "subject",
+        "type": "object",
         "description": "Project repository for local_only projects."
       },
       {
@@ -158,7 +158,7 @@
       },
       {
         "path": "./repos/ixventure/.git",
-        "type": "subject",
+        "type": "object",
         "description": "Project repository for ixventure."
       },
       {
@@ -183,7 +183,7 @@
       },
       {
         "path": "./repos/lexclinic/.git",
-        "type": "subject",
+        "type": "object",
         "description": "Project repository for lexclinic."
       },
       {
@@ -238,7 +238,7 @@
       },
       {
         "path": "./repos/diy-make/.git",
-        "type": "subject",
+        "type": "object",
         "description": "Project repository for diy-make."
       },
       {
@@ -263,7 +263,7 @@
       },
       {
         "path": "./repos/bestape/.git",
-        "type": "subject",
+        "type": "object",
         "description": "Project repository for bestape."
       },
       {
@@ -338,7 +338,7 @@
       },
       {
         "path": "./repos/island_ventures/.git",
-        "type": "subject",
+        "type": "object",
         "description": "Project repository for island_ventures."
       },
       {
