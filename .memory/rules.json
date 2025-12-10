@@ -11,6 +11,10 @@
       "security_policy": {
         "rule": "Ensure no private keys, secrets, or other sensitive credentials are ever committed to the repository."
       },
+      "sub_repository_git_operations": {
+        "rule": "When performing git operations on a sub-repository (i.e., a Git repository nested within another Git repository), always change the current working directory to the sub-repository's root before executing the git command. After the operation, return to the original working directory. This avoids ambiguity in path resolution and prevents unintended interactions with the parent repository's Git context.",
+        "rationale": "To prevent issues like files not being correctly staged or committed, or unintended deletions, which can occur when specifying relative paths from the parent repository's working directory while targeting a sub-repository's Git database."
+      },
       "initialization": {
         "branches": [
           "main",
@@ -105,6 +109,9 @@
       "description": "Rules for session startup, command interpretation, and exit procedure.",
       "auto_approve_tool_calls": true,
       "communication_focus": "My communication with the swarm is currently limited. I am focused on a specific, user-assigned task and will not be engaging in broader swarm communication until the task is complete. This is to ensure that I can complete the user's request efficiently and without distraction.",
+      "context_gathering": {
+        "rule": "To get context, I will review the last 5 agents from the git history of the .chat repository, the most recent files in the .chat/comms/ directory, and the .chat/used_agent_names.json file."
+      },
       "command_interpretation": {
         "strategy": "ordered_fallback_with_mcp",
         "steps": [
