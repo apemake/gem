@@ -72,11 +72,6 @@
         "priority": "low"
       },
       {
-        "name": "Clean Chat Logs",
-        "description": "Run .py/parse_chat_log.py on any chat log file in the .chat directory that has not yet been cleaned.",
-        "priority": "low"
-      },
-      {
         "name": "Process Unsummarized Chat Logs",
         "description": "Identifies and summarizes unsummarized chat logs using scripts/py/process_unsummarized_logs.py.",
         "priority": "low",
