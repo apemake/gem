@@ -2,6 +2,7 @@ import json
 import os
 import argparse
 import subprocess
+import glob
 
 PROJECT_ROOT = subprocess.run(['git', 'rev-parse', '--show-toplevel'], capture_output=True, text=True, check=True).stdout.strip()
 PROCESSED_MESSAGES_FILE = os.path.join(PROJECT_ROOT, ".chat", "comms", "processed_messages.txt")
@@ -62,22 +63,29 @@ def read_swarm_messages():
     processed_messages = get_processed_messages()
     
     new_messages = []
-    for filename in os.listdir(comms_dir):
-        file_path = os.path.join(comms_dir, filename)
-        
-        # Skip directories, non-JSON files, and the processed_messages.txt file
-        if not os.path.isfile(file_path) or not filename.endswith(".json") or filename == os.path.basename(PROCESSED_MESSAGES_FILE):
-            continue
+    
+    # Optimized file filtering: look for messages specifically for this agent or the swarm
+    search_patterns = [
+        os.path.join(comms_dir, f"*_to_{current_agent_name}_*.json"),
+        os.path.join(comms_dir, f"*_to_swarm_*.json")
+    ]
+    
+    candidate_files = []
+    for pattern in search_patterns:
+        candidate_files.extend(glob.glob(pattern))
 
-        # Filter by recipient: only process messages explicitly for this agent or for the 'swarm'
-        if f"_to_{current_agent_name}_" not in filename and f"_to_swarm_" not in filename:
+    for file_path in candidate_files:
+        filename = os.path.basename(file_path)
+        
+        # Skip directories and the processed_messages.txt file
+        if not os.path.isfile(file_path) or filename == os.path.basename(PROCESSED_MESSAGES_FILE):
             continue
 
         if filename not in processed_messages:
             try:
                 with open(file_path, "r") as f:
                     message = json.load(f)
-                    # Filter out messages sent by the current agent
+                    # Filter out messages sent by the current agent (redundant with filename filter but good as a sanity check)
                     if message.get('sender') != current_agent_name:
                         new_messages.append((filename, message))
             except json.JSONDecodeError:
