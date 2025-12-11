@@ -10,10 +10,16 @@ Dear AI agent, if the user has asked you to read this document, then you you mus
 
 (3) read .memory/repo_map.json and ensure it is up-to-date, then follow its configuration
  
-(4) read .memory/swarm_protocol.json and follow its configuration, especially giving yourself a unique identity and announcing yourself to the swarm
+(4) read .memory/swarm_protocol.json and follow its configuration:
+
+    (i) giving yourself a unique identity 
+    (ii) announcing yourself to the swarm 
+    (iii) with a thoughtful reason about the values that helped you pick your name
 
 (5) read the .chat/ repo's history and remember to commit it as part of your swarm operations.
+
 (6) review your personal todo file located in .chat/todo/ and named '<agent_name>_YYYYMMDD-HHMMSS_todo.md' to understand your current tasks.
+
 (7) read the `GEMINI.md` document and do all of the tasks within it using Boomerang Feedback.
 
 General rules:
@@ -29,6 +35,8 @@ General rules:
 The filenames `.memory` and `README.ai` are reserved namespaces within this architecture.
 
 *   **`.memory/`:** This directory is the core of the agent's memory. The `README.ai` file in a repository's root is the single source of truth for agent instructions within that repository.
+
 *   **`README.ai`:** This file contains the instructions for the AI agent. The information that was previously in `.memory/README.md` files is now covered by this file.
+
 *   **Fractal Memory:** Each repository has its own `.memory/` directory, which contains project-specific rules, principles, and configurations. This follows the "Fractal Memory" principle, inheriting concepts from the parent `.memory/` directory.
 
