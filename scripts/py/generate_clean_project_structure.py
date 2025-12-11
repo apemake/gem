@@ -1,6 +1,7 @@
 import os
 import json
 import subprocess
+from config_utils import PROJECT_ROOT
 
 def get_git_files(project_path): # Pass project_path as argument
     """Get a list of all files tracked by git."""
@@ -28,11 +29,7 @@ def build_tree(files):
     return tree
 
 if __name__ == '__main__':
-    try:
-        project_path = subprocess.run(['git', 'rev-parse', '--show-toplevel'], capture_output=True, text=True, check=True).stdout.strip()
-    except subprocess.CalledProcessError as e:
-        print(f"Error getting project root: {e}")
-        exit(1)
+    project_path = PROJECT_ROOT # Use PROJECT_ROOT from config_utils
 
     git_files = get_git_files(project_path) # Pass project_path
     project_structure = build_tree(git_files)
