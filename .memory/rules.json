@@ -88,7 +88,8 @@
       },
       "chat_repository": {
         "description": "The .chat/ directory is a separate Git repository for storing chat logs and related data.",
-        "rule": "The agent must handle the .chat/ repository independently from the main repository. This includes making commits to the .chat/ repository to track changes to chat logs."
+        "rule": "The agent must handle the .chat/ repository independently from the main repository. This includes making commits to the .chat/ repository to track changes to chat logs.",
+        "unclean_log_modification": "The unclean chat logs in the .chat/unclean directory are expected to be modified during a session as the chat progresses. These modifications should be staged and committed as part of the session's activity."
       }
     },
     {
