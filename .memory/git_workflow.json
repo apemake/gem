@@ -31,7 +31,7 @@
       },
       {
         "name": "Pre-commit Identity Check",
-        "description": "Before committing to any repository, the agent must verify that the local `user.name` and `user.email` match the agent's current identity and the required format. The timestamp is the unique identifier for the agent's session, derived from the agent's unclean chat log filename.",
+        "description": "Crucially, before *every* commit to *any* repository, the agent must proactively verify that the local `user.name` and `user.email` are accurate and strictly adhere to the agent's current identity and the required format. The timestamp is the unique identifier for the agent's session, derived from the agent's unclean chat log filename.",
         "rule": "The agent must check the local `user.name` and `user.email` of the repository. The format must be `<AGENT_NAME>` for the `user.name` and `<TIMESTAMP>@localhost` for the `user.email`. If the configuration is incorrect, the agent must update it before committing."
       }
     ]

@@ -44,6 +44,11 @@
         "rationale": "To avoid confusion with the platform itself and to maintain unique agent identities within the swarm."
       },
       {
+        "name": "Ongoing Git Identity Verification",
+        "description": "Before performing any Git operation (e.g., commit, push, pull), the agent must always verify that its local Git `user.name` and `user.email` are correctly configured according to the established identity protocol. This ensures accurate attribution and adherence to swarm standards.",
+        "rule": "Always cross-reference the current repository's local Git `user.name` and `user.email` against the agent's active session identity (`<AGENT_NAME>` for user.name and `<TIMESTAMP>@localhost` for user.email). If discrepancies exist, update the local configuration before proceeding with the Git operation."
+      },
+      {
         "name": "Ephemeral Ordering",
         "description": "All communication in the swarm should be timestamped to reflect the ephemeral nature of agents and to establish a clear order of events."
       },
