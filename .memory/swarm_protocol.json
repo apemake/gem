@@ -30,12 +30,12 @@
       },
       {
         "name": "Agent Initialization - Git Identity",
-        "description": "Upon initialization, an agent must configure its Git identity.",
+        "description": "Upon initialization, an agent must configure its Git identity. The timestamp is the unique identifier for the agent's session, derived from the agent's unclean chat log filename.",
         "steps": [
           "On first run, the agent must check for a `user.name` in the local git config.",
           "If `user.name` is not set or is a default/generic value, the agent must generate a unique name for itself, following the agent naming protocol.",
-          "The chosen name should be set as the `user.name` in the local git config.",
-          "A corresponding `user.email` should also be set, in the format `<agent_name>@localhost`."
+          "The `user.name` should be set in the format `<AGENT_NAME>`.",
+          "A corresponding `user.email` should also be set, in the format `<TIMESTAMP>@localhost`."
         ]
       },
       {

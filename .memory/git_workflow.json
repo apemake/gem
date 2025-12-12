@@ -28,6 +28,11 @@
         "name": "Agent Identity",
         "description": "Each agent instance must have a unique identity for Git commits. The agent naming protocol is defined in `swarm_protocol.json`.",
         "rule": "The agent must follow the `swarm_protocol.json` to configure its Git `user.name` and `user.email`."
+      },
+      {
+        "name": "Pre-commit Identity Check",
+        "description": "Before committing to any repository, the agent must verify that the local `user.name` and `user.email` match the agent's current identity and the required format. The timestamp is the unique identifier for the agent's session, derived from the agent's unclean chat log filename.",
+        "rule": "The agent must check the local `user.name` and `user.email` of the repository. The format must be `<AGENT_NAME>` for the `user.name` and `<TIMESTAMP>@localhost` for the `user.email`. If the configuration is incorrect, the agent must update it before committing."
       }
     ]
   }
